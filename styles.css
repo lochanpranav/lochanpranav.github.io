@@ -75,6 +75,8 @@ h1.name { font-size: clamp(48px, 8vw, 92px); letter-spacing: -0.035em; margin: 1
 .facts div { border-top: 1px solid var(--rule); padding-top: 12px; }
 .facts dt { font-family: var(--mono); font-size: 11.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
 .facts dd { margin: 0; font-size: 15px; }
+.facts dd span { display: block; }
+.facts dd span + span { margin-top: 4px; }
 @media (max-width: 720px) { .facts { grid-template-columns: 1fr; gap: 12px; } }
 
 /* Fade-up reveals. Everything is visible without JavaScript; the js class enables the motion. */
