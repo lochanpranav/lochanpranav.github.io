@@ -69,7 +69,7 @@ h2 { font-family: var(--display); font-weight: 700; font-size: clamp(24px, 3vw, 
 .hero::after { content: ''; position: absolute; inset: -40px -20px 0; background: radial-gradient(60% 55% at 18% 28%, rgba(63, 191, 122, .16), rgba(63, 191, 122, 0) 70%); pointer-events: none; }
 .hero > * { position: relative; }
 h1.name { font-size: clamp(48px, 8vw, 92px); letter-spacing: -0.035em; margin: 10px 0 10px; max-width: none; }
-.tagline { font-family: var(--display); font-weight: 600; font-size: clamp(22px, 2.9vw, 34px); letter-spacing: -0.02em; line-height: 1.15; max-width: 24ch; margin: 0 0 18px; text-wrap: balance; }
+.tagline { font-family: var(--display); font-weight: 600; font-size: clamp(22px, 2.9vw, 34px); letter-spacing: -0.02em; line-height: 1.15; max-width: 30ch; margin: 0 0 18px; text-wrap: balance; }
 .hero p { font-size: 19px; max-width: 58ch; margin: 0 0 12px; }
 .facts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px 28px; margin: 34px 0 0; }
 .facts div { border-top: 1px solid var(--rule); padding-top: 12px; }
