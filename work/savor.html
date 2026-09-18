@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>SAVOR: surplus food to people who need it · Lochan Pranav</title>
+  <meta name="description" content="Mobile app case study: restaurants post leftover food, volunteers deliver it to donation spots. Research with a restaurant, a canteen, a meat shop and a dairy.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Hanken+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 rx=%2714%27 fill=%27%230B6E3F%27/%3E%3Ccircle cx=%2732%27 cy=%2728%27 r=%279%27 fill=%27%23fff%27/%3E%3Cpath d=%27M32 40v12%27 stroke=%27%23fff%27 stroke-width=%276%27 stroke-linecap=%27round%27/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="../styles.css">
+  <script>document.documentElement.classList.add("js");</script>
+</head>
+<body id="top">
+  <a class="skip" href="#main">Skip to content</a>
+  <div class="topbar">
+  <nav class="nav wrap" aria-label="Site">
+    <a class="brand" href="../index.html">Lochan Pranav</a>
+    <ul>
+      <li><a href="../index.html#gis">GIS</a></li>
+      <li><a href="../index.html#campaigns">Brand</a></li>
+      <li><a href="../index.html#uiux" aria-current="page">UI/UX</a></li>
+      <li><a href="../index.html#industrial">Products</a></li>
+      <li><a href="../index.html#about">About</a></li>
+      <li><a href="../index.html#contact">Contact</a></li>
+    </ul>
+  </nav>
+  </div>
+
+  <header class="case-head wrap" data-stagger>
+    <span class="eyebrow reveal">Mobile app · 2024 · Food surplus</span>
+    <h1 class="reveal">SAVOR: surplus food to people who need it</h1>
+    <p class="lede reveal">Restaurants post what is left over, volunteers deliver it to donation spots, and streaks and badges keep both sides coming back. Designed from interviews with a restaurant, a canteen, a meat shop and a dairy in Pune.</p>
+    <dl class="spec reveal">
+      <div><dt>Role</dt><dd>Product designer, from field interviews to final screens</dd></div>
+      <div><dt>Timeline</dt><dd>2024, published May 2024</dd></div>
+      <div><dt>Tools</dt><dd>Figma, Adobe XD, Illustrator, Photoshop</dd></div>
+      <div><dt>Methods</dt><dd>Interviews, affinity clustering, causal maps, feedback loops</dd></div>
+      <div><dt>Links</dt><dd><a href="https://www.behance.net/gallery/199387575/SAVOR-Connecting-Surplus-to-Sustenance">Full process board on Behance</a></dd></div>
+    </dl>
+  </header>
+
+  <main class="wrap" id="main">
+    <figure class="figure lead reveal">
+      <div class="frame"><img src="../assets/savor/hero.jpg" alt="Five SAVOR app screens floating over a dark blue background: sign in, restaurant sign up, and posting food availability"></div>
+      <figcaption>Sign in as a restaurant or a volunteer, then post what is available.</figcaption>
+    </figure>
+
+    <div class="prose">
+      <h2>The problem</h2>
+      <p>Restaurants throw away food that could feed people nearby. The waste and the hunger sit in the same neighborhoods, and nothing connects them. Perfectly edible food is discarded because there is no system to manage it and move it before it spoils.</p>
+
+      <h2>Research</h2>
+      <p>I interviewed four kinds of food business to see where surplus actually appears. Durvankur, a restaurant serving 200 to 250 people a day and 450 on weekends, donates edible leftovers to local charities and pays to dispose of the rest. The MIT WPU canteen cooks for 300 to 350 people, hits its peak between 12 and 2, and sends dustbin waste to the municipal corporation. A meat shop runs on almost zero waste, selling legs and cut pieces to pet owners and returning skin and feathers to the poultry farm. A dairy showed me the collection chain from farmers to tankers to the city center, and the cold storage and hygiene rules that govern it.</p>
+      <figure class="figure reveal">
+        <div class="frame"><img src="../assets/savor/interviews.png" alt="Interview notes from a restaurant, a canteen, a meat shop and a dairy, with photos of a thali and a dairy pasteurization machine"></div>
+        <figcaption>Insights from the four interviews: crowd management, hygiene, waste handling and supply patterns.</figcaption>
+      </figure>
+      <p>I clustered the findings by business type, then drew causal maps to trace how food ends up as waste. Restaurants source their pantry twice a week, so shelf life is short by the time a dish is prepared. Vegetable vendors buy in bulk every morning and discard what does not sell. At home, people buy more than they need because larger quantities are cheaper, and the surplus spoils in the fridge.</p>
+      <figure class="figure reveal">
+        <div class="frame"><img src="../assets/savor/causal-map.png" alt="Causal map connecting domestic food behavior, restaurant sourcing and untreated waste"></div>
+        <figcaption>Causal map: three chains that end in waste.</figcaption>
+      </figure>
+      <figure class="figure reveal">
+        <div class="frame"><img src="../assets/savor/feedback-loops.png" alt="Three feedback loop diagrams: ingredient supply affecting restaurant sales, the restaurant, and food quality"></div>
+        <figcaption>Feedback loops. Donating surplus can improve a restaurant's standing and demand, which is the lever the app pulls.</figcaption>
+      </figure>
+
+      <h2>The solution</h2>
+      <p>An application that connects restaurants with people who lack access to food. Restaurants log the type and quantity of food they can donate. Volunteers pick it up and deliver it to dedicated donation spots that are visible on a map. Every delivery earns coins that can be used for discounts, and streaks and badges keep both restaurants and volunteers motivated.</p>
+
+      <h2>Decisions</h2>
+      <h3>Two sign-ins, one flow each</h3>
+      <p>A restaurant and a volunteer want different things, so the app asks which you are on the first screen and never mixes the two. A restaurant sees a single question, "Do you have some food to donate?", and a history of past posts. A volunteer sees restaurants nearby with an Accept button on each.</p>
+      <h3>Posting food in under a minute</h3>
+      <p>Posting is a short form: veg or non-veg, for people or for animals, quantity, pickup time and expiry. The expiry field is what makes the delivery safe, so it sits on the form rather than in a settings screen.</p>
+      <figure class="figure reveal">
+        <div class="frame"><img src="../assets/savor/screens.png" alt="Ten SAVOR screens: sign in, restaurant and volunteer sign up, posting food availability, volunteer details, restaurant profile with reviews"></div>
+        <figcaption>Restaurant side on the left, volunteer side on the right. The volunteer screen confirms who accepted the donation and when they will arrive.</figcaption>
+      </figure>
+      <h3>Delivery as a map, not a list</h3>
+      <p>Once a volunteer accepts, the app switches to a map with the route to the donation spot, a review step with photos, and a profile that tracks points and a two-week streak.</p>
+      <figure class="figure reveal">
+        <div class="frame"><img src="../assets/savor/closing.jpg" alt="Final SAVOR screens angled in perspective over a dark background"></div>
+        <figcaption>Volunteer details, restaurant list, live delivery map, profile with reviews, and the streak tracker.</figcaption>
+      </figure>
+
+      <h2>What I would do next</h2>
+      <p>Test the posting form with the two restaurant managers I interviewed, and time it. Then test whether coins and streaks actually change volunteer behavior, or whether a simple thank-you from the restaurant does the same job.</p>
+    </div>
+
+    <div class="next reveal">
+      <a class="back" href="../index.html#uiux">All UI/UX work</a>
+      <a class="next-card" href="suii.html">
+        <div class="cover"><img src="../assets/suii/hero.jpg" alt=""></div>
+        <span><span class="eyebrow">Next project</span><span class="title">SUII, a suitcase rental app</span></span>
+      </a>
+    </div>
+  </main>
+  <script src="../site.js" defer></script>
+</body>
+</html>

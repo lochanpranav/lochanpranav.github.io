@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Redesigning India's learner's licence portal · Lochan Pranav</title>
+  <meta name="description" content="UX case study: the Sarathi Parivahan learner's licence application, redesigned from seven scattered steps into one guided flow with DigiLocker uploads, UPI payment and a progress bar.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Hanken+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 rx=%2714%27 fill=%27%230B6E3F%27/%3E%3Ccircle cx=%2732%27 cy=%2728%27 r=%279%27 fill=%27%23fff%27/%3E%3Cpath d=%27M32 40v12%27 stroke=%27%23fff%27 stroke-width=%276%27 stroke-linecap=%27round%27/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="../styles.css">
+  <script>document.documentElement.classList.add("js");</script>
+</head>
+<body id="top">
+  <a class="skip" href="#main">Skip to content</a>
+  <div class="topbar">
+  <nav class="nav wrap" aria-label="Site">
+    <a class="brand" href="../index.html">Lochan Pranav</a>
+    <ul>
+      <li><a href="../index.html#gis">GIS</a></li>
+      <li><a href="../index.html#campaigns">Brand</a></li>
+      <li><a href="../index.html#uiux" aria-current="page">UI/UX</a></li>
+      <li><a href="../index.html#industrial">Products</a></li>
+      <li><a href="../index.html#about">About</a></li>
+      <li><a href="../index.html#contact">Contact</a></li>
+    </ul>
+  </nav>
+  </div>
+
+  <header class="case-head wrap" data-stagger>
+    <span class="eyebrow reveal">UX case study · 2022 · Government service redesign</span>
+    <h1 class="reveal">Redesigning India's learner's licence portal</h1>
+    <p class="lede reveal">The Sarathi Parivahan application, cut from seven scattered steps to one guided flow with DigiLocker uploads, UPI payment, a progress bar and slot booking on a single page.</p>
+    <dl class="spec reveal">
+      <div><dt>Role</dt><dd>UX research, information architecture, visual design</dd></div>
+      <div><dt>Timeline</dt><dd>2022</dd></div>
+      <div><dt>Tools</dt><dd>Figma, Illustrator</dd></div>
+      <div><dt>Methods</dt><dd>Surveys and interviews, personas, how-might-we statements, user flows</dd></div>
+      <div><dt>Links</dt><dd><a href="http://sarathi.parivahan.gov.in">The live portal</a> · <a href="https://www.behance.net/gallery/236130539/UIUX-Portfolio">Full board on Behance</a></dd></div>
+    </dl>
+  </header>
+
+  <main class="wrap" id="main">
+    <figure class="figure lead reveal">
+      <div class="frame"><img src="../assets/sarathi/hero.png" alt="Redesigned Sarathi Parivahan screens on a blue background: DigiLocker document selection, slot booking, and UPI payment"></div>
+      <figcaption>The redesigned application: documents through DigiLocker, booking and payment without leaving the flow.</figcaption>
+    </figure>
+
+    <div class="prose">
+      <h2>Context</h2>
+      <p>Sarathi Parivahan is the unified online system run by India's Ministry of Road Transport and Highways for driving licences and vehicle registration. Every learner's licence in the country starts there. The portal was built around the department's process rather than the applicant's, and it shows: the form is long, the documents are hard to upload, and nothing tells you how far along you are.</p>
+
+      <h2>The problem</h2>
+      <p>The target user is anyone between 17 and 40 applying for a learner's licence. In surveys and interviews, the same pain points came up again and again: difficulty uploading documents, too much text, clustered content with no hierarchy, having to hunt for the documents to upload, an overly complex slot booking step, buttons with no hierarchy, and no idea how many steps were left.</p>
+      <p>Two personas carried the research. Sohail Shinde, 47, a hotel manager with only Sundays off and limited English, applying online for his son's permit because he cannot visit the RTO. Raj Sharma, 17, a student preparing for entrance exams who cannot afford to miss classes to stand in line, and who ended up asking his father for an agent's number when the upload step defeated him.</p>
+      <figure class="figure reveal">
+        <div class="frame"><img src="../assets/sarathi/personas.png" alt="Two persona cards, Sohail Shinde and Raj Sharma, with goals, frustrations and scenarios"></div>
+        <figcaption>The two personas and their scenarios.</figcaption>
+      </figure>
+      <p>The final problem statement: how might we make applying for a learner's licence hassle free, so that the user does not get overwhelmed and can complete the process in one go.</p>
+
+      <h2>Decisions</h2>
+      <h3>One flow instead of seven steps</h3>
+      <p>I mapped the existing journey from the first click to the RTO visit, then removed the unnecessary hierarchy and prioritized the features that matched the problem statement. Applicants with Aadhaar get their personal details autofilled; everyone else follows the same path with one extra step.</p>
+      <figure class="figure reveal">
+        <div class="frame"><img src="../assets/sarathi/flow.png" alt="User flow diagram from selecting the state to slot booking and the RTO visit"></div>
+        <figcaption>The core flow after research.</figcaption>
+      </figure>
+      <h3>Documents through DigiLocker, with a progress bar</h3>
+      <p>Integrating DigiLocker means documents arrive in the right format without resizing, which was the single most common failure. A progress bar across the top shows the five stages and which one you are on.</p>
+      <figure class="figure reveal">
+        <div class="frame"><img src="../assets/sarathi/final-screen.png" alt="Upload documents screen with a five-step progress bar and a choice between manual upload and DigiLocker"></div>
+        <figcaption>Upload manually or through DigiLocker, with the progress bar above.</figcaption>
+      </figure>
+      <h3>Fewer fields on every screen</h3>
+      <p>The original upload page repeated the applicant's details on every step. The redesign shows them once and reports each document's status in a small table.</p>
+      <figure class="figure reveal">
+        <div class="frame"><img src="../assets/sarathi/before-after.png" alt="Before and after: the cluttered original upload page beside the simplified redesign"></div>
+        <figcaption>Before and after the upload step.</figcaption>
+      </figure>
+      <h3>Booking and payment without leaving the flow</h3>
+      <p>Slot booking shows the calendar and the available timings on the same page instead of two, and the fee is paid with a UPI QR code inside the application rather than on a separate gateway. Buttons follow one hierarchy: a single primary action, a secondary, and a cancel.</p>
+      <figure class="figure reveal">
+        <div class="frame"><img src="../assets/sarathi/slot-booking.png" alt="Slot booking screen with a December calendar on the left and morning and afternoon time slots on the right"></div>
+        <figcaption>Calendar and timings on one page.</figcaption>
+      </figure>
+
+      <h2>Outcome</h2>
+      <p>This was a redesign study rather than a shipped product, so the outcome is the design itself: seven steps became one guided flow, the two failure points from the interviews were removed, and every screen tells the applicant how far they have left to go.</p>
+
+      <h2>What I would do next</h2>
+      <p>Test the flow with people who match the two personas and time them against the live portal. The number that matters is how many finish in one sitting.</p>
+    </div>
+
+    <div class="next reveal">
+      <a class="back" href="../index.html#uiux">All UI/UX work</a>
+      <a class="next-card" href="savor.html">
+        <div class="cover"><img src="../assets/savor/hero.jpg" alt=""></div>
+        <span><span class="eyebrow">Next project</span><span class="title">SAVOR: surplus food to people who need it</span></span>
+      </a>
+    </div>
+  </main>
+  <script src="../site.js" defer></script>
+</body>
+</html>

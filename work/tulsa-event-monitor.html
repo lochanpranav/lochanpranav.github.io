@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Finding where Tulsa actually gathers · Lochan Pranav</title>
+  <meta name="description" content="Civic product case study: a mapping tool for the City of Tulsa Auditor's Office that pulls community events from three platforms onto 493 geocoded venues.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Hanken+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 rx=%2714%27 fill=%27%230B6E3F%27/%3E%3Ccircle cx=%2732%27 cy=%2728%27 r=%279%27 fill=%27%23fff%27/%3E%3Cpath d=%27M32 40v12%27 stroke=%27%23fff%27 stroke-width=%276%27 stroke-linecap=%27round%27/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="../styles.css">
+  <script>document.documentElement.classList.add("js");</script>
+</head>
+<body id="top">
+  <a class="skip" href="#main">Skip to content</a>
+  <div class="topbar">
+  <nav class="nav wrap" aria-label="Site">
+    <a class="brand" href="../index.html">Lochan Pranav</a>
+    <ul>
+      <li><a href="../index.html#gis" aria-current="page">GIS</a></li>
+      <li><a href="../index.html#campaigns">Brand</a></li>
+      <li><a href="../index.html#uiux">UI/UX</a></li>
+      <li><a href="../index.html#industrial">Products</a></li>
+      <li><a href="../index.html#about">About</a></li>
+      <li><a href="../index.html#contact">Contact</a></li>
+    </ul>
+  </nav>
+  </div>
+
+  <header class="case-head wrap" data-stagger>
+    <span class="eyebrow reveal">Civic product · August to December 2025 · City of Tulsa Auditor's Office, through NYU CUSP</span>
+    <h1 class="reveal">Finding where Tulsa actually gathers</h1>
+    <p class="lede reveal">A mapping tool that pulls community events from Eventbrite, Facebook and LinkedIn and places them against 493 geocoded venues, so the City Auditor's Office can show up where residents already are.</p>
+    <dl class="spec reveal">
+      <div><dt>Role</dt><dd>UX lead: research, insights and the Figma prototypes. We built the app as a team of two.</dd></div>
+      <div><dt>Team</dt><dd>Two: me and Mirzonabot Mirzonabotov</dd></div>
+      <div><dt>Client</dt><dd>City of Tulsa Auditor's Office</dd></div>
+      <div><dt>Timeline</dt><dd>August to December 2025</dd></div>
+      <div><dt>Tools</dt><dd>Figma, Python, Streamlit, Google Places API, Eventbrite API</dd></div>
+      <div><dt>Links</dt><dd><a href="https://mirzonabot-tulsa-project-app-nw3ygt.streamlit.app/">Live app</a> (currently behind a Streamlit login)</dd></div>
+    </dl>
+  </header>
+
+  <main class="wrap" id="main">
+    <figure class="figure lead reveal">
+      <div class="frame"><img src="../assets/tulsa/hero.jpg" alt="The Event Monitor map view: Tulsa neighborhoods outlined in blue with upcoming community events as green points"></div>
+      <figcaption>The map view: every upcoming event placed on Tulsa's neighborhoods, with a neighborhood search.</figcaption>
+    </figure>
+
+    <div class="prose">
+      <h2>Context</h2>
+      <p>The Tulsa City Auditor's Office wanted to reach residents who rarely hear from it, and to know which neighborhoods it was missing. Our brief, through NYU CUSP's City Immersion practicum, was to use data to find underserved neighborhoods and to make public engagement opportunities discoverable in one place.</p>
+
+      <h2>Research</h2>
+      <p>We integrated geospatial and demographic data to identify underserved neighborhoods across Tulsa, and worked with the office to understand how outreach was planned: which platforms staff checked, and how often.</p>
+
+      <h2>Decisions</h2>
+      <h3>Every event in one place</h3>
+      <p>Outreach staff were checking three platforms by hand. We built a pipeline that pulls events from Eventbrite, Facebook and LinkedIn, and geocoded 493 community venues through the Google Places API so every event lands on the map.</p>
+      <figure class="figure reveal">
+        <div class="frame"><img src="../assets/tulsa/places.jpg" alt="The Event Monitor places view: 493 community venues plotted as orange points across Tulsa neighborhoods"></div>
+        <figcaption>The places view. Showing 493 places with coordinates, geocoded through the Google Places API.</figcaption>
+      </figure>
+      <h3>Five views</h3>
+      <p>The app has five views: map, recommendation, demographic, social signal and chatbot. The map and places views put events and venues on the neighborhoods; the others help the office decide where to go and who it will reach there.</p>
+      <h3>From research to prototype to a working app</h3>
+      <p>I ran the UX end to end: user research, insights, and high-fidelity prototypes in Figma. Then we built the Streamlit app together.</p>
+
+      <h2>Outcome</h2>
+      <table class="numbers">
+        <tr><td class="n">493</td><td>community venues geocoded and mapped</td></tr>
+        <tr><td class="n">3</td><td>event platforms pulled into one view</td></tr>
+        <tr><td class="n">5</td><td>views: map, recommendation, demographic, social signal, chatbot</td></tr>
+      </table>
+      <p>We presented the tool and the findings to cross-functional city stakeholders as actionable recommendations, and delivered the final report, "Increasing the Community Outreach of the Auditor through social media and public touchpoints," on 17 December 2025.</p>
+
+      <h2>What I would do next</h2>
+      <p>A scheduled refresh of the event sources, an evaluation of the chatbot's answers, and a version the office can run without us.</p>
+    </div>
+
+    <div class="next reveal">
+      <a class="back" href="../index.html#gis">All GIS work</a>
+      <a class="next-card" href="sarathi.html">
+        <div class="cover"><img src="../assets/sarathi/hero.png" alt=""></div>
+        <span><span class="eyebrow">Next project</span><span class="title">Redesigning India's learner's licence portal</span></span>
+      </a>
+    </div>
+  </main>
+  <script src="../site.js" defer></script>
+</body>
+</html>
