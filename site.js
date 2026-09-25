@@ -141,48 +141,6 @@
     window.addEventListener('pagereveal', function () { setTimeout(sweep, 400); });
   }
 
-  /* Project index: a preview image that follows the pointer over the rows */
-  var roll = document.getElementById('roll');
-  var preview = document.getElementById('preview');
-  if (roll && preview && fine && !reduce) {
-    var pimg = preview.querySelector('img');
-    var px = 0, py = 0, tx = 0, ty = 0, on = false, ticking = false, warmed = false;
-    function place() {
-      ticking = false;
-      px += (tx - px) * 0.18;
-      py += (ty - py) * 0.18;
-      var rot = Math.max(-5, Math.min(5, (tx - px) * 0.04));
-      var w = preview.offsetWidth || 320;
-      var x = Math.min(px + 24, window.innerWidth - w - 16);
-      var y = Math.max(py, 100 + 24);
-      preview.style.transform = 'translate(' + x + 'px, ' + (y - 100) + 'px) translate(0, -50%) rotate(' + rot + 'deg) scale(' + (on ? 1 : .9) + ')';
-      if (on || Math.abs(tx - px) > 0.5 || Math.abs(ty - py) > 0.5) { ticking = true; raf(place); }
-    }
-    function warm() {
-      if (warmed) return; warmed = true;
-      var rows2 = roll.querySelectorAll('.row');
-      for (var w2 = 0; w2 < rows2.length; w2++) { var im = new Image(); im.src = rows2[w2].getAttribute('data-img'); }
-    }
-    roll.addEventListener('mousemove', function (e) {
-      tx = e.clientX; ty = e.clientY;
-      if (!ticking) { ticking = true; raf(place); }
-    }, { passive: true });
-    roll.addEventListener('mouseenter', warm, { once: true });
-    var rows = roll.querySelectorAll('.row');
-    for (var r = 0; r < rows.length; r++) {
-      rows[r].addEventListener('mouseenter', function (e) {
-        var src = this.getAttribute('data-img');
-        if (pimg.getAttribute('src') !== src) pimg.setAttribute('src', src);
-        if (!on) { tx = px = e.clientX; ty = py = e.clientY; }
-        on = true; preview.classList.add('on');
-        if (!ticking) { ticking = true; raf(place); }
-      });
-      rows[r].addEventListener('mouseleave', function () {
-        on = false; preview.classList.remove('on');
-      });
-    }
-  }
-
   /* Magnetic link: the email nudges toward the pointer */
   var mags = document.querySelectorAll('[data-magnetic]');
   if (mags.length && fine && !reduce) {
@@ -201,6 +159,33 @@
           el.style.transform = '';
         });
       })(mags[q2]);
+    }
+  }
+
+  /* The sliding project index */
+  var strip = document.getElementById('strip');
+  if (strip) {
+    var wrap = strip.parentElement;
+    var prev = document.querySelector('[data-strip="prev"]');
+    var next = document.querySelector('[data-strip="next"]');
+    function update() {
+      var atStart = strip.scrollLeft <= 2;
+      var atEnd = strip.scrollLeft + strip.clientWidth >= strip.scrollWidth - 2;
+      wrap.classList.toggle('at-start', atStart);
+      wrap.classList.toggle('at-end', atEnd);
+      if (prev) prev.disabled = atStart;
+      if (next) next.disabled = atEnd;
+    }
+    strip.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', update);
+    update();
+    var buttons = [prev, next];
+    for (var b2 = 0; b2 < buttons.length; b2++) {
+      if (!buttons[b2]) continue;
+      buttons[b2].addEventListener('click', function () {
+        var dir = this.getAttribute('data-strip') === 'next' ? 1 : -1;
+        strip.scrollBy({ left: dir * strip.clientWidth * 0.8, behavior: reduce ? 'auto' : 'smooth' });
+      });
     }
   }
 
