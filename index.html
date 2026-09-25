@@ -16,7 +16,10 @@
 <link rel="preload" href="assets/fonts/hanken-grotesk.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/contours.svg" as="image">
   <link rel="stylesheet" href="styles.css">
-  <script>document.documentElement.classList.add("js");try{if(sessionStorage.getItem("seen"))document.documentElement.classList.add("seen");sessionStorage.setItem("seen","1");}catch(e){}</script>
+  <script>document.documentElement.classList.add("js");try{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);if(sessionStorage.getItem("seen"))document.documentElement.classList.add("seen");sessionStorage.setItem("seen","1");}catch(e){}</script>
+  <link rel="stylesheet" href="graph.css">
+  <link rel="stylesheet" href="terminal.css">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Lochan Pranav Mohanasundar","alternateName":"Lochan Pranav","url":"https://lochanpranav.com","jobTitle":"Spatial data scientist and product designer","email":"mailto:lm5677@nyu.edu","address":{"@type":"PostalAddress","addressLocality":"Brooklyn","addressRegion":"NY","addressCountry":"US"},"alumniOf":[{"@type":"CollegeOrUniversity","name":"New York University, Tandon School of Engineering"},{"@type":"CollegeOrUniversity","name":"MIT World Peace University"}],"sameAs":["https://www.linkedin.com/in/lochanpranav","https://github.com/lochanpranav","https://www.behance.net/lochanpranav","http://dribbble.com/LochanPranav"]}</script>
 </head>
 <body id="top">
   <a class="skip" href="#main">Skip to content</a>
@@ -32,6 +35,10 @@
       <li><a href="#about">About</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
+      <div class="tools">
+        <button class="termbtn" type="button" data-terminal-open aria-label="Open the terminal"><span class="caret">&gt;_</span><span>ask me anything</span><kbd>&#8984;K</kbd></button>
+        <button class="iconbtn" type="button" data-theme-toggle aria-label="Switch theme"><svg class="moon" viewBox="0 0 16 16" aria-hidden="true"><path d="M13.5 9.5A6 6 0 0 1 6.5 2.5a6 6 0 1 0 7 7Z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg><svg class="sun" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="3" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M8 1v2M8 13v2M1 8h2M13 8h2M3 3l1.4 1.4M11.6 11.6 13 13M3 13l1.4-1.4M11.6 4.4 13 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></button>
+      </div>
       <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu">Menu</button>
   </nav>
   </div>
@@ -49,9 +56,41 @@
     <div class="menu-foot"><span>Brooklyn, NY · 40.68° N, 73.94° W</span><span>lm5677@nyu.edu</span></div>
   </div>
 
+  <div class="boot" id="boot" aria-hidden="true">
+    <div class="boot-lines" id="boot-lines"></div>
+    <div class="boot-choose" id="boot-choose" hidden>
+      <p class="kicker"><i class="dot"></i><span>Preference</span><span class="sep" aria-hidden="true">·</span><span>none saved</span></p>
+      <h2>Choose your mode</h2>
+      <p>You can change it any time from the top bar.</p>
+      <div class="boot-cards">
+        <button type="button" data-choose="dark"><span class="swatch dark" aria-hidden="true"></span>Dark</button>
+        <button type="button" data-choose="light"><span class="swatch light" aria-hidden="true"></span>Light</button>
+      </div>
+      <button type="button" class="boot-skip" data-choose="dark">Skip, keep it dark</button>
+    </div>
+    <p class="boot-hint" id="boot-hint">Click anywhere to skip</p>
+  </div>
+  <div class="survey" aria-hidden="true"></div>
+  <nav class="dots" aria-label="Sections">
+    <a href="#top"><span>Home</span><i></i></a>
+    <a href="#index"><span>Work</span><i></i></a>
+    <a href="#featured"><span>Featured</span><i></i></a>
+    <a href="#gis"><span>GIS</span><i></i></a>
+    <a href="#uiux"><span>UI/UX</span><i></i></a>
+    <a href="#campaigns"><span>Brand</span><i></i></a>
+    <a href="#industrial"><span>Products</span><i></i></a>
+    <a href="#experience"><span>Experience</span><i></i></a>
+    <a href="#education"><span>Education</span><i></i></a>
+    <a href="#skills"><span>Skills</span><i></i></a>
+    <a href="#recent"><span>Recent</span><i></i></a>
+    <a href="#about"><span>About</span><i></i></a>
+    <a href="#contact"><span>Contact</span><i></i></a>
+  </nav>
+  <button class="termbtn term-fab" type="button" data-terminal-open aria-label="Open the terminal"><span class="caret">&gt;_</span><span>ask me anything</span></button>
+
   <header class="hero wrap" data-spot>
     <div class="hero-bg spot-bg" aria-hidden="true"><div class="contours"></div><div class="contours bright"></div><div class="grid"></div><div class="glow"></div></div>
-    <p class="status fade"><span class="live" aria-hidden="true"></span><span>Brooklyn, NY</span><span class="sep" aria-hidden="true">·</span><span><time id="clock" data-tz="America/New_York">--:-- --</time> local</span><span class="sep" aria-hidden="true">·</span><span>40.68° N, 73.94° W</span></p>
+    <p class="status fade"><span class="live" aria-hidden="true"></span><span>Brooklyn, NY</span><span class="sep" aria-hidden="true">·</span><span><time id="clock" data-tz="America/New_York">--:-- --</time> local</span><span class="sep" aria-hidden="true">·</span><span>40.68° N, 73.94° W</span><span class="sep" aria-hidden="true">·</span><span class="greet"><span id="greet">good day</span>, still <b class="word" id="status-word">mapping</b></span></p>
     <h1 class="name"><span class="sr-only">Lochan Pranav</span><span class="line" aria-hidden="true"><span class="w"><span class="ch">L</span><span class="ch">o</span><span class="ch">c</span><span class="ch">h</span><span class="ch">a</span><span class="ch">n</span></span> <span class="w"><span class="ch">P</span><span class="ch">r</span><span class="ch">a</span><span class="ch">n</span><span class="ch">a</span><span class="ch">v</span></span></span></h1>
     <div class="hero-row">
       <div class="hero-main">
@@ -82,31 +121,88 @@
           <button type="button" data-strip="next" aria-label="Scroll the project index right"><svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><path d="M6.5 3.5 12 9l-5.5 5.5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
         </div>
       </div>
+      <div class="strip-tools">
+        <span class="cmd">$ ls work/ --all</span>
+        <span class="sync"><span class="live" aria-hidden="true"></span>20 pages · updated Sept 2026</span>
+        <div class="ticker-ctl" id="ticker-ctl">
+          <button type="button" class="play" data-ticker="play" aria-label="Auto-scroll the index"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 2l7 4-7 4z" fill="currentColor"/></svg></button>
+          <button type="button" class="pause" data-ticker="pause" aria-label="Stop auto-scrolling"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 2h2v8H3zM7 2h2v8H7z" fill="currentColor"/></svg></button>
+          <span class="lbl">Speed</span>
+          <input type="range" min="1" max="10" value="5" data-ticker="speed" aria-label="Auto-scroll speed">
+        </div>
+      </div>
       <div class="strip-wrap">
       <div class="strip" id="strip" tabindex="0" aria-label="Project index">
-        <a class="chip" href="work/tulsa-event-monitor.html"><div class="plate"><img src="assets/thumbs/tulsa-event-monitor.jpg" width="800" height="454" alt="" loading="lazy" decoding="async"><span class="plate-tag"><i class="dot gis"></i>GIS</span><span class="plate-num">01</span><span class="plate-title">Tulsa Event Monitor</span></div></a>
-        <a class="chip" href="work/bus-electrification.html"><div class="plate"><img src="assets/thumbs/bus-electrification.jpg" width="800" height="499" alt="" loading="lazy" decoding="async"><span class="plate-tag"><i class="dot gis"></i>GIS</span><span class="plate-num">02</span><span class="plate-title">MTA bus electrification</span></div></a>
-        <a class="chip" href="work/hospital-accessibility.html"><div class="plate"><img src="assets/thumbs/hospital-accessibility.jpg" width="800" height="618" alt="" loading="lazy" decoding="async"><span class="plate-tag"><i class="dot gis"></i>GIS</span><span class="plate-num">03</span><span class="plate-title">Hospital accessibility, Miami-Dade</span></div></a>
-        <a class="chip" href="work/economics-of-proximity.html"><div class="plate"><img src="assets/thumbs/economics-of-proximity.jpg" width="800" height="422" alt="" loading="lazy" decoding="async"><span class="plate-tag"><i class="dot gis"></i>GIS</span><span class="plate-num">04</span><span class="plate-title">The economics of proximity</span></div></a>
-        <a class="chip" href="work/sarathi.html"><div class="plate"><img src="assets/thumbs/sarathi.jpg" width="800" height="499" alt="" loading="lazy" decoding="async"><span class="plate-tag"><i class="dot ui"></i>UI/UX</span><span class="plate-num">05</span><span class="plate-title">Sarathi license portal</span></div></a>
-        <a class="chip" href="work/savor.html"><div class="plate"><img src="assets/thumbs/savor.jpg" width="800" height="488" alt="" loading="lazy" decoding="async"><span class="plate-tag"><i class="dot ui"></i>UI/UX</span><span class="plate-num">06</span><span class="plate-title">SAVOR</span></div></a>
-        <a class="chip" href="work/suii.html"><div class="plate"><img src="assets/thumbs/suii.jpg" width="800" height="510" alt="" loading="lazy" decoding="async"><span class="plate-tag"><i class="dot ui"></i>UI/UX</span><span class="plate-num">07</span><span class="plate-title">SUII suitcase rental</span></div></a>
-        <a class="chip" href="work/mighty.html"><div class="plate"><img src="assets/thumbs/mighty.jpg" width="800" height="535" alt="" loading="lazy" decoding="async"><span class="plate-tag"><i class="dot ui"></i>UI/UX</span><span class="plate-num">08</span><span class="plate-title">Mighty</span></div></a>
-        <a class="chip" href="work/saginaw.html"><div class="plate"><img src="assets/thumbs/saginaw.jpg" width="800" height="448" alt="" loading="lazy" decoding="async"><span class="plate-tag"><i class="dot ui"></i>UI/UX</span><span class="plate-num">09</span><span class="plate-title">Saginaw Tattoo</span></div></a>
-        <a class="chip" href="work/spar-website.html"><div class="plate"><img src="assets/thumbs/spar-website.jpg" width="800" height="600" alt="" loading="lazy" decoding="async"><span class="plate-tag"><i class="dot ui"></i>UI/UX</span><span class="plate-num">10</span><span class="plate-title">Spar Agrotech</span></div></a>
-        <a class="chip" href="work/address-masters-dashboard.html"><div class="plate"><img src="assets/thumbs/address-masters-dashboard.jpg" width="800" height="404" alt="" loading="lazy" decoding="async"><span class="plate-tag"><i class="dot brand"></i>Brand</span><span class="plate-num">11</span><span class="plate-title">Address Masters</span></div></a>
-        <a class="chip" href="work/snn-felicity.html"><div class="plate"><img src="assets/thumbs/snn-felicity.jpg" width="800" height="528" alt="" loading="lazy" decoding="async"><span class="plate-tag"><i class="dot brand"></i>Brand</span><span class="plate-num">12</span><span class="plate-title">SNN Estates Felicity</span></div></a>
-        <a class="chip" href="work/visista-okas.html"><div class="plate"><img src="assets/thumbs/visista-okas.jpg" width="800" height="613" alt="" loading="lazy" decoding="async"><span class="plate-tag"><i class="dot brand"></i>Brand</span><span class="plate-num">13</span><span class="plate-title">Visista OKAS</span></div></a>
-        <a class="chip" href="work/coffee-maker.html"><div class="plate"><img src="assets/thumbs/coffee-maker.jpg" width="800" height="447" alt="" loading="lazy" decoding="async"><span class="plate-tag"><i class="dot product"></i>Product</span><span class="plate-num">14</span><span class="plate-title">Filter coffee maker</span></div></a>
-        <a class="chip" href="work/saffron-oil-bottle.html"><div class="plate"><img src="assets/thumbs/saffron-oil-bottle.jpg" width="800" height="373" alt="" loading="lazy" decoding="async"><span class="plate-tag"><i class="dot product"></i>Product</span><span class="plate-num">15</span><span class="plate-title">Saffron oil bottle</span></div></a>
-        <a class="chip" href="work/earpods-packaging.html"><div class="plate"><img src="assets/thumbs/earpods-packaging.jpg" width="800" height="520" alt="" loading="lazy" decoding="async"><span class="plate-tag"><i class="dot product"></i>Product</span><span class="plate-num">16</span><span class="plate-title">Earpods packaging</span></div></a>
-        <a class="chip" href="work/tesla-perfume.html"><div class="plate"><img src="assets/thumbs/tesla-perfume.jpg" width="800" height="444" alt="" loading="lazy" decoding="async"><span class="plate-tag"><i class="dot product"></i>Product</span><span class="plate-num">17</span><span class="plate-title">Tesla perfume bottle</span></div></a>
-        <a class="chip" href="work/home-decor-store.html"><div class="plate"><img src="assets/thumbs/home-decor-store.jpg" width="800" height="605" alt="" loading="lazy" decoding="async"><span class="plate-tag"><i class="dot product"></i>Product</span><span class="plate-num">18</span><span class="plate-title">Home decor store</span></div></a>
-        <a class="chip" href="work/sustainable-shoes.html"><div class="plate"><img src="assets/thumbs/sustainable-shoes.jpg" width="800" height="697" alt="" loading="lazy" decoding="async"><span class="plate-tag"><i class="dot product"></i>Product</span><span class="plate-num">19</span><span class="plate-title">Sustainable shoes</span></div></a>
-        <a class="chip" href="work/tree-bookshelf.html"><div class="plate"><img src="assets/thumbs/tree-bookshelf.jpg" width="536" height="800" alt="" loading="lazy" decoding="async"><span class="plate-tag"><i class="dot product"></i>Product</span><span class="plate-num">20</span><span class="plate-title">Tree bookshelf</span></div></a>
+        <a class="chip" href="work/tulsa-event-monitor.html"><div class="plate"><img src="assets/thumbs/tulsa-event-monitor.jpg" width="800" height="454" alt="" loading="lazy" decoding="async"><i class="glow" aria-hidden="true"></i><span class="plate-tag"><i class="dot gis"></i>GIS</span><span class="plate-num">01</span><span class="plate-title">Tulsa Event Monitor</span></div></a>
+        <a class="chip" href="work/bus-electrification.html"><div class="plate"><img src="assets/thumbs/bus-electrification.jpg" width="800" height="499" alt="" loading="lazy" decoding="async"><i class="glow" aria-hidden="true"></i><span class="plate-tag"><i class="dot gis"></i>GIS</span><span class="plate-num">02</span><span class="plate-title">MTA bus electrification</span></div></a>
+        <a class="chip" href="work/hospital-accessibility.html"><div class="plate"><img src="assets/thumbs/hospital-accessibility.jpg" width="800" height="618" alt="" loading="lazy" decoding="async"><i class="glow" aria-hidden="true"></i><span class="plate-tag"><i class="dot gis"></i>GIS</span><span class="plate-num">03</span><span class="plate-title">Hospital accessibility, Miami-Dade</span></div></a>
+        <a class="chip" href="work/economics-of-proximity.html"><div class="plate"><img src="assets/thumbs/economics-of-proximity.jpg" width="800" height="422" alt="" loading="lazy" decoding="async"><i class="glow" aria-hidden="true"></i><span class="plate-tag"><i class="dot gis"></i>GIS</span><span class="plate-num">04</span><span class="plate-title">The economics of proximity</span></div></a>
+        <a class="chip" href="work/sarathi.html"><div class="plate"><img src="assets/thumbs/sarathi.jpg" width="800" height="499" alt="" loading="lazy" decoding="async"><i class="glow" aria-hidden="true"></i><span class="plate-tag"><i class="dot ui"></i>UI/UX</span><span class="plate-num">05</span><span class="plate-title">Sarathi license portal</span></div></a>
+        <a class="chip" href="work/savor.html"><div class="plate"><img src="assets/thumbs/savor.jpg" width="800" height="488" alt="" loading="lazy" decoding="async"><i class="glow" aria-hidden="true"></i><span class="plate-tag"><i class="dot ui"></i>UI/UX</span><span class="plate-num">06</span><span class="plate-title">SAVOR</span></div></a>
+        <a class="chip" href="work/suii.html"><div class="plate"><img src="assets/thumbs/suii.jpg" width="800" height="510" alt="" loading="lazy" decoding="async"><i class="glow" aria-hidden="true"></i><span class="plate-tag"><i class="dot ui"></i>UI/UX</span><span class="plate-num">07</span><span class="plate-title">SUII suitcase rental</span></div></a>
+        <a class="chip" href="work/mighty.html"><div class="plate"><img src="assets/thumbs/mighty.jpg" width="800" height="535" alt="" loading="lazy" decoding="async"><i class="glow" aria-hidden="true"></i><span class="plate-tag"><i class="dot ui"></i>UI/UX</span><span class="plate-num">08</span><span class="plate-title">Mighty</span></div></a>
+        <a class="chip" href="work/saginaw.html"><div class="plate"><img src="assets/thumbs/saginaw.jpg" width="800" height="448" alt="" loading="lazy" decoding="async"><i class="glow" aria-hidden="true"></i><span class="plate-tag"><i class="dot ui"></i>UI/UX</span><span class="plate-num">09</span><span class="plate-title">Saginaw Tattoo</span></div></a>
+        <a class="chip" href="work/spar-website.html"><div class="plate"><img src="assets/thumbs/spar-website.jpg" width="800" height="600" alt="" loading="lazy" decoding="async"><i class="glow" aria-hidden="true"></i><span class="plate-tag"><i class="dot ui"></i>UI/UX</span><span class="plate-num">10</span><span class="plate-title">Spar Agrotech</span></div></a>
+        <a class="chip" href="work/address-masters-dashboard.html"><div class="plate"><img src="assets/thumbs/address-masters-dashboard.jpg" width="800" height="404" alt="" loading="lazy" decoding="async"><i class="glow" aria-hidden="true"></i><span class="plate-tag"><i class="dot brand"></i>Brand</span><span class="plate-num">11</span><span class="plate-title">Address Masters</span></div></a>
+        <a class="chip" href="work/snn-felicity.html"><div class="plate"><img src="assets/thumbs/snn-felicity.jpg" width="800" height="528" alt="" loading="lazy" decoding="async"><i class="glow" aria-hidden="true"></i><span class="plate-tag"><i class="dot brand"></i>Brand</span><span class="plate-num">12</span><span class="plate-title">SNN Estates Felicity</span></div></a>
+        <a class="chip" href="work/visista-okas.html"><div class="plate"><img src="assets/thumbs/visista-okas.jpg" width="800" height="613" alt="" loading="lazy" decoding="async"><i class="glow" aria-hidden="true"></i><span class="plate-tag"><i class="dot brand"></i>Brand</span><span class="plate-num">13</span><span class="plate-title">Visista OKAS</span></div></a>
+        <a class="chip" href="work/coffee-maker.html"><div class="plate"><img src="assets/thumbs/coffee-maker.jpg" width="800" height="447" alt="" loading="lazy" decoding="async"><i class="glow" aria-hidden="true"></i><span class="plate-tag"><i class="dot product"></i>Product</span><span class="plate-num">14</span><span class="plate-title">Filter coffee maker</span></div></a>
+        <a class="chip" href="work/saffron-oil-bottle.html"><div class="plate"><img src="assets/thumbs/saffron-oil-bottle.jpg" width="800" height="373" alt="" loading="lazy" decoding="async"><i class="glow" aria-hidden="true"></i><span class="plate-tag"><i class="dot product"></i>Product</span><span class="plate-num">15</span><span class="plate-title">Saffron oil bottle</span></div></a>
+        <a class="chip" href="work/earpods-packaging.html"><div class="plate"><img src="assets/thumbs/earpods-packaging.jpg" width="800" height="520" alt="" loading="lazy" decoding="async"><i class="glow" aria-hidden="true"></i><span class="plate-tag"><i class="dot product"></i>Product</span><span class="plate-num">16</span><span class="plate-title">Earpods packaging</span></div></a>
+        <a class="chip" href="work/tesla-perfume.html"><div class="plate"><img src="assets/thumbs/tesla-perfume.jpg" width="800" height="444" alt="" loading="lazy" decoding="async"><i class="glow" aria-hidden="true"></i><span class="plate-tag"><i class="dot product"></i>Product</span><span class="plate-num">17</span><span class="plate-title">Tesla perfume bottle</span></div></a>
+        <a class="chip" href="work/home-decor-store.html"><div class="plate"><img src="assets/thumbs/home-decor-store.jpg" width="800" height="605" alt="" loading="lazy" decoding="async"><i class="glow" aria-hidden="true"></i><span class="plate-tag"><i class="dot product"></i>Product</span><span class="plate-num">18</span><span class="plate-title">Home decor store</span></div></a>
+        <a class="chip" href="work/sustainable-shoes.html"><div class="plate"><img src="assets/thumbs/sustainable-shoes.jpg" width="800" height="697" alt="" loading="lazy" decoding="async"><i class="glow" aria-hidden="true"></i><span class="plate-tag"><i class="dot product"></i>Product</span><span class="plate-num">19</span><span class="plate-title">Sustainable shoes</span></div></a>
+        <a class="chip" href="work/tree-bookshelf.html"><div class="plate"><img src="assets/thumbs/tree-bookshelf.jpg" width="536" height="800" alt="" loading="lazy" decoding="async"><i class="glow" aria-hidden="true"></i><span class="plate-tag"><i class="dot product"></i>Product</span><span class="plate-num">20</span><span class="plate-title">Tree bookshelf</span></div></a>
       </div>
       </div>
       <div class="strip-rail" aria-hidden="true"><i></i></div>
+    </section>
+
+    <div class="divider" aria-hidden="true"></div>
+    <section id="featured" class="sec featured">
+      <div class="sec-head reveal">
+        <div>
+          <p class="kicker"><i class="dot"></i><span>Featured</span><span class="sep" aria-hidden="true">·</span><span>6 case studies</span></p>
+          <h2>Selected work</h2>
+        </div>
+        <p class="aside">Pick a project, the panel follows</p>
+      </div>
+      <div class="feat-rail reveal" id="feat-rail">
+        <button type="button" class="feat-thumb on" data-feat="0" aria-pressed="true"><span class="plate"><img src="assets/thumbs/tulsa-event-monitor.jpg" width="800" height="500" alt="" loading="lazy" decoding="async"><i class="glow" aria-hidden="true"></i><span class="plate-num">01</span><span class="tag">Civic tool</span></span><span class="t">Tulsa Event Monitor</span><span class="s">City of Tulsa Auditor&#x27;s Office, through NYU CUSP</span></button>
+        <button type="button" class="feat-thumb" data-feat="1" aria-pressed="false"><span class="plate"><img src="assets/thumbs/bus-electrification.jpg" width="800" height="500" alt="" loading="lazy" decoding="async"><i class="glow" aria-hidden="true"></i><span class="plate-num">02</span><span class="tag">Spring 2026</span></span><span class="t">MTA bus electrification</span><span class="s">Urban Spatial Analytics, NYU CUSP</span></button>
+        <button type="button" class="feat-thumb" data-feat="2" aria-pressed="false"><span class="plate"><img src="assets/thumbs/hospital-accessibility.jpg" width="800" height="500" alt="" loading="lazy" decoding="async"><i class="glow" aria-hidden="true"></i><span class="plate-num">03</span><span class="tag">Solo</span></span><span class="t">Hospital accessibility, Miami-Dade</span><span class="s">Urban Spatial Analytics, NYU CUSP</span></button>
+        <button type="button" class="feat-thumb" data-feat="3" aria-pressed="false"><span class="plate"><img src="assets/thumbs/sarathi.jpg" width="800" height="500" alt="" loading="lazy" decoding="async"><i class="glow" aria-hidden="true"></i><span class="plate-num">04</span><span class="tag">UX</span></span><span class="t">Sarathi license portal</span><span class="s">UX case study</span></button>
+        <button type="button" class="feat-thumb" data-feat="4" aria-pressed="false"><span class="plate"><img src="assets/thumbs/savor.jpg" width="800" height="500" alt="" loading="lazy" decoding="async"><i class="glow" aria-hidden="true"></i><span class="plate-num">05</span><span class="tag">Mobile</span></span><span class="t">SAVOR</span><span class="s">Mobile app</span></button>
+        <button type="button" class="feat-thumb" data-feat="5" aria-pressed="false"><span class="plate"><img src="assets/thumbs/address-masters-dashboard.jpg" width="800" height="500" alt="" loading="lazy" decoding="async"><i class="glow" aria-hidden="true"></i><span class="plate-num">06</span><span class="tag">Client work</span></span><span class="t">Address Masters</span><span class="s">Address Masters, Bangalore</span></button>
+      </div>
+      <div class="feat-detail reveal" id="feat-detail">
+        <div class="feat-head">
+          <h3><span class="n" id="feat-n">01/</span><span id="feat-title">Tulsa Event Monitor</span></h3>
+          <span class="pill"><span class="live" aria-hidden="true"></span><span id="feat-result">Handed over to the office</span></span>
+          <div class="links" id="feat-links"><a class="primary" href="work/tulsa-event-monitor.html">Case study</a></div>
+        </div>
+        <div>
+          <div class="feat-gallery" id="feat-gallery">
+            <img src="assets/tulsa/hero.jpg" width="1600" height="1100" alt="" class="on" loading="eager" decoding="async"><img src="assets/tulsa/places.jpg" width="1600" height="1100" alt="" class="" loading="lazy" decoding="async">
+            <button type="button" class="gbtn prev" data-g="prev" aria-label="Previous image"><svg viewBox="0 0 14 14" aria-hidden="true"><path d="M9 2 4 7l5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <button type="button" class="gbtn next" data-g="next" aria-label="Next image"><svg viewBox="0 0 14 14" aria-hidden="true"><path d="m5 2 5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <span class="ref" id="feat-ref">img_ref: 01/02</span>
+          </div>
+          <div class="feat-dots" id="feat-dots"><button type="button" class="on" data-img="0" aria-label="Image 1"></button><button type="button" class="" data-img="1" aria-label="Image 2"></button></div>
+        </div>
+        <div class="feat-side">
+          <p class="sub" id="feat-sub">Every community event in Tulsa, on one map the audit office can act on.</p>
+          <div class="feat-stats" id="feat-stats"><div><b>493</b><span>geocoded venues</span></div><div><b>3</b><span>event platforms</span></div><div><b>5</b><span>views in the app</span></div></div>
+          <p class="metrics" id="feat-metrics">493 venues // 3 platforms // 5 views // built by two</p>
+          <p class="desc" id="feat-desc">A Streamlit app in Python that pulls events from Eventbrite, Facebook and LinkedIn and places them on 493 community venues geocoded through the Google Places API, so the City Auditor&#x27;s Office can show up where residents already gather. Five views: map, recommendation, demographic, social signal and a chatbot. The office now owns and runs it.</p>
+          <p class="lbl">Role</p>
+          <p class="role" id="feat-role">UX lead from user research to the Figma prototypes; built the app with my teammate Mirzonabot Mirzonabotov.</p>
+          <p class="lbl">Tools</p>
+          <ul class="chips" id="feat-tools"><li>Figma</li><li>Python</li><li>Streamlit</li><li>Google Places API</li><li>Eventbrite API</li></ul>
+        </div>
+        <div class="feat-foot"><span id="feat-event">City of Tulsa Auditor&#x27;s Office, through NYU CUSP · Aug to Dec 2025</span><span id="feat-count">Project 1 of 6</span></div>
+      </div>
+      <script type="application/json" id="feat-data">[{"id": "tulsa", "n": "01", "title": "Tulsa Event Monitor", "short": "Tulsa Event Monitor", "event": "City of Tulsa Auditor's Office, through NYU CUSP \u00b7 Aug to Dec 2025", "result": "Handed over to the office", "sub": "Every community event in Tulsa, on one map the audit office can act on.", "stats": [["493", "geocoded venues"], ["3", "event platforms"], ["5", "views in the app"]], "metrics": "493 venues // 3 platforms // 5 views // built by two", "desc": "A Streamlit app in Python that pulls events from Eventbrite, Facebook and LinkedIn and places them on 493 community venues geocoded through the Google Places API, so the City Auditor's Office can show up where residents already gather. Five views: map, recommendation, demographic, social signal and a chatbot. The office now owns and runs it.", "role": "UX lead from user research to the Figma prototypes; built the app with my teammate Mirzonabot Mirzonabotov.", "tools": ["Figma", "Python", "Streamlit", "Google Places API", "Eventbrite API"], "images": ["assets/tulsa/hero.jpg", "assets/tulsa/places.jpg"], "page": "work/tulsa-event-monitor.html", "ext": null, "extLabel": null, "thumb": "assets/thumbs/tulsa-event-monitor.jpg", "tag": "Civic tool", "cat": "gis", "catLabel": "GIS"}, {"id": "bus", "n": "02", "title": "MTA bus electrification", "short": "MTA buses", "event": "Urban Spatial Analytics, NYU CUSP \u00b7 Spring 2026 \u00b7 with Vaishnavi Potphode", "result": "Published as an ArcGIS StoryMap", "sub": "Which Manhattan and Bronx bus routes can go electric, and where the chargers should go.", "stats": [["5", "charging sites"], ["150", "mile range tested"], ["1", "foot elevation model"]], "metrics": "5 sites // 150 mi range // 1 ft DEM // 99% confidence hot spots", "desc": "A five-stage GIS workflow in ArcGIS Pro: slope from the 1-foot elevation model along every route, daily service miles from GTFS against a 150-mile range, the highest-stress segments intersected into critical terrain nodes, Getis-Ord Gi* hot spots, then Location-Allocation to site five charging stations on shared corridors.", "role": "Pair project with Vaishnavi Potphode: the spatial workflow, the maps and the StoryMap.", "tools": ["ArcGIS Pro", "Spatial Analyst", "Network Analyst", "GTFS", "StoryMaps"], "images": ["assets/maps/bus-energy-burden.jpg", "assets/maps/bus-slope.jpg", "assets/maps/bus-location-allocation.jpg", "assets/maps/bus-siting.jpg"], "page": "work/bus-electrification.html", "ext": "https://storymaps.arcgis.com/stories/d6c58f64a05241c48da42ff44b1f8fb8", "extLabel": "StoryMap", "thumb": "assets/thumbs/bus-electrification.jpg", "tag": "Spring 2026", "cat": "gis", "catLabel": "GIS"}, {"id": "hospital", "n": "03", "title": "Hospital accessibility, Miami-Dade", "short": "Hospital access", "event": "Urban Spatial Analytics, NYU CUSP \u00b7 Spring 2026 \u00b7 Solo", "result": "Published as an ArcGIS StoryMap", "sub": "How many people in Miami-Dade live more than seven minutes from a hospital.", "stats": [["1,612", "within 3 minutes"], ["890,786", "within 3 to 7 minutes"], ["1,809,369", "beyond 7 minutes"]], "metrics": "2 travel-time models // 3 routes checked // 3 and 7 minute service areas", "desc": "Network Analyst in ArcGIS Pro: the road network cleaned to drivable segments, travel time per segment from road class and speed limits, two travel-time models tested on three routes against Google Maps, then 0 to 3 and 3 to 7 minute service areas around every hospital joined to block-group population.", "role": "Solo.", "tools": ["ArcGIS Pro", "Network Analyst", "StoryMaps"], "images": ["assets/maps/hospital-access.jpg", "assets/maps/hospital-county.jpg"], "page": "work/hospital-accessibility.html", "ext": "https://storymaps.arcgis.com/stories/e04d2c69cf6f4c9f8685a91e6cd04945", "extLabel": "StoryMap", "thumb": "assets/thumbs/hospital-accessibility.jpg", "tag": "Solo", "cat": "gis", "catLabel": "GIS"}, {"id": "sarathi", "n": "04", "title": "Sarathi license portal", "short": "Sarathi", "event": "UX case study \u00b7 2022 \u00b7 Solo", "result": "Seven steps became one flow", "sub": "India's learner's license application, redesigned as one guided flow.", "stats": [["7", "steps became one"], ["2", "personas"], ["5", "stages on the bar"]], "metrics": "7 steps to 1 flow // 2 personas // 5 stages // ages 17 to 40", "desc": "Surveys and interviews with applicants aged 17 to 40 found the same failures: documents that would not upload, walls of text, a slot booking nobody could finish and no sense of how many steps were left. The redesign folds seven scattered steps into one guided flow with DigiLocker uploads, UPI payment inside the flow, Aadhaar autofill and a five-stage progress bar.", "role": "Solo: surveys and interviews, personas, user flows, and the redesign in Figma.", "tools": ["Figma", "Illustrator"], "images": ["assets/sarathi/hero.png", "assets/sarathi/flow.png", "assets/sarathi/before-after.png", "assets/sarathi/final-screen.png"], "page": "work/sarathi.html", "ext": "https://www.behance.net/gallery/236130539/UIUX-Portfolio", "extLabel": "Behance", "thumb": "assets/thumbs/sarathi.jpg", "tag": "UX", "cat": "ui", "catLabel": "UI/UX"}, {"id": "savor", "n": "05", "title": "SAVOR", "short": "SAVOR", "event": "Mobile app \u00b7 published May 2024 \u00b7 Solo", "result": "From field interviews to final screens", "sub": "Restaurant surplus, carried by volunteers to the people who need it.", "stats": [["4", "businesses interviewed"], ["2", "sign-ins, one flow each"], ["2", "week streaks"]], "metrics": "4 interviews // 2 roles // 1 map // coins, streaks and badges", "desc": "Interviews with a restaurant, a canteen, a meat shop and a dairy in Pune, clustered by business type and drawn as causal maps of how food becomes waste. Restaurants log the type and quantity of surplus, volunteers pick it up and deliver it to donation spots on a map, and coins, streaks and badges keep both sides motivated.", "role": "Solo product designer, from the field interviews to the final screens.", "tools": ["Figma", "Adobe XD", "Illustrator", "Photoshop"], "images": ["assets/savor/hero.jpg", "assets/savor/screens.png", "assets/savor/causal-map.png", "assets/savor/interviews.png"], "page": "work/savor.html", "ext": "https://www.behance.net/gallery/199387575/SAVOR-Connecting-Surplus-to-Sustenance", "extLabel": "Behance", "thumb": "assets/thumbs/savor.jpg", "tag": "Mobile", "cat": "ui", "catLabel": "UI/UX"}, {"id": "am", "n": "06", "title": "Address Masters", "short": "Address Masters", "event": "Address Masters, Bangalore \u00b7 Jan to Jun 2024", "result": "1,000+ buyer inquiries", "sub": "An AI analytics dashboard, a component library, and the campaigns that sold two developments.", "stats": [["40+", "UI screens"], ["18", "users tested"], ["1,000+", "buyer inquiries"]], "metrics": "12+ workflows // 40+ screens // 200+ creatives // 2 films", "desc": "Six months as the designer at an early-stage real estate startup: 12+ end-to-end product workflows and 40+ high-fidelity screens for an AI-driven analytics dashboard, usability tests with 18 users that made tasks 32% faster, a component library that cut iteration time by 25%, and 200+ creatives across social, digital and print for SNN Estates Felicity and Visista OKAS, including two films shot and edited.", "role": "The designer: product workflows, UI, usability tests, the component library, and the campaign creatives and films.", "tools": ["Figma", "Photoshop", "Illustrator", "Photography", "Video editing"], "images": ["assets/campaigns/visista-brand.jpg", "assets/campaigns/snn-felicity.jpg", "assets/campaigns/visista-okas.jpg", "assets/campaigns/snn-lifestyle.jpg"], "page": "work/address-masters-dashboard.html", "ext": null, "extLabel": "Behance", "thumb": "assets/thumbs/address-masters-dashboard.jpg", "tag": "Client work", "cat": "brand", "catLabel": "Brand"}]</script>
     </section>
 
     <section id="gis" class="cat">
@@ -118,28 +214,29 @@
       </div>
       <div class="grid2" data-stagger>
         <a class="card reveal" href="work/tulsa-event-monitor.html">
-          <div class="plate reveal"><img width="1600" height="909" src="assets/tulsa/hero.jpg" alt="Map of Tulsa neighborhoods with community events plotted as green points" loading="lazy" decoding="async"><span class="plate-tag"><i class="dot gis"></i>GIS</span><span class="plate-num">01</span><h3 class="plate-title">Tulsa Event Monitor</h3></div>
+          <div class="plate reveal"><img width="1600" height="909" src="assets/tulsa/hero.jpg" alt="Map of Tulsa neighborhoods with community events plotted as green points" loading="lazy" decoding="async"><i class="glow" aria-hidden="true"></i><span class="plate-tag"><i class="dot gis"></i>GIS</span><span class="plate-num">01</span><h3 class="plate-title">Tulsa Event Monitor</h3></div>
           <div class="meta">2025 · Civic mapping tool · City of Tulsa Auditor's Office</div>
           <p>A mapping tool for the City Auditor's Office that pulls community events from three platforms onto 493 geocoded venues.</p>
         </a>
         <a class="card reveal" href="work/bus-electrification.html">
-          <div class="plate reveal"><img width="1600" height="999" src="assets/maps/bus-energy-burden.jpg" alt="Map of Manhattan and the Bronx with bus routes colored by slope percent" loading="lazy" decoding="async"><span class="plate-tag"><i class="dot gis"></i>GIS</span><span class="plate-num">02</span><h3 class="plate-title">MTA bus electrification</h3></div>
-          <div class="meta">2026 · ArcGIS StoryMap · with Vaishnavi Potphode</div>
+          <div class="plate reveal"><img width="1600" height="999" src="assets/maps/bus-energy-burden.jpg" alt="Map of Manhattan and the Bronx with bus routes colored by slope percent" loading="lazy" decoding="async"><i class="glow" aria-hidden="true"></i><span class="plate-tag"><i class="dot gis"></i>GIS</span><span class="plate-num">02</span><h3 class="plate-title">MTA bus electrification</h3></div>
+          <div class="meta">2026 · ArcGIS StoryMap · with Vaishnavi Potphode<span class="new">New</span></div>
           <p>A five-stage GIS workflow using a 1 ft elevation model, nine depots and GTFS data to find the routes where terrain cuts electric bus range, then siting five shared charging stations.</p>
         </a>
         <a class="card reveal" href="work/hospital-accessibility.html">
-          <div class="plate reveal"><img width="1600" height="1236" src="assets/maps/hospital-access.jpg" alt="Map of Miami-Dade County hospitals with 3 and 7 minute drive-time service areas" loading="lazy" decoding="async"><span class="plate-tag"><i class="dot gis"></i>GIS</span><span class="plate-num">03</span><h3 class="plate-title">Hospital accessibility, Miami-Dade</h3></div>
-          <div class="meta">2026 · ArcGIS StoryMap · solo</div>
+          <div class="plate reveal"><img width="1600" height="1236" src="assets/maps/hospital-access.jpg" alt="Map of Miami-Dade County hospitals with 3 and 7 minute drive-time service areas" loading="lazy" decoding="async"><i class="glow" aria-hidden="true"></i><span class="plate-tag"><i class="dot gis"></i>GIS</span><span class="plate-num">03</span><h3 class="plate-title">Hospital accessibility, Miami-Dade</h3></div>
+          <div class="meta">2026 · ArcGIS StoryMap · solo<span class="new">New</span></div>
           <p>Network analysis with two travel-speed models checked against Google Maps. About 890,786 residents live within 3 to 7 minutes of a hospital; 1,809,369 live beyond 7.</p>
         </a>
         <a class="card reveal" href="work/economics-of-proximity.html">
-          <div class="plate reveal"><img width="1200" height="634" src="assets/maps/subway-zoning.jpg" alt="Web map of New York City subway lines over zoning districts" loading="lazy" decoding="async"><span class="plate-tag"><i class="dot gis"></i>GIS</span><span class="plate-num">04</span><h3 class="plate-title">The economics of proximity</h3></div>
+          <div class="plate reveal"><img width="1200" height="634" src="assets/maps/subway-zoning.jpg" alt="Web map of New York City subway lines over zoning districts" loading="lazy" decoding="async"><i class="glow" aria-hidden="true"></i><span class="plate-tag"><i class="dot gis"></i>GIS</span><span class="plate-num">04</span><h3 class="plate-title">The economics of proximity</h3></div>
           <div class="meta">2025 · ArcGIS StoryMap · with Milka Vincentiya and Vaishnavi Potphode</div>
           <p>Why do New Yorkers value time over money? The HUD Location Affordability Index mapped at census-tract level across the five boroughs, with subway lines over zoning districts.</p>
         </a>
       </div>
     </section>
 
+    <div class="divider" aria-hidden="true"></div>
     <section id="uiux" class="cat">
       <div class="cat-head reveal">
         <span class="numeral" aria-hidden="true">02</span>
@@ -149,38 +246,39 @@
       </div>
       <div class="grid2" data-stagger>
         <a class="card reveal" href="work/sarathi.html">
-          <div class="plate reveal"><img width="1113" height="694" src="assets/sarathi/hero.png" alt="Redesigned Sarathi Parivahan license portal screens on a blue background" loading="lazy" decoding="async"><span class="plate-tag"><i class="dot ui"></i>UI/UX</span><span class="plate-num">05</span><h3 class="plate-title">Sarathi license portal</h3></div>
+          <div class="plate reveal"><img width="1113" height="694" src="assets/sarathi/hero.png" alt="Redesigned Sarathi Parivahan license portal screens on a blue background" loading="lazy" decoding="async"><i class="glow" aria-hidden="true"></i><span class="plate-tag"><i class="dot ui"></i>UI/UX</span><span class="plate-num">05</span><h3 class="plate-title">Sarathi license portal</h3></div>
           <div class="meta">2022 · UX case study · Government service</div>
           <p>The learner's license application, cut from seven scattered steps to one guided flow with DigiLocker uploads, UPI payment and a progress bar.</p>
         </a>
         <a class="card reveal" href="work/savor.html">
-          <div class="plate reveal"><img width="1600" height="976" src="assets/savor/hero.jpg" alt="SAVOR app screens floating over a dark blue background" loading="lazy" decoding="async"><span class="plate-tag"><i class="dot ui"></i>UI/UX</span><span class="plate-num">06</span><h3 class="plate-title">SAVOR</h3></div>
+          <div class="plate reveal"><img width="1600" height="976" src="assets/savor/hero.jpg" alt="SAVOR app screens floating over a dark blue background" loading="lazy" decoding="async"><i class="glow" aria-hidden="true"></i><span class="plate-tag"><i class="dot ui"></i>UI/UX</span><span class="plate-num">06</span><h3 class="plate-title">SAVOR</h3></div>
           <div class="meta">2024 · Mobile app · Food surplus</div>
           <p>Restaurants post what is left over, volunteers deliver it to donation spots, and streaks keep both sides coming back. Built from interviews with a restaurant, a canteen, a meat shop and a dairy.</p>
         </a>
         <a class="card reveal" href="work/suii.html">
-          <div class="plate reveal"><img width="1032" height="658" src="assets/suii/hero.jpg" alt="SUII suitcase rental app screens with the SUII wordmark" loading="lazy" decoding="async"><span class="plate-tag"><i class="dot ui"></i>UI/UX</span><span class="plate-num">07</span><h3 class="plate-title">SUII suitcase rental</h3></div>
+          <div class="plate reveal"><img width="1032" height="658" src="assets/suii/hero.jpg" alt="SUII suitcase rental app screens with the SUII wordmark" loading="lazy" decoding="async"><i class="glow" aria-hidden="true"></i><span class="plate-tag"><i class="dot ui"></i>UI/UX</span><span class="plate-num">07</span><h3 class="plate-title">SUII suitcase rental</h3></div>
           <div class="meta">2022 · Mobile app concept · Rental service</div>
           <p>Rent expensive, rarely used travel gear instead of buying it. Interviews, one persona, wireframes and final screens for browsing, booking dates and tracking a delivery.</p>
         </a>
         <a class="card reveal" href="work/mighty.html">
-          <div class="plate reveal"><img width="1113" height="745" src="assets/mighty/laptop.jpg" alt="Mighty landing page shown on a laptop in a dark room" loading="lazy" decoding="async"><span class="plate-tag"><i class="dot ui"></i>UI/UX</span><span class="plate-num">08</span><h3 class="plate-title">Mighty</h3></div>
+          <div class="plate reveal"><img width="1113" height="745" src="assets/mighty/laptop.jpg" alt="Mighty landing page shown on a laptop in a dark room" loading="lazy" decoding="async"><i class="glow" aria-hidden="true"></i><span class="plate-tag"><i class="dot ui"></i>UI/UX</span><span class="plate-num">08</span><h3 class="plate-title">Mighty</h3></div>
           <div class="meta">Client work · Web and app design · Finance guidance startup</div>
           <p>A new information architecture and visual system for an investment guidance platform, from the landing page to risk-profile onboarding.</p>
         </a>
         <a class="card reveal" href="work/saginaw.html">
-          <div class="plate reveal"><img width="919" height="515" src="assets/saginaw/landing.jpg" alt="Saginaw Tattoo website landing page with a black-and-white portrait" loading="lazy" decoding="async"><span class="plate-tag"><i class="dot ui"></i>UI/UX</span><span class="plate-num">09</span><h3 class="plate-title">Saginaw Tattoo</h3></div>
+          <div class="plate reveal"><img width="919" height="515" src="assets/saginaw/landing.jpg" alt="Saginaw Tattoo website landing page with a black-and-white portrait" loading="lazy" decoding="async"><i class="glow" aria-hidden="true"></i><span class="plate-tag"><i class="dot ui"></i>UI/UX</span><span class="plate-num">09</span><h3 class="plate-title">Saginaw Tattoo</h3></div>
           <div class="meta">Concept · Web design · Tattoo studio</div>
           <p>A dark, editorial site for a tattoo studio: gallery, artists, style categories and booking, built around large black-and-white photography.</p>
         </a>
         <a class="card reveal" href="work/spar-website.html">
-          <div class="plate reveal"><img width="1600" height="1200" src="assets/spar/hero.jpg" alt="Spar Agrotech website pages on a laptop with fruit photography" loading="lazy" decoding="async"><span class="plate-tag"><i class="dot ui"></i>UI/UX</span><span class="plate-num">10</span><h3 class="plate-title">Spar Agrotech</h3></div>
+          <div class="plate reveal"><img width="1600" height="1200" src="assets/spar/hero.jpg" alt="Spar Agrotech website pages on a laptop with fruit photography" loading="lazy" decoding="async"><i class="glow" aria-hidden="true"></i><span class="plate-tag"><i class="dot ui"></i>UI/UX</span><span class="plate-num">10</span><h3 class="plate-title">Spar Agrotech</h3></div>
           <div class="meta">2023 · Web design and identity · Farmer producer company</div>
           <p>A website and identity for a women-led farmer producer company in Pune, from the product range to the board of directors.</p>
         </a>
       </div>
     </section>
 
+    <div class="divider" aria-hidden="true"></div>
     <section id="campaigns" class="cat">
       <div class="cat-head reveal">
         <span class="numeral" aria-hidden="true">03</span>
@@ -190,23 +288,24 @@
       </div>
       <div class="gallery wide" data-stagger>
         <a class="card reveal" href="work/address-masters-dashboard.html">
-          <div class="plate reveal"><img width="1066" height="539" src="assets/campaigns/visista-brand.jpg" alt="Two brand identity advertisements for Visista OKAS, Bengaluru's foremost biophilic apartments" loading="lazy" decoding="async"><span class="plate-tag"><i class="dot brand"></i>Brand</span><span class="plate-num">11</span><h3 class="plate-title">Address Masters</h3></div>
+          <div class="plate reveal"><img width="1066" height="539" src="assets/campaigns/visista-brand.jpg" alt="Two brand identity advertisements for Visista OKAS, Bengaluru's foremost biophilic apartments" loading="lazy" decoding="async"><i class="glow" aria-hidden="true"></i><span class="plate-tag"><i class="dot brand"></i>Brand</span><span class="plate-num">11</span><h3 class="plate-title">Address Masters</h3></div>
           <div class="meta">2024 · Product and brand design · Bangalore</div>
           <p>Six months as the designer at an early-stage real estate startup: an AI analytics dashboard, a component library, and the campaigns for two developments, including two films shot and edited. 200+ creatives, 1,000+ buyer inquiries.</p>
         </a>
         <a class="card reveal" href="work/snn-felicity.html">
-          <div class="plate reveal"><img width="1100" height="726" src="assets/campaigns/snn-felicity.jpg" alt="Grid of six apartment interior photographs with SNN Estates Felicity branding" loading="lazy" decoding="async"><span class="plate-tag"><i class="dot brand"></i>Brand</span><span class="plate-num">12</span><h3 class="plate-title">SNN Estates Felicity</h3></div>
+          <div class="plate reveal"><img width="1100" height="726" src="assets/campaigns/snn-felicity.jpg" alt="Grid of six apartment interior photographs with SNN Estates Felicity branding" loading="lazy" decoding="async"><i class="glow" aria-hidden="true"></i><span class="plate-tag"><i class="dot brand"></i>Brand</span><span class="plate-num">12</span><h3 class="plate-title">SNN Estates Felicity</h3></div>
           <div class="meta">2024 · Campaign system · Social, digital and print</div>
           <p>Interior photography, property ads and an amenity storytelling series for a development behind Manyata Tech Park.</p>
         </a>
         <a class="card reveal" href="work/visista-okas.html">
-          <div class="plate reveal"><img width="1064" height="816" src="assets/campaigns/visista-okas.jpg" alt="Property and lifestyle advertisements for the Visista OKAS apartments" loading="lazy" decoding="async"><span class="plate-tag"><i class="dot brand"></i>Brand</span><span class="plate-num">13</span><h3 class="plate-title">Visista OKAS</h3></div>
+          <div class="plate reveal"><img width="1064" height="816" src="assets/campaigns/visista-okas.jpg" alt="Property and lifestyle advertisements for the Visista OKAS apartments" loading="lazy" decoding="async"><i class="glow" aria-hidden="true"></i><span class="plate-tag"><i class="dot brand"></i>Brand</span><span class="plate-num">13</span><h3 class="plate-title">Visista OKAS</h3></div>
           <div class="meta">2024 · Campaign system · Social, digital and print</div>
           <p>Property ads, lifestyle creatives and a biophilic positioning series for a luxury development in Judicial Layout.</p>
         </a>
       </div>
     </section>
 
+    <div class="divider" aria-hidden="true"></div>
     <section id="industrial" class="cat">
       <div class="cat-head reveal">
         <span class="numeral" aria-hidden="true">04</span>
@@ -216,43 +315,172 @@
       </div>
       <div class="gallery" data-stagger>
         <a class="card reveal" href="work/coffee-maker.html">
-          <div class="plate reveal"><img width="929" height="520" src="assets/industrial/coffee-maker.jpg" alt="Render of a modern South Indian filter coffee maker in mustard and black" loading="lazy" decoding="async"><span class="plate-tag"><i class="dot product"></i>Product</span><span class="plate-num">14</span><h3 class="plate-title">Filter coffee maker</h3></div>
+          <div class="plate reveal"><img width="929" height="520" src="assets/industrial/coffee-maker.jpg" alt="Render of a modern South Indian filter coffee maker in mustard and black" loading="lazy" decoding="async"><i class="glow" aria-hidden="true"></i><span class="plate-tag"><i class="dot product"></i>Product</span><span class="plate-num">14</span><h3 class="plate-title">Filter coffee maker</h3></div>
           <div class="meta">Semester 6 · Appliance</div>
           <p>A modern brewer that keeps the ritual of South Indian filter coffee, tested as a foam model.</p>
         </a>
         <a class="card reveal" href="work/saffron-oil-bottle.html">
-          <div class="plate reveal"><img width="1055" height="492" src="assets/industrial/medicine-bottle.jpg" alt="Renders of a red saffron oil bottle with a lavender dropper cap" loading="lazy" decoding="async"><span class="plate-tag"><i class="dot product"></i>Product</span><span class="plate-num">15</span><h3 class="plate-title">Saffron oil bottle</h3></div>
+          <div class="plate reveal"><img width="1055" height="492" src="assets/industrial/medicine-bottle.jpg" alt="Renders of a red saffron oil bottle with a lavender dropper cap" loading="lazy" decoding="async"><i class="glow" aria-hidden="true"></i><span class="plate-tag"><i class="dot product"></i>Product</span><span class="plate-num">15</span><h3 class="plate-title">Saffron oil bottle</h3></div>
           <div class="meta">Semester 4 · Packaging</div>
           <p>Form and color taken from the saffron bud, with a cap that cannot get lost.</p>
         </a>
         <a class="card reveal" href="work/earpods-packaging.html">
-          <div class="plate reveal"><img width="769" height="500" src="assets/industrial/earpods.jpg" alt="Render of a pink earpods case beside a phone and a mug" loading="lazy" decoding="async"><span class="plate-tag"><i class="dot product"></i>Product</span><span class="plate-num">16</span><h3 class="plate-title">Earpods packaging</h3></div>
+          <div class="plate reveal"><img width="769" height="500" src="assets/industrial/earpods.jpg" alt="Render of a pink earpods case beside a phone and a mug" loading="lazy" decoding="async"><i class="glow" aria-hidden="true"></i><span class="plate-tag"><i class="dot product"></i>Product</span><span class="plate-num">16</span><h3 class="plate-title">Earpods packaging</h3></div>
           <div class="meta">Semester 4, group of two · Packaging</div>
           <p>A sliding case that opens without tearing, in four gradient variants.</p>
         </a>
         <a class="card reveal" href="work/tesla-perfume.html">
-          <div class="plate reveal"><img width="1184" height="657" src="assets/industrial/tesla-perfume.jpg" alt="Renders of a faceted blue Tesla perfume bottle with a gold cap" loading="lazy" decoding="async"><span class="plate-tag"><i class="dot product"></i>Product</span><span class="plate-num">17</span><h3 class="plate-title">Tesla perfume bottle</h3></div>
+          <div class="plate reveal"><img width="1184" height="657" src="assets/industrial/tesla-perfume.jpg" alt="Renders of a faceted blue Tesla perfume bottle with a gold cap" loading="lazy" decoding="async"><i class="glow" aria-hidden="true"></i><span class="plate-tag"><i class="dot product"></i>Product</span><span class="plate-num">17</span><h3 class="plate-title">Tesla perfume bottle</h3></div>
           <div class="meta">Semester 4 · Packaging</div>
           <p>A faceted glass bottle with a polished cap, for a brand that does not sell perfume yet.</p>
         </a>
         <a class="card reveal" href="work/home-decor-store.html">
-          <div class="plate reveal"><img width="424" height="321" src="assets/industrial/home-decor.jpg" alt="Render of a small home decor store interior with green walls and wooden shelving" loading="lazy" decoding="async"><span class="plate-tag"><i class="dot product"></i>Product</span><span class="plate-num">18</span><h3 class="plate-title">Home decor store</h3></div>
+          <div class="plate reveal"><img width="424" height="321" src="assets/industrial/home-decor.jpg" alt="Render of a small home decor store interior with green walls and wooden shelving" loading="lazy" decoding="async"><i class="glow" aria-hidden="true"></i><span class="plate-tag"><i class="dot product"></i>Product</span><span class="plate-num">18</span><h3 class="plate-title">Home decor store</h3></div>
           <div class="meta">Semester 5 · Retail design</div>
           <p>A 6 by 9 meter store laid out so the whole range is visible from the sofa.</p>
         </a>
         <a class="card reveal" href="work/sustainable-shoes.html">
-          <div class="plate reveal"><img width="389" height="339" src="assets/industrial/shoes.jpg" alt="Photographs of a hand-made black shoe with a cork sole" loading="lazy" decoding="async"><span class="plate-tag"><i class="dot product"></i>Product</span><span class="plate-num">19</span><h3 class="plate-title">Sustainable shoes</h3></div>
+          <div class="plate reveal"><img width="389" height="339" src="assets/industrial/shoes.jpg" alt="Photographs of a hand-made black shoe with a cork sole" loading="lazy" decoding="async"><i class="glow" aria-hidden="true"></i><span class="plate-tag"><i class="dot product"></i>Product</span><span class="plate-num">19</span><h3 class="plate-title">Sustainable shoes</h3></div>
           <div class="meta">Semester 5 · Eco design</div>
           <p>Cork soles, post-consumer cotton uppers and organic cotton laces, prototyped by hand.</p>
         </a>
         <a class="card reveal" href="work/tree-bookshelf.html">
-          <div class="plate reveal"><img width="299" height="446" src="assets/industrial/bookshelf.jpg" alt="A wooden tree-shaped bookshelf against a plain wall" loading="lazy" decoding="async"><span class="plate-tag"><i class="dot product"></i>Product</span><span class="plate-num">20</span><h3 class="plate-title">Tree bookshelf</h3></div>
+          <div class="plate reveal"><img width="299" height="446" src="assets/industrial/bookshelf.jpg" alt="A wooden tree-shaped bookshelf against a plain wall" loading="lazy" decoding="async"><i class="glow" aria-hidden="true"></i><span class="plate-tag"><i class="dot product"></i>Product</span><span class="plate-num">20</span><h3 class="plate-title">Tree bookshelf</h3></div>
           <div class="meta">Semester 5 · Furniture</div>
           <p>A dado-jointed shelf sized from anthropometric data and built in wood.</p>
         </a>
       </div>
     </section>
 
+    <div class="divider" aria-hidden="true"></div>
+    <section id="experience" class="sec">
+      <div class="sec-head reveal">
+        <div>
+          <p class="kicker"><i class="dot"></i><span>Experience</span><span class="sep" aria-hidden="true">·</span><span>2 roles</span></p>
+          <h2>Work history</h2>
+        </div>
+        <p class="aside"><a href="assets/Lochan_Pranav_Resume.pdf" target="_blank" rel="noopener">Full resume (PDF)</a></p>
+      </div>
+      <div class="xp">
+        <article class="xp-item reveal">
+          <div>
+            <p class="top"><span><span class="n">01</span>City of Tulsa Auditor's Office, through NYU CUSP</span><span>Aug 2025 to Dec 2025</span></p>
+            <h3>Graduate Research Assistant</h3>
+            <p class="where">Tulsa, OK · hybrid</p>
+            <p class="sum">Community outreach research for a ten-person city audit office, and the mapping tool that came out of it.</p>
+            <details>
+              <summary>Details</summary>
+              <ul>
+                <li>Built the Event Monitor with one teammate, a Streamlit app in Python mapping Eventbrite, Facebook and LinkedIn events onto 493 geocoded venues, and led its UX from user research to Figma prototypes. The office now owns it.</li>
+                <li>Analyzed geospatial and demographic data to identify the neighborhoods the office was missing, and wrote case studies of the Austin, Oakland, Denver, San Diego and Portland city auditors.</li>
+                <li>Presented recommendations to cross-functional city stakeholders and delivered the final report in December 2025, from a mixed-methods study of the office's social media engagement, audit plans and community events.</li>
+              </ul>
+            </details>
+            <ul class="chips"><li>Figma</li><li>Python</li><li>Streamlit</li><li>Google Places API</li><li>Eventbrite API</li><li>Geospatial analysis</li></ul>
+          </div>
+          <div class="xp-metrics">
+            <div><b data-count="493">493</b>geocoded venues</div>
+            <div><b>5</b>city auditors studied</div>
+            <div><b>Dec 2025</b>final report delivered</div>
+            <span class="ncount">6 tools</span>
+          </div>
+        </article>
+        <article class="xp-item reveal">
+          <div>
+            <p class="top"><span><span class="n">02</span>Address Masters, early-stage real estate startup</span><span>Jan 2024 to Jun 2024</span></p>
+            <h3>Graphic Designer, Product and UX</h3>
+            <p class="where">Bangalore, India</p>
+            <p class="sum">The designer at a startup marketing two residential developments and building an AI-driven analytics dashboard.</p>
+            <details>
+              <summary>Details</summary>
+              <ul>
+                <li>Designed 12+ end-to-end product workflows and 40+ high-fidelity UI screens in Figma for the analytics dashboard, and partnered with engineers to turn the prototypes into production-ready interfaces.</li>
+                <li>Ran usability tests with 18 users and iterated on the findings, improving task efficiency by 32%.</li>
+                <li>Built a reusable component library that cut design iteration time by 25% and improved consistency across the product.</li>
+                <li>Produced 200+ marketing creatives across social, digital and print for two Bangalore developments and shot and edited two campaign films. The campaigns generated 1,000+ qualified buyer inquiries.</li>
+              </ul>
+            </details>
+            <ul class="chips"><li>Figma</li><li>Photoshop</li><li>Illustrator</li><li>Photography</li><li>Video editing</li><li>Design systems</li><li>Usability testing</li></ul>
+          </div>
+          <div class="xp-metrics">
+            <div><b data-count="18">18</b>users tested</div>
+            <div><b data-count="32" data-suffix="%">32%</b>faster tasks</div>
+            <div><b data-count="1000" data-suffix="+">1,000+</b>buyer inquiries</div>
+            <span class="ncount">7 tools</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <div class="divider" aria-hidden="true"></div>
+    <section id="education" class="sec">
+      <div class="sec-head reveal">
+        <div>
+          <p class="kicker"><i class="dot"></i><span>Education</span><span class="sep" aria-hidden="true">·</span><span>Academic</span></p>
+          <h2>Two degrees, one line of work</h2>
+        </div>
+      </div>
+      <div class="edu">
+        <article class="edu-item reveal">
+          <h3>New York University, Tandon School of Engineering</h3>
+          <p class="deg">M.S. Urban Data Science, Center for Urban Science and Progress (CUSP)</p>
+          <p class="when">Aug 2025 to May 2027, expected · Brooklyn, NY</p>
+          <div class="gpa"><span class="lbl">GPA</span><b data-count="3.77" data-decimals="2">3.77</b><span>/ 4.0</span></div>
+          <ul class="chips"><li>GIS</li><li>Urban Spatial Analytics</li><li>Machine Learning for Cities</li><li>Applied Data Science</li></ul>
+          <p class="note">CUSP Rising Scholar Scholarship for academic performance · NYU CUSP Scholarship</p>
+        </article>
+        <article class="edu-item reveal">
+          <h3>MIT World Peace University</h3>
+          <p class="deg">Bachelor of Design (B.Des), Product Design</p>
+          <p class="when">Jun 2020 to Jun 2024 · Pune, India</p>
+          <div class="gpa"><span class="lbl">GPA</span><b data-count="9.0" data-decimals="1">9.0</b><span>/ 10</span></div>
+          <ul class="chips"><li>Product design</li><li>Industrial design</li><li>UX</li><li>Visual design</li></ul>
+          <p class="note">Four years from sketching and model making to renders, interfaces and brand systems.</p>
+        </article>
+      </div>
+      <div class="edu-lines reveal">
+        <span><b>Certifications</b> · Google UX Design (2024) · Esri ArcGIS Pro: Fundamentals of GIS</span>
+        <span><b>Languages</b> · English, Hindi, Tamil, Japanese</span>
+      </div>
+    </section>
+
+    <div class="divider" aria-hidden="true"></div>
+    <section id="skills" class="sec">
+      <div class="sec-head reveal">
+        <div>
+          <p class="kicker"><i class="dot"></i><span>Skills</span><span class="sep" aria-hidden="true">·</span><span>Interactive graph</span></p>
+          <h2>Tools, and where each one was used</h2>
+        </div>
+        <p class="aside">Hover a node to see its connections. Click a project to open it.</p>
+      </div>
+      <div class="skills-wrap reveal"><div class="graph" id="skills-graph" data-graph></div></div>
+      <p class="skills-note">Disciplines are the large nodes, tools the rings, projects the small dots. Links are only drawn where a tool was used on that project.</p>
+    </section>
+
+    <div class="divider" aria-hidden="true"></div>
+    <section id="recent" class="sec">
+      <div class="sec-head reveal">
+        <div>
+          <p class="kicker"><i class="dot"></i><span>Recent</span><span class="sep" aria-hidden="true">·</span><span>10 entries</span></p>
+          <h2>Log</h2>
+        </div>
+        <p class="aside"><a href="https://www.linkedin.com/in/lochanpranav" target="_blank" rel="noopener">More on LinkedIn</a></p>
+      </div>
+      <ol class="log reveal">
+        <li><span class="when">Sept 2026</span><span class="tag">Site</span><p class="what"><a href="#index">lochanpranav.com goes live: 20 case studies written by hand in HTML, CSS and JavaScript</a></p><a class="go" href="#index">Index</a></li>
+        <li><span class="when">Spring 2026</span><span class="tag">GIS</span><p class="what"><a href="work/bus-electrification.html">Left Behind by Electrification: five charging sites for the most constrained MTA bus routes</a></p><a class="go" href="work/bus-electrification.html">Read</a></li>
+        <li><span class="when">Spring 2026</span><span class="tag">GIS</span><p class="what"><a href="work/hospital-accessibility.html">Hospital accessibility in Miami-Dade: 1,809,369 residents live beyond seven minutes of a hospital</a></p><a class="go" href="work/hospital-accessibility.html">Read</a></li>
+        <li><span class="when">Spring 2026</span><span class="tag">ML</span><p class="what">Predicting NYC housing and transport burden: 30+ predictors for 2,120 tracts, R² 0.710 with transit features, 148 tracts flagged as transit traps</p><a class="go" href="assets/Lochan_Pranav_Resume.pdf" target="_blank" rel="noopener">Resume</a></li>
+        <li><span class="when">Dec 2025</span><span class="tag">Research</span><p class="what"><a href="work/tulsa-event-monitor.html">Final report delivered to the City of Tulsa Auditor's Office on 17 December 2025, with the Event Monitor handed over</a></p><a class="go" href="work/tulsa-event-monitor.html">Read</a></li>
+        <li><span class="when">Fall 2025</span><span class="tag">GIS</span><p class="what"><a href="work/economics-of-proximity.html">Why do New Yorkers value time over money? Affordability along the subway, mapped by census tract</a></p><a class="go" href="work/economics-of-proximity.html">Read</a></li>
+        <li><span class="when">Fall 2025</span><span class="tag">Data</span><p class="what">Weather and outdoor fire response in NYC: precipitation and temperature are significant but weak predictors of daily outdoor fires</p><a class="go" href="assets/Lochan_Pranav_Resume.pdf" target="_blank" rel="noopener">Resume</a></li>
+        <li><span class="when">Aug 2025</span><span class="tag">Milestone</span><p class="what"><a href="#education">Started the M.S. in Urban Data Science at NYU's Center for Urban Science and Progress in Brooklyn</a></p><a class="go" href="#education">Education</a></li>
+        <li><span class="when">May 2024</span><span class="tag">Design</span><p class="what"><a href="work/savor.html">SAVOR published: a food surplus app built from field interviews with four food businesses in Pune</a></p><a class="go" href="work/savor.html">Read</a></li>
+        <li><span class="when">Mar 2024</span><span class="tag">Film</span><p class="what"><a href="work/snn-felicity.html">Two campaign films shot and edited for SNN Estates Felicity and Visista OKAS</a></p><a class="go" href="work/snn-felicity.html">Watch</a></li>
+      </ol>
+    </section>
+
+    <div class="divider" aria-hidden="true"></div>
     <section id="about" class="about">
       <div>
         <p class="kicker reveal"><i class="dot"></i><span>About</span><span class="sep" aria-hidden="true">·</span><span>Brooklyn, NY</span></p>
@@ -260,6 +488,13 @@
         <p class="reveal">I studied product design at MIT World Peace University in Pune and spent 2024 as the designer at Address Masters, an early-stage startup in Bangalore, working across the product and its marketing.</p>
         <p class="reveal">In 2025 I moved to Brooklyn for the M.S. in Urban Data Science at NYU Tandon. Through NYU's Center for Urban Science and Progress I spent a semester with the City of Tulsa Auditor's Office, where my teammate and I built a mapping tool the office now owns.</p>
         <p class="reveal">The through line is data that people have to act on. Designers usually hand that problem to someone else. I would rather understand the data well enough to design the right thing, and increasingly, to build it.</p>
+        <ul class="lines reveal">
+          <li>Spatial analysis and machine learning on city data</li>
+          <li>Interfaces, maps and visual systems that make the findings usable</li>
+          <li>Physical products, from sketch to render</li>
+          <li>Films and campaign systems when the work needs them</li>
+        </ul>
+        <p class="handle reveal">Also on Dribbble <a href="http://dribbble.com/LochanPranav" target="_blank" rel="noopener">@LochanPranav</a> and Behance <a href="https://www.behance.net/lochanpranav" target="_blank" rel="noopener">@lochanpranav</a></p>
       </div>
       <div class="skills reveal">
         <dl>
@@ -271,9 +506,13 @@
       </div>
     </section>
 
+    <div class="divider" aria-hidden="true"></div>
     <section id="contact" class="contact" data-spot>
       <div class="spot-bg" aria-hidden="true"><div class="contours"></div><div class="contours bright"></div><div class="glow"></div></div>
       <p class="kicker reveal"><span class="live" aria-hidden="true"></span><span>Contact</span><span class="sep" aria-hidden="true">·</span><span><time data-tz="America/New_York">--:--</time> in Brooklyn</span></p>
+      <div class="contact-grid">
+      <div>
+      <p class="sayhi reveal">Say hi<i aria-hidden="true"></i></p>
       <p class="big reveal"><span class="sr-only">Let's make city data usable.</span><span aria-hidden="true"><span class="w"><span class="ch">L</span><span class="ch">e</span><span class="ch">t</span><span class="ch">'</span><span class="ch">s</span></span> <span class="w"><span class="ch">m</span><span class="ch">a</span><span class="ch">k</span><span class="ch">e</span></span> <span class="w"><span class="ch">c</span><span class="ch">i</span><span class="ch">t</span><span class="ch">y</span></span> <span class="w"><span class="ch">d</span><span class="ch">a</span><span class="ch">t</span><span class="ch">a</span></span> <em><span class="w"><span class="ch">u</span><span class="ch">s</span><span class="ch">a</span><span class="ch">b</span><span class="ch">l</span><span class="ch">e</span><span class="ch">.</span></span></em></span></p>
       <p class="reveal">Based in Brooklyn. Open to full-time roles from June 2027, internships in summer 2027, and part-time work now.</p>
       <a class="mail reveal" href="mailto:lm5677@nyu.edu" data-magnetic>lm5677@nyu.edu</a>
@@ -284,16 +523,37 @@
         <li><a href="http://dribbble.com/LochanPranav" target="_blank" rel="noopener">Dribbble</a></li>
         <li><a href="assets/Lochan_Pranav_Resume.pdf" target="_blank" rel="noopener">Resume (PDF)</a></li>
       </ul>
+      <p class="resume-note reveal">Role-specific versions of the resume are available on request.</p>
+      </div>
+      <form class="form reveal" id="contact-form" action="https://formspree.io/f/FORM_ID" method="POST">
+        <label>Name<input type="text" name="name" autocomplete="name" required></label>
+        <label>Email<input type="email" name="email" autocomplete="email" required></label>
+        <label>Message<textarea name="message" required></textarea></label>
+        <button type="submit">Send message</button>
+        <p class="hint" id="form-hint">Or write to lm5677@nyu.edu directly.</p>
+      </form>
+      </div>
     </section>
 
+    <div class="foot-marquee" aria-hidden="true">
+      <div class="ticker-ctl" id="foot-ctl">
+        <button type="button" class="play" data-marquee="play" aria-label="Play the marquee"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 2l7 4-7 4z" fill="currentColor"/></svg></button>
+        <button type="button" class="pause" data-marquee="pause" aria-label="Pause the marquee"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 2h2v8H3zM7 2h2v8H7z" fill="currentColor"/></svg></button>
+        <span class="lbl">Speed</span>
+        <input type="range" min="1" max="10" value="4" data-marquee="speed" aria-label="Marquee speed">
+      </div>
+      <div class="ticker" id="foot-ticker"><ul><li>ArcGIS Pro</li><li>Network Analyst</li><li>Spatial Analyst</li><li>StoryMaps</li><li>Python</li><li>pandas</li><li>scikit-learn</li><li>SQL</li><li>R</li><li>Streamlit</li><li>Figma</li><li>Illustrator</li><li>Photoshop</li><li>Rhino</li><li>Fusion 360</li><li>SolidWorks</li><li>KeyShot</li><li>Blender</li><li>Photography</li><li>Video editing</li><li>HTML and CSS</li><li>Git</li><li>ArcGIS Pro</li><li>Network Analyst</li><li>Spatial Analyst</li><li>StoryMaps</li><li>Python</li><li>pandas</li><li>scikit-learn</li><li>SQL</li><li>R</li><li>Streamlit</li><li>Figma</li><li>Illustrator</li><li>Photoshop</li><li>Rhino</li><li>Fusion 360</li><li>SolidWorks</li><li>KeyShot</li><li>Blender</li><li>Photography</li><li>Video editing</li><li>HTML and CSS</li><li>Git</li></ul></div>
+    </div>
     <footer>
       <span>© 2026 Lochan Pranav Mohanasundar</span>
       <span>Brooklyn, NY · 40.68° N, 73.94° W</span>
-      <span>Written by hand in HTML and CSS</span>
+      <span class="built">Written by hand in HTML, CSS and JavaScript · no framework, no tracking</span>
       <a href="#top" class="totop">Back to top</a>
     </footer>
   </main>
 
   <script src="site.js" defer></script>
+  <script src="graph.js" defer></script>
+  <script src="terminal.js" defer></script>
 </body>
 </html>

@@ -1,0 +1,43 @@
+/* Skills graph: the canvas, its tooltip, and the grouped list shown to touch and reduced-motion visitors. */
+.graph { position: relative; width: 100%; min-height: 360px; }
+.graph canvas { display: block; width: 100%; }
+
+.graph-tip {
+  position: absolute; top: 0; left: 0; z-index: 2;
+  padding: 6px 9px;
+  font: 12px/1.3 var(--mono, 'JetBrains Mono', monospace);
+  color: var(--ink, #ECEAE4);
+  background: var(--surface, #171B20);
+  border: 1px solid var(--rule, #262C33);
+  border-radius: 4px;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .15s;
+}
+.graph-tip.is-on { opacity: 1; }
+
+.graph-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 24px 32px;
+}
+.graph-list h3 {
+  margin: 0 0 10px;
+  font: 500 12px/1.4 var(--mono, 'JetBrains Mono', monospace);
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--muted, #9A9C97);
+}
+.graph-list p { display: flex; flex-wrap: wrap; gap: 6px; margin: 0; }
+.graph-chip {
+  display: inline-block;
+  padding: 3px 8px;
+  font: 12px/1.4 var(--mono, 'JetBrains Mono', monospace);
+  color: var(--prose, #D3D1CB);
+  border: 1px solid var(--rule, #262C33);
+  border-radius: 4px;
+  text-decoration: none;
+}
+.graph-chip.is-project { color: var(--ink, #ECEAE4); border-color: var(--accent, #3FBF7A); }
+a.graph-chip:hover, a.graph-chip:focus-visible { background: var(--accent-soft, #163526); }
