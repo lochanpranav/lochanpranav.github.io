@@ -346,47 +346,56 @@
     }
   });
 
-  /* Boot screen: mono lines with a progress bar, click to skip, once per session; the mode chooser on the very first visit.
-     ?boot in the URL or the footer's "Replay intro" link shows it again. */
+  /* Boot: the contour map draws itself, the name rises and a readout counts up; once per session, click to skip.
+     A first visit then splits the screen into night and day. ?boot or the footer's "Replay intro" link shows it again. */
   var boot = document.getElementById('boot');
   if (boot) {
     var booted = false, hasTheme = false, force = /[?&]boot\b/.test(location.search);
     try { booted = !!sessionStorage.getItem('booted'); hasTheme = !!localStorage.getItem('theme'); } catch (e) { booted = true; }
     if ((!booted || force) && !reduce) {
       boot.classList.add('on'); boot.setAttribute('aria-hidden', 'false');
-      var linesEl = document.getElementById('boot-lines'), choose = document.getElementById('boot-choose'), hint = document.getElementById('boot-hint');
-      var timers = [], done = false;
-      function addLine(text, cls) { var d = document.createElement('div'); d.className = 'ln' + (cls ? ' ' + cls : ''); d.textContent = text; linesEl.appendChild(d); return d; }
-      function progressBar(p) { var n = Math.round(p / 12.5), out = ''; for (var i = 0; i < 8; i++) out += i < n ? '█' : '░'; return '[' + out + '] ' + (p < 10 ? ' ' : '') + p + '%'; }
-      var script = [
-        [0, function () { addLine('> plotting lochanpranav.com'); }],
-        [260, function () { var d = addLine('> loading basemap ' + progressBar(0)); var p = 0; var t = setInterval(function () { p += 12.5; d.textContent = '> loading basemap ' + progressBar(Math.min(100, Math.round(p))); if (p >= 100) clearInterval(t); }, 85); timers.push(t); }],
-        [1150, function () { addLine('> placing 20 projects · 4 disciplines'); }],
-        [1380, function () { addLine('> calibrating to Brooklyn, 40.68° N 73.94° W'); }],
-        [1600, function () { addLine('> fonts, contours, index… ok'); }],
-        [1780, function () { addLine(' '); }],
-        [1860, function () { addLine('> welcome, visitor.', 'ok'); }],
-        [2080, function () { addLine('[note] four easter eggs live in the terminal. try coffee.', 'warn'); }],
-        [2300, function () { addLine('> press ? for shortcuts. click anywhere to skip.', 'ok'); }]
-      ];
-      script.forEach(function (st) { timers.push(setTimeout(st[1], st[0])); });
-      function clearAll() { timers.forEach(function (t) { clearTimeout(t); clearInterval(t); }); }
+      var stage = document.getElementById('boot-stage'), choose = document.getElementById('boot-choose'), hint = document.getElementById('boot-hint'), mapEl = document.getElementById('boot-map'), pctEl = document.getElementById('boot-pct');
+      var timers = [], done = false, asking = false, t0 = null;
+      fetch('assets/contours.svg').then(function (r) { return r.text(); }).then(function (svg) {
+        if (done || asking) return;
+        mapEl.innerHTML = svg;
+        var sv = mapEl.querySelector('svg');
+        if (!sv) return;
+        sv.setAttribute('preserveAspectRatio', 'xMidYMid slice'); sv.removeAttribute('width'); sv.removeAttribute('height');
+        $$('path, polyline, polygon', sv).forEach(function (pth, i) {
+          try { var L = pth.getTotalLength(); pth.style.strokeDasharray = L; pth.style.strokeDashoffset = L; pth.style.setProperty('--i', i); pth.classList.add('draw'); } catch (e) {}
+        });
+      }).catch(function () {});
+      function tickPct(now) {
+        if (done || asking) return;
+        if (t0 === null) t0 = now;
+        var p = Math.min(1, (now - t0) / 1700);
+        pctEl.textContent = Math.round(p * 100) + '%';
+        if (p < 1) raf(tickPct);
+      }
+      raf(tickPct);
+      function clearAll() { timers.forEach(clearTimeout); }
       function finish() {
         if (done) return; done = true;
         clearAll();
         try { sessionStorage.setItem('booted', '1'); } catch (e) {}
         boot.classList.add('leaving'); boot.setAttribute('aria-hidden', 'true');
-        setTimeout(function () { boot.classList.remove('on'); sweepAll(); }, 420);
+        setTimeout(function () { boot.classList.remove('on'); sweepAll(); }, 460);
       }
       function askMode() {
-        clearAll(); linesEl.hidden = true; choose.hidden = false; hint.hidden = true;
-        $$('[data-choose]', choose).forEach(function (b) { b.addEventListener('click', function (e) { e.stopPropagation(); setTheme(b.getAttribute('data-choose'), true); finish(); }); });
+        if (asking) return; asking = true; clearAll();
+        stage.hidden = true; hint.hidden = true; choose.hidden = false; choose.classList.add('in');
+        $$('[data-choose]', choose).forEach(function (bt) { bt.addEventListener('click', function (e) { e.stopPropagation(); setTheme(bt.getAttribute('data-choose'), true); finish(); }); });
         $('[data-choose="dark"]', choose).focus();
       }
-      function bootNext() { if (hasTheme && !force) finish(); else if (!hasTheme) askMode(); else finish(); }
-      timers.push(setTimeout(bootNext, 3000));
-      boot.addEventListener('click', function () { if (!choose.hidden) return; bootNext(); });
-      document.addEventListener('keydown', function (e) { if (boot.classList.contains('on') && !done && choose.hidden && (e.key === 'Escape' || e.key === 'Enter' || e.key === ' ')) bootNext(); });
+      function bootNext() { if (!hasTheme) askMode(); else finish(); }
+      timers.push(setTimeout(bootNext, 2100));
+      boot.addEventListener('click', function () { if (asking) return; bootNext(); });
+      document.addEventListener('keydown', function (e) {
+        if (!boot.classList.contains('on') || done) return;
+        if (!asking && (e.key === 'Escape' || e.key === 'Enter' || e.key === ' ')) { bootNext(); return; }
+        if (asking && (e.key === 'ArrowLeft' || e.key === 'ArrowRight')) { e.preventDefault(); $(e.key === 'ArrowLeft' ? '[data-choose="dark"]' : '[data-choose="light"]', choose).focus(); }
+      });
     }
   }
   $$('[data-replay-intro]').forEach(function (a) { a.addEventListener('click', function (e) { e.preventDefault(); try { sessionStorage.removeItem('booted'); } catch (err) {} location.href = location.pathname + '?boot'; }); });

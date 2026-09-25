@@ -56,16 +56,16 @@
   </div>
 
   <div class="boot" id="boot" aria-hidden="true">
-    <div class="boot-lines" id="boot-lines"></div>
-    <div class="boot-choose" id="boot-choose" hidden>
-      <p class="kicker"><i class="dot"></i><span>Preference</span><span class="sep" aria-hidden="true">·</span><span>none saved</span></p>
-      <h2>Choose your mode</h2>
-      <p>You can change it any time from the top bar.</p>
-      <div class="boot-cards">
-        <button type="button" data-choose="dark"><span class="swatch dark" aria-hidden="true"></span>Dark</button>
-        <button type="button" data-choose="light"><span class="swatch light" aria-hidden="true"></span>Light</button>
-      </div>
-      <button type="button" class="boot-skip" data-choose="dark">Skip, keep it dark</button>
+    <div class="boot-stage" id="boot-stage">
+      <div class="boot-map" id="boot-map" aria-hidden="true"></div>
+      <div class="boot-name" aria-hidden="true"><span class="line"><span class="w">Lochan</span> <span class="w">Pranav</span></span></div>
+      <p class="boot-meta"><span>plotting</span><span class="sep" aria-hidden="true">·</span><b id="boot-pct">0%</b><span class="sep" aria-hidden="true">·</span><span>40.68° N, 73.94° W</span></p>
+    </div>
+    <div class="boot-split" id="boot-choose" hidden>
+      <button type="button" class="half night" data-choose="dark"><span class="lbl">Night</span><span class="sub">Dark paper, green light</span></button>
+      <button type="button" class="half day" data-choose="light"><span class="lbl">Day</span><span class="sub">Cream paper, ink</span></button>
+      <p class="boot-q"><span>Pick your light</span></p>
+      <p class="boot-note">You can switch any time from the sun and moon in the top bar</p>
     </div>
     <p class="boot-hint" id="boot-hint">Click anywhere to skip</p>
   </div>
