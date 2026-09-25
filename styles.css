@@ -205,6 +205,21 @@ html.js .figure.lead.reveal { transform: translateY(14px) scale(.985); }
 .todo { background: var(--accent-soft); border-left: 3px solid var(--accent); padding: 10px 14px; font-size: 15px; margin: 0 0 16px; }
 .todo b { display: block; font-family: var(--mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); margin-bottom: 2px; }
 
+/* Campaign films */
+.films { display: grid; grid-template-columns: minmax(0, 16fr) minmax(0, 6fr); gap: 20px 24px; margin: 8px 0 28px; align-items: start; }
+.film { margin: 0; }
+.film .frame-video { position: relative; width: 100%; border-radius: 6px; overflow: hidden; background: var(--surface); box-shadow: 0 1px 2px rgba(0, 0, 0, .35); }
+.film iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; }
+.film.wide iframe { aspect-ratio: 16 / 9; }
+.film figcaption { font-size: 14px; color: var(--muted); margin-top: 8px; }
+.film.wide { position: relative; }
+.film.wide::before { content: ''; display: block; aspect-ratio: 16 / 9; width: 100%; border-radius: 6px; background: var(--surface); }
+.film.tall::before { content: ''; display: block; aspect-ratio: 9 / 16; width: 100%; border-radius: 6px; background: var(--surface); }
+.film { position: relative; }
+.film iframe { position: absolute; top: 0; left: 0; width: 100%; height: auto; aspect-ratio: 16 / 9; border-radius: 6px; }
+.film.tall iframe { aspect-ratio: 9 / 16; }
+@media (max-width: 720px) { .films { grid-template-columns: 1fr; } }
+
 /* Outcome numbers */
 .numbers { width: 100%; border-collapse: collapse; margin: 6px 0 20px; font-size: 15.5px; }
 .numbers td { padding: 10px 0; border-bottom: 1px solid var(--rule); vertical-align: top; }
