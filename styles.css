@@ -444,7 +444,9 @@ body::before { content: ''; position: fixed; inset: -60px 0 0 0; z-index: -1; po
 .termbtn kbd { font: inherit; color: var(--muted); border: 1px solid var(--rule); border-radius: 4px; padding: 0 5px; }
 @media (max-width: 900px) { .termbtn kbd { display: none; } }
 @media (max-width: 760px) { .nav .tools { margin-left: auto; margin-right: 10px; } .termbtn { display: none; } }
-.term-fab { position: fixed; right: 20px; bottom: 20px; z-index: 35; display: none; }
+.term-fab { position: fixed; right: 16px; bottom: 16px; z-index: 35; display: none; width: 46px; height: 46px; padding: 0; justify-content: center; background: var(--surface); box-shadow: 0 10px 30px -10px rgba(0, 0, 0, .8); }
+.term-fab span:not(.caret) { display: none; }
+.term-fab .caret { font-size: 13px; }
 @media (max-width: 760px) { .term-fab { display: inline-flex; } }
 
 /* Boot screen: once per session, click to skip, then the mode chooser on the first visit */
@@ -559,7 +561,7 @@ html.js .divider.in polyline { transition: stroke-dashoffset 1.6s var(--ease-out
 @media (max-width: 1000px) { .feat-rail { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 @media (max-width: 560px) { .feat-rail { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; } }
 .feat-thumb { text-align: left; background: transparent; border: 0; padding: 0; cursor: pointer; color: inherit; display: block; }
-.feat-thumb .plate { aspect-ratio: 16 / 10; border-radius: 6px; }
+.feat-thumb .plate { display: block; aspect-ratio: 16 / 10; border-radius: 6px; }
 .feat-thumb .plate img { transition: transform .7s var(--ease), filter .4s ease; filter: saturate(.7) brightness(.85); }
 .feat-thumb.on .plate img, .feat-thumb:hover .plate img { filter: none; }
 .feat-thumb .plate::after { box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .08); transition: box-shadow .3s ease; }
