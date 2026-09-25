@@ -304,7 +304,6 @@
     root.classList.add('theme-fade');
     if (mode === 'light') root.setAttribute('data-theme', 'light'); else root.removeAttribute('data-theme');
     $$('[data-theme-toggle]').forEach(function (b) { b.setAttribute('aria-label', mode === 'light' ? 'Switch to dark mode' : 'Switch to light mode'); });
-    if (window.SkillsGraph && window.SkillsGraph.init) { try { window.SkillsGraph.init(); } catch (e) {} }
     if (!silent) toast(mode === 'light' ? 'Light mode' : 'Dark mode');
     setTimeout(function () { root.classList.remove('theme-fade'); }, 400);
   }
@@ -643,5 +642,53 @@
       setTimeout(function () { location.href = url.href; }, 220);
     });
     window.addEventListener('pageshow', function () { root.classList.remove('leaving'); });
+  }
+
+  /* Skills map: hover or tap a tool (or a discipline heading) to light up the projects it was used on; click to pin */
+  var smap = document.querySelector('.skills-map');
+  if (smap) {
+    var hintEl = document.getElementById('skill-hint'), hintDefault = hintEl ? hintEl.textContent : '';
+    var minis = $$('.mini', smap), skills = $$('.skill', smap), heads = $$('.skill-head', smap), pinned = null;
+    function discName(key) { var h = smap.querySelector('[data-disc-head="' + key + '"]'); return h ? h.textContent : key; }
+    function light(kind, value) {
+      var lit = 0, names = [];
+      minis.forEach(function (m) {
+        var on = kind === 'tool' ? ('|' + m.getAttribute('data-tools') + '|').indexOf('|' + value + '|') !== -1 : m.getAttribute('data-disc') === value;
+        m.classList.toggle('lit', on);
+        if (on) { lit++; names.push(m.getAttribute('title')); }
+      });
+      smap.classList.add('active');
+      skills.forEach(function (b) { b.classList.toggle('on', kind === 'tool' ? b.getAttribute('data-tool') === value : b.getAttribute('data-disc') === value); });
+      heads.forEach(function (h) { h.classList.toggle('on', kind === 'disc' && h.getAttribute('data-disc-head') === value); });
+      if (hintEl) {
+        var label = kind === 'tool' ? value : discName(value);
+        hintEl.innerHTML = '<b>' + label + '</b> · ' + (lit ? (lit === 1 ? 'one project: ' : lit + ' projects: ') + names.join(', ') : 'part of the toolkit; no page here names it') + (pinned ? ' · click again to release' : '');
+      }
+    }
+    function clear() {
+      smap.classList.remove('active');
+      minis.forEach(function (m) { m.classList.remove('lit'); });
+      skills.forEach(function (b) { b.classList.remove('on'); });
+      heads.forEach(function (h) { h.classList.remove('on'); });
+      if (hintEl) hintEl.textContent = hintDefault;
+    }
+    function keyOf(el) { return el.hasAttribute('data-tool') ? ['tool', el.getAttribute('data-tool')] : ['disc', el.getAttribute('data-disc-head')]; }
+    function bind(el) {
+      el.addEventListener('mouseenter', function () { if (!pinned) { var k = keyOf(el); light(k[0], k[1]); } });
+      el.addEventListener('focus', function () { if (!pinned) { var k = keyOf(el); light(k[0], k[1]); } });
+      el.addEventListener('mouseleave', function () { if (!pinned) clear(); });
+      el.addEventListener('blur', function () { if (!pinned) clear(); });
+      el.addEventListener('click', function () {
+        var k = keyOf(el);
+        if (pinned && pinned[0] === k[0] && pinned[1] === k[1]) { pinned = null; clear(); return; }
+        pinned = k; light(k[0], k[1]);
+      });
+    }
+    skills.forEach(bind); heads.forEach(bind);
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && pinned) { pinned = null; clear(); } });
+    minis.forEach(function (m) {
+      m.addEventListener('mouseenter', function () { if (!pinned && hintEl) hintEl.innerHTML = '<b>' + m.getAttribute('title') + '</b>' + (m.getAttribute('data-tools') ? ' · ' + m.getAttribute('data-tools').split('|').join(', ') : ' · ' + discName(m.getAttribute('data-disc'))); });
+      m.addEventListener('mouseleave', function () { if (!pinned && hintEl) hintEl.textContent = hintDefault; });
+    });
   }
 })();

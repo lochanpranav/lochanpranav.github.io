@@ -664,10 +664,43 @@ html.js .divider.in polyline { transition: stroke-dashoffset 1.6s var(--ease-out
 .edu-lines { margin-top: 22px; display: grid; gap: 8px; font-family: var(--mono); font-size: 12px; letter-spacing: .03em; color: var(--muted); }
 .edu-lines b { color: var(--ink); font-weight: 500; }
 
-/* Skills graph section */
-.skills-wrap { border: 1px solid var(--rule); border-radius: 8px; overflow: hidden; background: color-mix(in srgb, var(--surface) 45%, transparent); }
-.skills-wrap .graph { min-height: 420px; }
-.skills-note { font-family: var(--mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin: 12px 0 0; }
+/* Skills: grouped tools on the left, the projects they were used on to the right; hover a tool and the matches light up */
+.skills-map { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(320px, .85fr); gap: 32px 56px; align-items: start; }
+@media (max-width: 900px) { .skills-map { grid-template-columns: 1fr; } }
+.skill-groups { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px 28px; }
+@media (max-width: 560px) { .skill-groups { grid-template-columns: 1fr; } }
+.skill-group { border-top: 1px solid var(--rule); padding-top: 14px; }
+.skill-head { display: inline-flex; align-items: center; gap: 9px; background: transparent; border: 0; padding: 0; margin: 0 0 10px; font-family: var(--mono); font-size: 11.5px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink); cursor: pointer; }
+.skill-head:hover, .skill-head.on { color: var(--accent); }
+.skill-head:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 3px; }
+.skill-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.skill { display: inline-flex; align-items: center; gap: 6px; font-family: var(--mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--ink); background: transparent; border: 1px solid var(--rule); border-radius: 4px; padding: 6px 9px; cursor: pointer; transition: border-color .2s ease, color .2s ease, background-color .2s ease, opacity .25s ease; }
+.skill i { font-style: normal; font-size: 10px; color: var(--muted); }
+.skill:hover, .skill.on { border-color: var(--accent); color: var(--accent); }
+.skill.on { background: var(--accent-soft); }
+.skill:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.skills-map.active .skill:not(.on):not(:hover) { opacity: .55; }
+.skill-hint { font-family: var(--mono); font-size: 11.5px; letter-spacing: .04em; color: var(--muted); margin: 0 0 14px; min-height: 2.6em; line-height: 1.5; }
+.skill-hint b { color: var(--ink); font-weight: 500; }
+.minis { display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: 8px; }
+.mini { position: relative; display: block; aspect-ratio: 16 / 10; border-radius: 5px; overflow: hidden; background: var(--surface); box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .07); transition: opacity .3s ease, transform .35s var(--ease), box-shadow .3s ease, filter .3s ease; }
+.mini img { width: 100%; height: 100%; object-fit: cover; display: block; filter: saturate(.6); transition: filter .3s ease; }
+.mini.text { display: grid; place-items: center; text-align: center; font-family: var(--mono); font-size: 9.5px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); line-height: 1.4; padding: 6px; }
+.mini:hover img { filter: none; }
+.skills-map.active .mini.lit { box-shadow: inset 0 0 0 1.5px var(--accent), 0 10px 24px -12px rgba(0, 0, 0, .8); transform: translateY(-2px); }
+.skills-map.active .mini.lit img { filter: none; }
+.skills-map.active .mini.lit.text { color: var(--accent); }
+.skills-map.active .mini:not(.lit) { opacity: .22; filter: grayscale(1); }
+.mini:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+[data-theme="light"] .mini { box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .08); }
+
+/* About side column */
+.about-side { display: grid; gap: 6px; align-content: start; border-left: 1px solid var(--rule); padding-left: 28px; }
+@media (max-width: 760px) { .about-side { border-left: 0; padding-left: 0; border-top: 1px solid var(--rule); padding-top: 20px; } }
+.about-side .lines { margin: 0; }
+.about-facts { margin: 22px 0 0; display: grid; gap: 14px; }
+.about-facts dt { font-family: var(--mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+.about-facts dd { margin: 0; font-size: 15px; color: var(--ink); }
 
 /* Recent log */
 .log { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--rule); }

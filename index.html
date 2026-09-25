@@ -17,7 +17,6 @@
 <link rel="preload" href="assets/contours.svg" as="image">
   <link rel="stylesheet" href="styles.css">
   <script>document.documentElement.classList.add("js");try{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);if(sessionStorage.getItem("seen"))document.documentElement.classList.add("seen");sessionStorage.setItem("seen","1");}catch(e){}</script>
-  <link rel="stylesheet" href="graph.css">
   <link rel="stylesheet" href="terminal.css">
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Lochan Pranav Mohanasundar","alternateName":"Lochan Pranav","url":"https://lochanpranav.com","jobTitle":"Spatial data scientist and product designer","email":"mailto:lm5677@nyu.edu","address":{"@type":"PostalAddress","addressLocality":"Brooklyn","addressRegion":"NY","addressCountry":"US"},"alumniOf":[{"@type":"CollegeOrUniversity","name":"New York University, Tandon School of Engineering"},{"@type":"CollegeOrUniversity","name":"MIT World Peace University"}],"sameAs":["https://www.linkedin.com/in/lochanpranav","https://github.com/lochanpranav","https://www.behance.net/lochanpranav","http://dribbble.com/LochanPranav"]}</script>
 </head>
@@ -448,13 +447,47 @@
     <section id="skills" class="sec">
       <div class="sec-head reveal">
         <div>
-          <p class="kicker"><i class="dot"></i><span>Skills</span><span class="sep" aria-hidden="true">·</span><span>Interactive graph</span></p>
+          <p class="kicker"><i class="dot"></i><span>Skills</span><span class="sep" aria-hidden="true">·</span><span>27 tools · 21 projects</span></p>
           <h2>Tools, and where each one was used</h2>
         </div>
-        <p class="aside">Hover a node to see its connections. Click a project to open it.</p>
+        <p class="aside">Hover or tap a tool to see the projects it was used on</p>
       </div>
-      <div class="skills-wrap reveal"><div class="graph" id="skills-graph" data-graph></div></div>
-      <p class="skills-note">Disciplines are the large nodes, tools the rings, projects the small dots. Links are only drawn where a tool was used on that project.</p>
+      <div class="skills-map reveal">
+        <div class="skill-groups">
+        <div class="skill-group"><button type="button" class="skill-head" data-disc-head="gis"><i class="dot gis"></i>GIS</button><div class="skill-chips"><button type="button" class="skill" data-tool="ArcGIS Pro" data-disc="gis">ArcGIS Pro<i>3</i></button><button type="button" class="skill" data-tool="ArcGIS Online" data-disc="gis">ArcGIS Online<i>1</i></button><button type="button" class="skill" data-tool="StoryMaps" data-disc="gis">StoryMaps<i>3</i></button><button type="button" class="skill" data-tool="Network Analyst" data-disc="gis">Network Analyst<i>2</i></button><button type="button" class="skill" data-tool="Spatial Analyst" data-disc="gis">Spatial Analyst<i>1</i></button><button type="button" class="skill" data-tool="Cartography" data-disc="gis">Cartography<i>3</i></button></div></div>
+        <div class="skill-group"><button type="button" class="skill-head" data-disc-head="ml"><i class="dot "></i>Machine learning</button><div class="skill-chips"><button type="button" class="skill" data-tool="Python" data-disc="ml">Python<i>2</i></button><button type="button" class="skill" data-tool="pandas" data-disc="ml">pandas<i>1</i></button><button type="button" class="skill" data-tool="scikit-learn" data-disc="ml">scikit-learn<i>1</i></button><button type="button" class="skill" data-tool="SQL" data-disc="ml">SQL</button><button type="button" class="skill" data-tool="R" data-disc="ml">R</button></div></div>
+        <div class="skill-group"><button type="button" class="skill-head" data-disc-head="ux"><i class="dot ui"></i>Product and UX</button><div class="skill-chips"><button type="button" class="skill" data-tool="Figma" data-disc="ux">Figma<i>8</i></button><button type="button" class="skill" data-tool="Usability testing" data-disc="ux">Usability testing<i>1</i></button><button type="button" class="skill" data-tool="Design systems" data-disc="ux">Design systems<i>1</i></button><button type="button" class="skill" data-tool="UX research" data-disc="ux">UX research<i>4</i></button></div></div>
+        <div class="skill-group"><button type="button" class="skill-head" data-disc-head="brand"><i class="dot brand"></i>Brand and campaign</button><div class="skill-chips"><button type="button" class="skill" data-tool="Illustrator" data-disc="brand">Illustrator<i>6</i></button><button type="button" class="skill" data-tool="Photoshop" data-disc="brand">Photoshop<i>5</i></button><button type="button" class="skill" data-tool="Photography" data-disc="brand">Photography<i>3</i></button><button type="button" class="skill" data-tool="Video editing" data-disc="brand">Video editing<i>3</i></button></div></div>
+        <div class="skill-group"><button type="button" class="skill-head" data-disc-head="industrial"><i class="dot product"></i>Industrial design</button><div class="skill-chips"><button type="button" class="skill" data-tool="Rhino" data-disc="industrial">Rhino</button><button type="button" class="skill" data-tool="Fusion 360" data-disc="industrial">Fusion 360</button><button type="button" class="skill" data-tool="SolidWorks" data-disc="industrial">SolidWorks</button><button type="button" class="skill" data-tool="KeyShot" data-disc="industrial">KeyShot</button><button type="button" class="skill" data-tool="Blender" data-disc="industrial">Blender</button></div></div>
+        <div class="skill-group"><button type="button" class="skill-head" data-disc-head="build"><i class="dot "></i>Building</button><div class="skill-chips"><button type="button" class="skill" data-tool="Streamlit" data-disc="build">Streamlit<i>1</i></button><button type="button" class="skill" data-tool="REST APIs" data-disc="build">REST APIs<i>1</i></button><button type="button" class="skill" data-tool="HTML and CSS" data-disc="build">HTML and CSS</button><button type="button" class="skill" data-tool="Git" data-disc="build">Git</button></div></div>
+        </div>
+        <div class="skill-projects">
+          <p class="skill-hint" id="skill-hint" aria-live="polite">The 20 projects on this site, plus one model without a page. Numbers on the tools count where each was used.</p>
+          <div class="minis" id="minis">
+        <a class="mini" href="work/tulsa-event-monitor.html" data-disc="gis" data-tools="Figma|Python|Streamlit|REST APIs|UX research" title="Tulsa Event Monitor"><img src="assets/thumbs/tulsa-event-monitor.jpg" width="800" height="500" alt="" loading="lazy" decoding="async"><span class="sr-only">Tulsa Event Monitor</span></a>
+        <a class="mini" href="work/bus-electrification.html" data-disc="gis" data-tools="ArcGIS Pro|Spatial Analyst|Network Analyst|StoryMaps|Cartography" title="MTA bus electrification"><img src="assets/thumbs/bus-electrification.jpg" width="800" height="500" alt="" loading="lazy" decoding="async"><span class="sr-only">MTA bus electrification</span></a>
+        <a class="mini" href="work/hospital-accessibility.html" data-disc="gis" data-tools="ArcGIS Pro|Network Analyst|StoryMaps|Cartography" title="Hospital accessibility, Miami-Dade"><img src="assets/thumbs/hospital-accessibility.jpg" width="800" height="500" alt="" loading="lazy" decoding="async"><span class="sr-only">Hospital accessibility, Miami-Dade</span></a>
+        <a class="mini" href="work/economics-of-proximity.html" data-disc="gis" data-tools="ArcGIS Pro|ArcGIS Online|StoryMaps|Cartography" title="The economics of proximity"><img src="assets/thumbs/economics-of-proximity.jpg" width="800" height="500" alt="" loading="lazy" decoding="async"><span class="sr-only">The economics of proximity</span></a>
+        <span class="mini text" data-disc="ml" data-tools="Python|pandas|scikit-learn" title="Predicting NYC housing and transport burden"><span>NYC housing burden<br>model</span></span>
+        <a class="mini" href="work/sarathi.html" data-disc="ux" data-tools="Figma|Illustrator|UX research" title="Sarathi license portal"><img src="assets/thumbs/sarathi.jpg" width="800" height="500" alt="" loading="lazy" decoding="async"><span class="sr-only">Sarathi license portal</span></a>
+        <a class="mini" href="work/savor.html" data-disc="ux" data-tools="Figma|Illustrator|Photoshop|UX research" title="SAVOR"><img src="assets/thumbs/savor.jpg" width="800" height="500" alt="" loading="lazy" decoding="async"><span class="sr-only">SAVOR</span></a>
+        <a class="mini" href="work/suii.html" data-disc="ux" data-tools="Figma|UX research" title="SUII suitcase rental"><img src="assets/thumbs/suii.jpg" width="800" height="500" alt="" loading="lazy" decoding="async"><span class="sr-only">SUII suitcase rental</span></a>
+        <a class="mini" href="work/mighty.html" data-disc="ux" data-tools="Figma" title="Mighty"><img src="assets/thumbs/mighty.jpg" width="800" height="500" alt="" loading="lazy" decoding="async"><span class="sr-only">Mighty</span></a>
+        <a class="mini" href="work/saginaw.html" data-disc="ux" data-tools="Figma" title="Saginaw Tattoo"><img src="assets/thumbs/saginaw.jpg" width="800" height="500" alt="" loading="lazy" decoding="async"><span class="sr-only">Saginaw Tattoo</span></a>
+        <a class="mini" href="work/spar-website.html" data-disc="ux" data-tools="Figma|Illustrator|Photoshop" title="Spar Agrotech"><img src="assets/thumbs/spar-website.jpg" width="800" height="500" alt="" loading="lazy" decoding="async"><span class="sr-only">Spar Agrotech</span></a>
+        <a class="mini" href="work/address-masters-dashboard.html" data-disc="brand" data-tools="Figma|Photoshop|Illustrator|Photography|Video editing|Design systems|Usability testing" title="Address Masters"><img src="assets/thumbs/address-masters-dashboard.jpg" width="800" height="500" alt="" loading="lazy" decoding="async"><span class="sr-only">Address Masters</span></a>
+        <a class="mini" href="work/snn-felicity.html" data-disc="brand" data-tools="Photoshop|Illustrator|Photography|Video editing" title="SNN Estates Felicity"><img src="assets/thumbs/snn-felicity.jpg" width="800" height="500" alt="" loading="lazy" decoding="async"><span class="sr-only">SNN Estates Felicity</span></a>
+        <a class="mini" href="work/visista-okas.html" data-disc="brand" data-tools="Photoshop|Illustrator|Photography|Video editing" title="Visista OKAS"><img src="assets/thumbs/visista-okas.jpg" width="800" height="500" alt="" loading="lazy" decoding="async"><span class="sr-only">Visista OKAS</span></a>
+        <a class="mini" href="work/coffee-maker.html" data-disc="industrial" data-tools="" title="Filter coffee maker"><img src="assets/thumbs/coffee-maker.jpg" width="800" height="500" alt="" loading="lazy" decoding="async"><span class="sr-only">Filter coffee maker</span></a>
+        <a class="mini" href="work/saffron-oil-bottle.html" data-disc="industrial" data-tools="" title="Saffron oil bottle"><img src="assets/thumbs/saffron-oil-bottle.jpg" width="800" height="500" alt="" loading="lazy" decoding="async"><span class="sr-only">Saffron oil bottle</span></a>
+        <a class="mini" href="work/earpods-packaging.html" data-disc="industrial" data-tools="" title="Earpods packaging"><img src="assets/thumbs/earpods-packaging.jpg" width="800" height="500" alt="" loading="lazy" decoding="async"><span class="sr-only">Earpods packaging</span></a>
+        <a class="mini" href="work/tesla-perfume.html" data-disc="industrial" data-tools="" title="Tesla perfume bottle"><img src="assets/thumbs/tesla-perfume.jpg" width="800" height="500" alt="" loading="lazy" decoding="async"><span class="sr-only">Tesla perfume bottle</span></a>
+        <a class="mini" href="work/home-decor-store.html" data-disc="industrial" data-tools="" title="Home decor store"><img src="assets/thumbs/home-decor-store.jpg" width="800" height="500" alt="" loading="lazy" decoding="async"><span class="sr-only">Home decor store</span></a>
+        <a class="mini" href="work/sustainable-shoes.html" data-disc="industrial" data-tools="" title="Sustainable shoes"><img src="assets/thumbs/sustainable-shoes.jpg" width="800" height="500" alt="" loading="lazy" decoding="async"><span class="sr-only">Sustainable shoes</span></a>
+        <a class="mini" href="work/tree-bookshelf.html" data-disc="industrial" data-tools="" title="Tree bookshelf"><img src="assets/thumbs/tree-bookshelf.jpg" width="800" height="500" alt="" loading="lazy" decoding="async"><span class="sr-only">Tree bookshelf</span></a>
+          </div>
+        </div>
+      </div>
     </section>
 
     <div class="divider" aria-hidden="true"></div>
@@ -488,6 +521,8 @@
         <p class="reveal">I studied product design at MIT World Peace University in Pune and spent 2024 as the designer at Address Masters, an early-stage startup in Bangalore, working across the product and its marketing.</p>
         <p class="reveal">In 2025 I moved to Brooklyn for the M.S. in Urban Data Science at NYU Tandon. Through NYU's Center for Urban Science and Progress I spent a semester with the City of Tulsa Auditor's Office, where my teammate and I built a mapping tool the office now owns.</p>
         <p class="reveal">The through line is data that people have to act on. Designers usually hand that problem to someone else. I would rather understand the data well enough to design the right thing, and increasingly, to build it.</p>
+      </div>
+      <div class="about-side">
         <ul class="lines reveal">
           <li>Spatial analysis and machine learning on city data</li>
           <li>Interfaces, maps and visual systems that make the findings usable</li>
@@ -495,13 +530,10 @@
           <li>Films and campaign systems when the work needs them</li>
         </ul>
         <p class="handle reveal">Also on Dribbble <a href="http://dribbble.com/LochanPranav" target="_blank" rel="noopener">@LochanPranav</a> and Behance <a href="https://www.behance.net/lochanpranav" target="_blank" rel="noopener">@lochanpranav</a></p>
-      </div>
-      <div class="skills reveal">
-        <dl>
-          <div><dt>Product and UX</dt><dd>Figma, prototyping, usability testing, design systems, UX research, information architecture</dd></div>
-          <div><dt>Industrial design</dt><dd>Rhino, Fusion 360, SolidWorks, Keyshot, Blender, hand sketching, model making</dd></div>
-          <div><dt>Data and GIS</dt><dd>ArcGIS Pro, Network Analyst, location allocation, hot spot analysis, cartography, Python with pandas and scikit-learn, SQL, R</dd></div>
-          <div><dt>Building</dt><dd>Streamlit, REST APIs (Google Places, Eventbrite), HTML and CSS. Currently learning LLM tool use and MCP.</dd></div>
+        <dl class="about-facts reveal">
+          <div><dt>Now</dt><dd>M.S. Urban Data Science, NYU Tandon, expected May 2027</dd></div>
+          <div><dt>Certifications</dt><dd>Google UX Design (2024) · Esri ArcGIS Pro: Fundamentals of GIS</dd></div>
+          <div><dt>Languages</dt><dd>English, Hindi, Tamil, Japanese</dd></div>
         </dl>
       </div>
     </section>
@@ -554,7 +586,6 @@
   </main>
 
   <script src="site.js" defer></script>
-  <script src="graph.js" defer></script>
   <script src="terminal.js" defer></script>
 </body>
 </html>
