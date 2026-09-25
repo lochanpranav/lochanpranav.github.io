@@ -7,8 +7,11 @@
   <meta name="description" content="The economics of proximity: HUD Location Affordability Index data mapped at census-tract level across the five boroughs against the subway network, to show where high rent buys back commuting time.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Hanken+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Hanken+Grotesk:wght@400..600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 rx=%2714%27 fill=%27%230B6E3F%27/%3E%3Ccircle cx=%2732%27 cy=%2728%27 r=%279%27 fill=%27%23fff%27/%3E%3Cpath d=%27M32 40v12%27 stroke=%27%23fff%27 stroke-width=%276%27 stroke-linecap=%27round%27/%3E%3C/svg%3E">
+  <meta property="og:title" content="Why do New Yorkers value time over money?">
+  <meta property="og:image" content="https://lochanpranav.com/assets/maps/subway-zoning.jpg">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="stylesheet" href="../styles.css">
   <script>document.documentElement.classList.add("js");</script>
 </head>
@@ -18,14 +21,28 @@
   <nav class="nav wrap" aria-label="Site">
     <a class="brand" href="../index.html">Lochan Pranav</a>
     <ul>
-      <li><a href="../index.html#gis" aria-current="page">GIS</a></li>
+      <li><a href="../index.html#gis" aria-current="true">GIS</a></li>
       <li><a href="../index.html#uiux">UI/UX</a></li>
       <li><a href="../index.html#campaigns">Brand</a></li>
       <li><a href="../index.html#industrial">Products</a></li>
       <li><a href="../index.html#about">About</a></li>
       <li><a href="../index.html#contact">Contact</a></li>
     </ul>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu">Menu</button>
   </nav>
+  </div>
+  <div class="menu" id="menu" role="dialog" aria-modal="true" aria-label="Site menu" aria-hidden="true">
+    <button class="menu-btn menu-close" type="button">Close</button>
+    <ul>
+      <li><a href="../index.html#index">Work</a></li>
+      <li><a href="../index.html#gis"><span class="mono">01</span>GIS</a></li>
+      <li><a href="../index.html#uiux"><span class="mono">02</span>UI/UX</a></li>
+      <li><a href="../index.html#campaigns"><span class="mono">03</span>Brand</a></li>
+      <li><a href="../index.html#industrial"><span class="mono">04</span>Products</a></li>
+      <li><a href="../index.html#about">About</a></li>
+      <li><a href="../index.html#contact">Contact</a></li>
+    </ul>
+    <div class="menu-foot"><span>Brooklyn, NY · 40.68° N, 73.94° W</span><span>lm5677@nyu.edu</span></div>
   </div>
 
   <header class="case-head wrap" data-stagger>
@@ -42,7 +59,7 @@
 
   <main class="wrap" id="main">
     <figure class="figure lead reveal">
-      <div class="frame"><img src="../assets/maps/subway-zoning.jpg" alt="Web map of New York City subway lines and stops over zoning districts colored by type"></div>
+      <div class="frame"><img width="1200" height="634" fetchpriority="high" src="../assets/maps/subway-zoning.jpg" alt="Web map of New York City subway lines and stops over zoning districts colored by type"></div>
       <figcaption>Subway lines and stops over zoning districts. Data: GTFS and NYC GIS zoning.</figcaption>
     </figure>
 
@@ -65,7 +82,7 @@
       <p>The housing cost map shows a purple core in Manhattan and along the subway spines of Brooklyn and Queens, where residents pay a premium to live inside the half-mile station buffers. The highest tier of annual housing cost is, in effect, a pre-payment for proximity.</p>
     </div>
     <figure class="figure reveal">
-        <div class="frame"><img src="../assets/maps/proximity-housing.jpg" alt="Choropleth map of New York City census tracts by annual housing cost within half a mile of a subway station, with subway lines overlaid" loading="lazy"></div>
+        <div class="frame"><img width="1600" height="1130" src="../assets/maps/proximity-housing.jpg" alt="Choropleth map of New York City census tracts by annual housing cost within half a mile of a subway station, with subway lines overlaid" loading="lazy"></div>
         <figcaption>Annual housing cost within the half-mile subway buffer.</figcaption>
       </figure>
     <div class="prose">
@@ -73,7 +90,7 @@
       <p>The transportation cost map is a heat map of the outer boroughs: costs spike where there is no rapid transit. As rent drops toward the edges, car dependency and its costs rise to fill the gap, and the savings vanish into insurance and fuel.</p>
     </div>
     <figure class="figure reveal">
-        <div class="frame"><img src="../assets/maps/proximity-transport.jpg" alt="Choropleth map of New York City census tracts by modelled annual transportation cost in dollars" loading="lazy"></div>
+        <div class="frame"><img width="1600" height="1130" src="../assets/maps/proximity-transport.jpg" alt="Choropleth map of New York City census tracts by modelled annual transportation cost in dollars" loading="lazy"></div>
         <figcaption>Modelled annual transportation cost in dollars.</figcaption>
       </figure>
     <div class="prose">
@@ -81,11 +98,11 @@
       <p>Transit use is pinned to the subway network and its 10 minute walk buffers. The scatter plot of transit share against the distance from each tract's centroid to the nearest station shows a clear downward trend as the distance grows. New Yorkers walk about half a mile for a train, and not much further.</p>
     </div>
     <figure class="figure reveal">
-        <div class="frame"><img src="../assets/maps/proximity-transit.jpg" alt="Choropleth map of New York City census tracts by the percentage of workers who use transit to get to work" loading="lazy"></div>
+        <div class="frame"><img width="1600" height="1130" src="../assets/maps/proximity-transit.jpg" alt="Choropleth map of New York City census tracts by the percentage of workers who use transit to get to work" loading="lazy"></div>
         <figcaption>Share of workers who commute by transit, by tract.</figcaption>
       </figure>
     <figure class="figure reveal narrow">
-        <div class="frame"><img src="../assets/maps/proximity-scatter.jpg" alt="Scatter plot of percent transit use against distance to the nearest subway station, with a downward trend line" loading="lazy"></div>
+        <div class="frame"><img width="1020" height="390" src="../assets/maps/proximity-scatter.jpg" alt="Scatter plot of percent transit use against distance to the nearest subway station, with a downward trend line" loading="lazy"></div>
         <figcaption>Transit share against distance to the nearest station, one point per tract. The trend is downward; R² is 0.11.</figcaption>
       </figure>
     <div class="prose">
@@ -93,7 +110,7 @@
       <p>The combined H+T map shows lighter affordability ribbons following the subway lines into the outer boroughs. There, near-zero transportation cost offsets high rent and keeps households within a more sustainable total. Those are the time-rich tracts, where the subway subsidises the rent.</p>
     </div>
     <figure class="figure reveal">
-        <div class="frame"><img src="../assets/maps/proximity-ht.jpg" alt="Choropleth map of New York City census tracts by combined housing and transportation cost as a percentage of income" loading="lazy"></div>
+        <div class="frame"><img width="1600" height="1130" src="../assets/maps/proximity-ht.jpg" alt="Choropleth map of New York City census tracts by combined housing and transportation cost as a percentage of income" loading="lazy"></div>
         <figcaption>Combined housing and transportation cost as a share of income.</figcaption>
       </figure>
     <div class="prose">
@@ -109,13 +126,11 @@
       <span><a href="https://storymaps.arcgis.com/stories/739dad0b2501412a8d2ed50def3e9f26">Open the StoryMap</a></span>
     </div>
 
-    <div class="next reveal">
-      <a class="back" href="../index.html#gis">All GIS work</a>
-      <a class="next-card" href="sarathi.html">
-        <div class="cover"><img src="../assets/sarathi/hero.png" alt=""></div>
-        <span><span class="eyebrow">Next project</span><span class="title">Redesigning India's learner's licence portal</span></span>
-      </a>
-    </div>
+    <a class="next-banner reveal" href="sarathi.html">
+      <img width="1113" height="694" src="../assets/sarathi/hero.png" alt="" loading="lazy">
+      <div class="nb-text"><span class="eyebrow">Next project</span><span class="title"><span class="title-text">Redesigning India's learner's licence portal</span> <svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+    </a>
+    <div class="next-links"><a href="../index.html#gis">All GIS work</a><a href="#top">Back to top</a></div>
   </main>
   <script src="../site.js" defer></script>
 </body>

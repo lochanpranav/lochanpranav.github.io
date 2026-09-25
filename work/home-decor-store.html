@@ -7,8 +7,11 @@
   <meta name="description" content="Retail design case study: a small home decor store of minimal elegance that shows its whole range from a sofa, from mood and material boards to the layout and renders.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Hanken+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Hanken+Grotesk:wght@400..600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 rx=%2714%27 fill=%27%230B6E3F%27/%3E%3Ccircle cx=%2732%27 cy=%2728%27 r=%279%27 fill=%27%23fff%27/%3E%3Cpath d=%27M32 40v12%27 stroke=%27%23fff%27 stroke-width=%276%27 stroke-linecap=%27round%27/%3E%3C/svg%3E">
+  <meta property="og:title" content="A home decor store in 6 by 9 metres">
+  <meta property="og:image" content="https://lochanpranav.com/assets/industrial/home-decor.jpg">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="stylesheet" href="../styles.css">
   <script>document.documentElement.classList.add("js");</script>
 </head>
@@ -21,11 +24,25 @@
       <li><a href="../index.html#gis">GIS</a></li>
       <li><a href="../index.html#uiux">UI/UX</a></li>
       <li><a href="../index.html#campaigns">Brand</a></li>
-      <li><a href="../index.html#industrial" aria-current="page">Products</a></li>
+      <li><a href="../index.html#industrial" aria-current="true">Products</a></li>
       <li><a href="../index.html#about">About</a></li>
       <li><a href="../index.html#contact">Contact</a></li>
     </ul>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu">Menu</button>
   </nav>
+  </div>
+  <div class="menu" id="menu" role="dialog" aria-modal="true" aria-label="Site menu" aria-hidden="true">
+    <button class="menu-btn menu-close" type="button">Close</button>
+    <ul>
+      <li><a href="../index.html#index">Work</a></li>
+      <li><a href="../index.html#gis"><span class="mono">01</span>GIS</a></li>
+      <li><a href="../index.html#uiux"><span class="mono">02</span>UI/UX</a></li>
+      <li><a href="../index.html#campaigns"><span class="mono">03</span>Brand</a></li>
+      <li><a href="../index.html#industrial"><span class="mono">04</span>Products</a></li>
+      <li><a href="../index.html#about">About</a></li>
+      <li><a href="../index.html#contact">Contact</a></li>
+    </ul>
+    <div class="menu-foot"><span>Brooklyn, NY · 40.68° N, 73.94° W</span><span>lm5677@nyu.edu</span></div>
   </div>
 
   <header class="case-head wrap" data-stagger>
@@ -43,7 +60,7 @@
 
   <main class="wrap" id="main">
     <figure class="figure lead reveal">
-      <div class="frame"><img src="../assets/industrial/home-decor.jpg" alt="Render of a small home decor store interior with green walls, a brass divider, a rattan sofa, wooden shelving and an inverted dining set on the ceiling"></div>
+      <div class="frame"><img width="424" height="321" fetchpriority="high" src="../assets/industrial/home-decor.jpg" alt="Render of a small home decor store interior with green walls, a brass divider, a rattan sofa, wooden shelving and an inverted dining set on the ceiling"></div>
       <figcaption>The final concept: the divider, the sofa, the racks and the inverted dining set overhead.</figcaption>
     </figure>
 
@@ -64,7 +81,7 @@
       </ul>
     </div>
     <figure class="figure reveal">
-        <div class="frame"><img src="../assets/industrial/decor-layout.jpg" alt="Floor plan of the store with a statue, two racks, a billing desk, a divider, a table, a sofa and a plant, and the entrance on the right" loading="lazy"></div>
+        <div class="frame"><img width="1115" height="600" src="../assets/industrial/decor-layout.jpg" alt="Floor plan of the store with a statue, two racks, a billing desk, a divider, a table, a sofa and a plant, and the entrance on the right" loading="lazy"></div>
         <figcaption>The plan: statue, racks, billing desk, divider, table, sofa and plant around the entrance.</figcaption>
       </figure>
     <div class="prose">
@@ -72,7 +89,7 @@
       <p>With the constraints of a small store, an inverted dining set on the roof draws people in. Customers who want to buy can bill at the desk or order online with the help of staff. The racks showcase samples of what the store carries, so people have a real-life example, and the couch and the computer on the table are the online catalogue.</p>
     </div>
     <figure class="figure reveal">
-        <div class="frame"><img src="../assets/industrial/decor-renders.jpg" alt="Renders of the store interior with green walls, wooden shelving and the inverted dining set overhead, with four call-outs" loading="lazy"></div>
+        <div class="frame"><img width="1115" height="518" src="../assets/industrial/decor-renders.jpg" alt="Renders of the store interior with green walls, wooden shelving and the inverted dining set overhead, with four call-outs" loading="lazy"></div>
         <figcaption>Renders: the focal point, the billing desk, the floor fixtures and the online catalogue.</figcaption>
       </figure>
 
@@ -81,13 +98,11 @@
       <span><a href="https://www.behance.net/gallery/160198111/Industrial-Design-Portfolio">Open on Behance</a></span>
     </div>
 
-    <div class="next reveal">
-      <a class="back" href="../index.html#industrial">All product design</a>
-      <a class="next-card" href="sustainable-shoes.html">
-        <div class="cover"><img src="../assets/industrial/shoes.jpg" alt=""></div>
-        <span><span class="eyebrow">Next project</span><span class="title">A shoe that decomposes</span></span>
-      </a>
-    </div>
+    <a class="next-banner reveal" href="sustainable-shoes.html">
+      <img width="389" height="339" src="../assets/industrial/shoes.jpg" alt="" loading="lazy">
+      <div class="nb-text"><span class="eyebrow">Next project</span><span class="title"><span class="title-text">A shoe that decomposes</span> <svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+    </a>
+    <div class="next-links"><a href="../index.html#industrial">All product design</a><a href="#top">Back to top</a></div>
   </main>
   <script src="../site.js" defer></script>
 </body>

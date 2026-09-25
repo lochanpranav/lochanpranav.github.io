@@ -7,8 +7,11 @@
   <meta name="description" content="Client work: a new information architecture and visual system for Mighty, an investment guidance platform, from the landing page to risk-profile onboarding.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Hanken+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Hanken+Grotesk:wght@400..600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 rx=%2714%27 fill=%27%230B6E3F%27/%3E%3Ccircle cx=%2732%27 cy=%2728%27 r=%279%27 fill=%27%23fff%27/%3E%3Cpath d=%27M32 40v12%27 stroke=%27%23fff%27 stroke-width=%276%27 stroke-linecap=%27round%27/%3E%3C/svg%3E">
+  <meta property="og:title" content="Mighty, a finance guidance startup">
+  <meta property="og:image" content="https://lochanpranav.com/assets/mighty/laptop.jpg">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="stylesheet" href="../styles.css">
   <script>document.documentElement.classList.add("js");</script>
 </head>
@@ -19,13 +22,27 @@
     <a class="brand" href="../index.html">Lochan Pranav</a>
     <ul>
       <li><a href="../index.html#gis">GIS</a></li>
-      <li><a href="../index.html#uiux" aria-current="page">UI/UX</a></li>
+      <li><a href="../index.html#uiux" aria-current="true">UI/UX</a></li>
       <li><a href="../index.html#campaigns">Brand</a></li>
       <li><a href="../index.html#industrial">Products</a></li>
       <li><a href="../index.html#about">About</a></li>
       <li><a href="../index.html#contact">Contact</a></li>
     </ul>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu">Menu</button>
   </nav>
+  </div>
+  <div class="menu" id="menu" role="dialog" aria-modal="true" aria-label="Site menu" aria-hidden="true">
+    <button class="menu-btn menu-close" type="button">Close</button>
+    <ul>
+      <li><a href="../index.html#index">Work</a></li>
+      <li><a href="../index.html#gis"><span class="mono">01</span>GIS</a></li>
+      <li><a href="../index.html#uiux"><span class="mono">02</span>UI/UX</a></li>
+      <li><a href="../index.html#campaigns"><span class="mono">03</span>Brand</a></li>
+      <li><a href="../index.html#industrial"><span class="mono">04</span>Products</a></li>
+      <li><a href="../index.html#about">About</a></li>
+      <li><a href="../index.html#contact">Contact</a></li>
+    </ul>
+    <div class="menu-foot"><span>Brooklyn, NY · 40.68° N, 73.94° W</span><span>lm5677@nyu.edu</span></div>
   </div>
 
   <header class="case-head wrap" data-stagger>
@@ -42,7 +59,7 @@
 
   <main class="wrap" id="main">
     <figure class="figure lead reveal">
-      <div class="frame"><img src="../assets/mighty/laptop.jpg" alt="Mighty landing page on a laptop: Best and Trusted Digital Platform, with a phone number login"></div>
+      <div class="frame"><img width="1113" height="745" fetchpriority="high" src="../assets/mighty/laptop.jpg" alt="Mighty landing page on a laptop: Best and Trusted Digital Platform, with a phone number login"></div>
       <figcaption>The landing page: one message, one action, the regulatory credentials right under it.</figcaption>
     </figure>
 
@@ -53,7 +70,7 @@
       <h2>My role</h2>
       <p>I constructed a new information architecture and a visual language that looks modern and lets a customer consume information on the page and decide quickly. Five objectives ran through every screen: clarity and simplicity, intuitive navigation, visual hierarchy, a user-centric approach, and minimalist aesthetics.</p>
       <figure class="figure reveal">
-        <div class="frame"><img src="../assets/mighty/objectives.png" alt="Phone screens fanned out with Mighty's core objectives listed beside them"></div>
+        <div class="frame"><img width="926" height="520" src="../assets/mighty/objectives.png" alt="Phone screens fanned out with Mighty's core objectives listed beside them"></div>
         <figcaption>Core objectives, and the cards that explain Mighty's approach: transparent and value for money, money mind, backed by serious research, access to certified experts.</figcaption>
       </figure>
 
@@ -65,7 +82,7 @@
       <h3>Color and whitespace as trust</h3>
       <p>A cream ground, navy type and one red for the primary action. Whitespace does the work that borders and boxes usually do. The team page puts the two founders' faces and LinkedIn profiles in the app, because a first-time investor wants to know who is behind the advice.</p>
       <figure class="figure reveal">
-        <div class="frame"><img src="../assets/mighty/screens.png" alt="Six Mighty app screens: landing, backed by serious research, complete risk profile, let's get started steps, and team page"></div>
+        <div class="frame"><img width="1113" height="1043" src="../assets/mighty/screens.png" alt="Six Mighty app screens: landing, backed by serious research, complete risk profile, let's get started steps, and team page"></div>
         <figcaption>Final design: landing, research positioning, risk profile, onboarding steps and the team.</figcaption>
       </figure>
 
@@ -78,13 +95,11 @@
       <span><a href="https://www.behance.net/gallery/236130539/UIUX-Portfolio">Open on Behance</a></span>
     </div>
 
-    <div class="next reveal">
-      <a class="back" href="../index.html#uiux">All UI/UX work</a>
-      <a class="next-card" href="saginaw.html">
-        <div class="cover"><img src="../assets/saginaw/landing.jpg" alt=""></div>
-        <span><span class="eyebrow">Next project</span><span class="title">Saginaw Tattoo studio website</span></span>
-      </a>
-    </div>
+    <a class="next-banner reveal" href="saginaw.html">
+      <img width="919" height="515" src="../assets/saginaw/landing.jpg" alt="" loading="lazy">
+      <div class="nb-text"><span class="eyebrow">Next project</span><span class="title"><span class="title-text">Saginaw Tattoo studio website</span> <svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+    </a>
+    <div class="next-links"><a href="../index.html#uiux">All UI/UX work</a><a href="#top">Back to top</a></div>
   </main>
   <script src="../site.js" defer></script>
 </body>

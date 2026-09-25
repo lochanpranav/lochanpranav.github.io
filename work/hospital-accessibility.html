@@ -7,8 +7,11 @@
   <meta name="description" content="GIS network analysis of drive times to every hospital in Miami-Dade County, with two travel-speed models validated against Google Maps and census block group population joined to 3 and 7 minute service areas.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Hanken+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Hanken+Grotesk:wght@400..600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 rx=%2714%27 fill=%27%230B6E3F%27/%3E%3Ccircle cx=%2732%27 cy=%2728%27 r=%279%27 fill=%27%23fff%27/%3E%3Cpath d=%27M32 40v12%27 stroke=%27%23fff%27 stroke-width=%276%27 stroke-linecap=%27round%27/%3E%3C/svg%3E">
+  <meta property="og:title" content="Hospital accessibility in Miami-Dade County">
+  <meta property="og:image" content="https://lochanpranav.com/assets/maps/hospital-access.jpg">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="stylesheet" href="../styles.css">
   <script>document.documentElement.classList.add("js");</script>
 </head>
@@ -18,14 +21,28 @@
   <nav class="nav wrap" aria-label="Site">
     <a class="brand" href="../index.html">Lochan Pranav</a>
     <ul>
-      <li><a href="../index.html#gis" aria-current="page">GIS</a></li>
+      <li><a href="../index.html#gis" aria-current="true">GIS</a></li>
       <li><a href="../index.html#uiux">UI/UX</a></li>
       <li><a href="../index.html#campaigns">Brand</a></li>
       <li><a href="../index.html#industrial">Products</a></li>
       <li><a href="../index.html#about">About</a></li>
       <li><a href="../index.html#contact">Contact</a></li>
     </ul>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu">Menu</button>
   </nav>
+  </div>
+  <div class="menu" id="menu" role="dialog" aria-modal="true" aria-label="Site menu" aria-hidden="true">
+    <button class="menu-btn menu-close" type="button">Close</button>
+    <ul>
+      <li><a href="../index.html#index">Work</a></li>
+      <li><a href="../index.html#gis"><span class="mono">01</span>GIS</a></li>
+      <li><a href="../index.html#uiux"><span class="mono">02</span>UI/UX</a></li>
+      <li><a href="../index.html#campaigns"><span class="mono">03</span>Brand</a></li>
+      <li><a href="../index.html#industrial"><span class="mono">04</span>Products</a></li>
+      <li><a href="../index.html#about">About</a></li>
+      <li><a href="../index.html#contact">Contact</a></li>
+    </ul>
+    <div class="menu-foot"><span>Brooklyn, NY · 40.68° N, 73.94° W</span><span>lm5677@nyu.edu</span></div>
   </div>
 
   <header class="case-head wrap" data-stagger>
@@ -43,7 +60,7 @@
 
   <main class="wrap" id="main">
     <figure class="figure lead reveal">
-      <div class="frame"><img src="../assets/maps/hospital-access.jpg" alt="Map of central Miami-Dade County with hospital symbols, purple 3 minute service areas and yellow 7 minute service areas"></div>
+      <div class="frame"><img width="1600" height="1236" fetchpriority="high" src="../assets/maps/hospital-access.jpg" alt="Map of central Miami-Dade County with hospital symbols, purple 3 minute service areas and yellow 7 minute service areas"></div>
       <figcaption>Service areas around the central Miami-Dade hospitals: purple within 3 minutes of travel, yellow within 7.</figcaption>
     </figure>
 
@@ -56,16 +73,16 @@
       <p>Two travel time models were tested. Model 1 uses typical speed limits by road class; model 2 assumes slower speeds for congested conditions. Three routes were generated under each and compared with Google Maps. North Shore Medical Center to the Monaco Yacht Club took about 31 minutes under model 1 and 40 under model 2; Miami Jewish Health to the Miami Beach Convention Center 28 and 34; Hialeah Park to the airport 26 and 33. Model 1 came closest to Google Maps and was used for the analysis.</p>
     </div>
     <figure class="figure reveal">
-        <div class="frame"><img src="../assets/maps/hospital-method.jpg" alt="Flowchart of the workflow: data inputs, project and clip, road network cleaning, network dataset, route validation, service areas, population assignment and outputs" loading="lazy"></div>
+        <div class="frame"><img width="1600" height="900" src="../assets/maps/hospital-method.jpg" alt="Flowchart of the workflow: data inputs, project and clip, road network cleaning, network dataset, route validation, service areas, population assignment and outputs" loading="lazy"></div>
         <figcaption>The workflow, adapted from the Delamater et al. (2012) network-based method.</figcaption>
       </figure>
     <div class="pair" data-stagger>
       <figure class="figure reveal">
-        <div class="frame"><img src="../assets/maps/hospital-route-1.jpg" alt="ArcGIS Pro route from Miami Jewish Health to the Miami Beach Convention Center under travel time model 1" loading="lazy"></div>
+        <div class="frame"><img width="1150" height="822" src="../assets/maps/hospital-route-1.jpg" alt="ArcGIS Pro route from Miami Jewish Health to the Miami Beach Convention Center under travel time model 1" loading="lazy"></div>
         <figcaption>Model 1: Miami Jewish Health to the Miami Beach Convention Center, 28 minutes.</figcaption>
       </figure>
       <figure class="figure reveal">
-        <div class="frame"><img src="../assets/maps/hospital-route-2.jpg" alt="ArcGIS Pro route on the same trip under travel time model 2" loading="lazy"></div>
+        <div class="frame"><img width="1147" height="765" src="../assets/maps/hospital-route-2.jpg" alt="ArcGIS Pro route on the same trip under travel time model 2" loading="lazy"></div>
         <figcaption>Model 2 on the same trip: 34 minutes. Model 1 was closer to Google Maps.</figcaption>
       </figure>
     </div>
@@ -74,11 +91,11 @@
       <p>Service area polygons were generated around each hospital for 0 to 3 minutes, excellent or emergency-level access, and 3 to 7 minutes, good access. Census block group population was then spatially joined to the zones to count who lives in each.</p>
     </div>
     <figure class="figure reveal">
-        <div class="frame"><img src="../assets/maps/hospital-county.jpg" alt="Map of all of Miami-Dade County with hospital symbols and small service areas around each" loading="lazy"></div>
+        <div class="frame"><img width="1142" height="788" src="../assets/maps/hospital-county.jpg" alt="Map of all of Miami-Dade County with hospital symbols and small service areas around each" loading="lazy"></div>
         <figcaption>The whole county. Hospitals cluster in the central, urbanized areas, and the service areas follow.</figcaption>
       </figure>
     <figure class="figure reveal">
-        <div class="frame"><img src="../assets/maps/hospital-population.jpg" alt="Map of Miami-Dade block groups shaded by population with the 3 and 7 minute hospital service areas overlaid" loading="lazy"></div>
+        <div class="frame"><img width="1600" height="1236" src="../assets/maps/hospital-population.jpg" alt="Map of Miami-Dade block groups shaded by population with the 3 and 7 minute hospital service areas overlaid" loading="lazy"></div>
         <figcaption>Population by block group with the accessibility zones. Areas far from the hospital clusters have the lowest access.</figcaption>
       </figure>
     <div class="prose">
@@ -99,13 +116,11 @@
       <span><a href="https://storymaps.arcgis.com/stories/e04d2c69cf6f4c9f8685a91e6cd04945">Open the StoryMap</a></span>
     </div>
 
-    <div class="next reveal">
-      <a class="back" href="../index.html#gis">All GIS work</a>
-      <a class="next-card" href="economics-of-proximity.html">
-        <div class="cover"><img src="../assets/maps/subway-zoning.jpg" alt=""></div>
-        <span><span class="eyebrow">Next project</span><span class="title">Why do New Yorkers value time over money?</span></span>
-      </a>
-    </div>
+    <a class="next-banner reveal" href="economics-of-proximity.html">
+      <img width="1200" height="634" src="../assets/maps/subway-zoning.jpg" alt="" loading="lazy">
+      <div class="nb-text"><span class="eyebrow">Next project</span><span class="title"><span class="title-text">Why do New Yorkers value time over money?</span> <svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+    </a>
+    <div class="next-links"><a href="../index.html#gis">All GIS work</a><a href="#top">Back to top</a></div>
   </main>
   <script src="../site.js" defer></script>
 </body>

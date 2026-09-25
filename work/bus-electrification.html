@@ -7,8 +7,11 @@
   <meta name="description" content="GIS analysis of which MTA bus routes in Manhattan and the Bronx can convert to battery-electric buses, using a 1-foot elevation model, GTFS daily mileage and Location-Allocation to site five charging stations.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Hanken+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Hanken+Grotesk:wght@400..600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 rx=%2714%27 fill=%27%230B6E3F%27/%3E%3Ccircle cx=%2732%27 cy=%2728%27 r=%279%27 fill=%27%23fff%27/%3E%3Cpath d=%27M32 40v12%27 stroke=%27%23fff%27 stroke-width=%276%27 stroke-linecap=%27round%27/%3E%3C/svg%3E">
+  <meta property="og:title" content="Left behind by electrification: evaluating MTA bus routes">
+  <meta property="og:image" content="https://lochanpranav.com/assets/maps/bus-energy-burden.jpg">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="stylesheet" href="../styles.css">
   <script>document.documentElement.classList.add("js");</script>
 </head>
@@ -18,14 +21,28 @@
   <nav class="nav wrap" aria-label="Site">
     <a class="brand" href="../index.html">Lochan Pranav</a>
     <ul>
-      <li><a href="../index.html#gis" aria-current="page">GIS</a></li>
+      <li><a href="../index.html#gis" aria-current="true">GIS</a></li>
       <li><a href="../index.html#uiux">UI/UX</a></li>
       <li><a href="../index.html#campaigns">Brand</a></li>
       <li><a href="../index.html#industrial">Products</a></li>
       <li><a href="../index.html#about">About</a></li>
       <li><a href="../index.html#contact">Contact</a></li>
     </ul>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu">Menu</button>
   </nav>
+  </div>
+  <div class="menu" id="menu" role="dialog" aria-modal="true" aria-label="Site menu" aria-hidden="true">
+    <button class="menu-btn menu-close" type="button">Close</button>
+    <ul>
+      <li><a href="../index.html#index">Work</a></li>
+      <li><a href="../index.html#gis"><span class="mono">01</span>GIS</a></li>
+      <li><a href="../index.html#uiux"><span class="mono">02</span>UI/UX</a></li>
+      <li><a href="../index.html#campaigns"><span class="mono">03</span>Brand</a></li>
+      <li><a href="../index.html#industrial"><span class="mono">04</span>Products</a></li>
+      <li><a href="../index.html#about">About</a></li>
+      <li><a href="../index.html#contact">Contact</a></li>
+    </ul>
+    <div class="menu-foot"><span>Brooklyn, NY · 40.68° N, 73.94° W</span><span>lm5677@nyu.edu</span></div>
   </div>
 
   <header class="case-head wrap" data-stagger>
@@ -43,7 +60,7 @@
 
   <main class="wrap" id="main">
     <figure class="figure lead reveal">
-      <div class="frame"><img src="../assets/maps/bus-energy-burden.jpg" alt="Bus routes in Manhattan and the Bronx colored by slope percent, from yellow for flat to purple for steep"></div>
+      <div class="frame"><img width="1600" height="999" fetchpriority="high" src="../assets/maps/bus-energy-burden.jpg" alt="Bus routes in Manhattan and the Bronx colored by slope percent, from yellow for flat to purple for steep"></div>
       <figcaption>Energy burden map: every route segment in Manhattan and the Bronx colored by slope, from 0 to 2 percent in yellow to more than 5 percent in purple.</figcaption>
     </figure>
 
@@ -64,17 +81,17 @@
       <h2>Method</h2>
       <p>Five stages, each built on the output of the one before: data inputs, topographic modelling in Spatial Analyst, route and range modelling in Network Analyst, integration into a single hard-to-convert routes layer, and charging station siting with Location-Allocation.</p>
       <figure class="figure reveal narrow">
-        <div class="frame"><img src="../assets/maps/bus-method.png" alt="Flowchart of the five-stage GIS workflow, from data inputs to the feasibility map and the charging station plan" loading="lazy"></div>
+        <div class="frame"><img width="720" height="1266" src="../assets/maps/bus-method.png" alt="Flowchart of the five-stage GIS workflow, from data inputs to the feasibility map and the charging station plan" loading="lazy"></div>
         <figcaption>The five-stage workflow, from raw inputs to two deliverables: a feasibility map and a charging station plan.</figcaption>
       </figure>
     </div>
     <div class="pair" data-stagger>
       <figure class="figure reveal">
-        <div class="frame"><img src="../assets/maps/bus-elevation.jpg" alt="Map of Manhattan and the Bronx with the 1-foot elevation model in greyscale" loading="lazy"></div>
+        <div class="frame"><img width="1201" height="1700" src="../assets/maps/bus-elevation.jpg" alt="Map of Manhattan and the Bronx with the 1-foot elevation model in greyscale" loading="lazy"></div>
         <figcaption>Study area and elevation. The Bronx reads bright, with ridgelines in Riverdale, University Heights and Morris Heights up to 293 feet. Manhattan stays flat until Washington Heights and Inwood.</figcaption>
       </figure>
       <figure class="figure reveal">
-        <div class="frame"><img src="../assets/maps/bus-route-types.jpg" alt="Map of bus routes in Manhattan and the Bronx colored by type: local, SBS and limited" loading="lazy"></div>
+        <div class="frame"><img width="1201" height="1700" src="../assets/maps/bus-route-types.jpg" alt="Map of bus routes in Manhattan and the Bronx colored by type: local, SBS and limited" loading="lazy"></div>
         <figcaption>Types of bus routes. Local routes form the dense grid; SBS routes cover longer gaps between stops and accumulate more daily mileage per cycle.</figcaption>
       </figure>
     </div>
@@ -86,11 +103,11 @@
     </div>
     <div class="pair" data-stagger>
       <figure class="figure reveal">
-        <div class="frame"><img src="../assets/maps/bus-energy-full.jpg" alt="Energy burden map: routes colored by slope percent, yellow for 0 to 2 percent, orange for 2 to 5 and purple above 5" loading="lazy"></div>
+        <div class="frame"><img width="1201" height="1700" src="../assets/maps/bus-energy-full.jpg" alt="Energy burden map: routes colored by slope percent, yellow for 0 to 2 percent, orange for 2 to 5 and purple above 5" loading="lazy"></div>
         <figcaption>Energy burden map. Yellow routes at 0 to 2 percent grade dominate Midtown and lower Manhattan; purple routes, where more than 15 percent of the length exceeds a 5 percent grade, cluster in the western and central Bronx.</figcaption>
       </figure>
       <figure class="figure reveal">
-        <div class="frame"><img src="../assets/maps/bus-range-gap.jpg" alt="Operational range deficit map: routes colored green, cyan and blue by how far their daily miles exceed 150" loading="lazy"></div>
+        <div class="frame"><img width="1201" height="1700" src="../assets/maps/bus-range-gap.jpg" alt="Operational range deficit map: routes colored green, cyan and blue by how far their daily miles exceed 150" loading="lazy"></div>
         <figcaption>Operational range deficit. Every route already exceeds 150 miles. Green, 150 to 185 miles, is reachable with one charging stop; cyan, 185 to 210, needs deliberate infrastructure; blue, above 210, has a critical feasibility gap.</figcaption>
       </figure>
     </div>
@@ -103,21 +120,21 @@
     </div>
     <div class="pair" data-stagger>
       <figure class="figure reveal">
-        <div class="frame"><img src="../assets/maps/bus-feasibility.jpg" alt="Feasibility map: blue routes over the range limit, brown routes that also fail the terrain test, and yellow dots at critical intersections" loading="lazy"></div>
+        <div class="frame"><img width="1201" height="1700" src="../assets/maps/bus-feasibility.jpg" alt="Feasibility map: blue routes over the range limit, brown routes that also fail the terrain test, and yellow dots at critical intersections" loading="lazy"></div>
         <figcaption>Feasibility categorisation with critical terrain intersections. Brown routes and yellow dots follow the same ridge terrain as the elevation model.</figcaption>
       </figure>
       <figure class="figure reveal">
-        <div class="frame"><img src="../assets/maps/bus-siting.jpg" alt="Map of bus routes with five proposed charging station symbols from upper Manhattan to lower Manhattan" loading="lazy"></div>
+        <div class="frame"><img width="1201" height="1700" src="../assets/maps/bus-siting.jpg" alt="Map of bus routes with five proposed charging station symbols from upper Manhattan to lower Manhattan" loading="lazy"></div>
         <figcaption>EV charging station siting. Five stations from the solver, each on a corridor shared by several constrained routes, spread from upper Manhattan through Midtown to lower Manhattan.</figcaption>
       </figure>
     </div>
     <div class="pair" data-stagger>
       <figure class="figure reveal">
-        <div class="frame"><img src="../assets/maps/bus-slope.jpg" alt="ArcGIS Pro screenshot with steep route segments selected and their attribute table open" loading="lazy"></div>
+        <div class="frame"><img width="720" height="441" src="../assets/maps/bus-slope.jpg" alt="ArcGIS Pro screenshot with steep route segments selected and their attribute table open" loading="lazy"></div>
         <figcaption>Isolating the segments with a slope of 5 percent or more in ArcGIS Pro.</figcaption>
       </figure>
       <figure class="figure reveal">
-        <div class="frame"><img src="../assets/maps/bus-location-allocation.jpg" alt="ArcGIS Pro screenshot of the Location-Allocation layer with facilities, demand points and lines" loading="lazy"></div>
+        <div class="frame"><img width="955" height="609" src="../assets/maps/bus-location-allocation.jpg" alt="ArcGIS Pro screenshot of the Location-Allocation layer with facilities, demand points and lines" loading="lazy"></div>
         <figcaption>The Location-Allocation layer: candidate facilities, demand routes and the chosen sites.</figcaption>
       </figure>
     </div>
@@ -147,13 +164,11 @@
       <span><a href="https://storymaps.arcgis.com/stories/d6c58f64a05241c48da42ff44b1f8fb8">Open the StoryMap</a></span>
     </div>
 
-    <div class="next reveal">
-      <a class="back" href="../index.html#gis">All GIS work</a>
-      <a class="next-card" href="hospital-accessibility.html">
-        <div class="cover"><img src="../assets/maps/hospital-access.jpg" alt=""></div>
-        <span><span class="eyebrow">Next project</span><span class="title">Hospital accessibility in Miami-Dade County</span></span>
-      </a>
-    </div>
+    <a class="next-banner reveal" href="hospital-accessibility.html">
+      <img width="1600" height="1236" src="../assets/maps/hospital-access.jpg" alt="" loading="lazy">
+      <div class="nb-text"><span class="eyebrow">Next project</span><span class="title"><span class="title-text">Hospital accessibility in Miami-Dade County</span> <svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+    </a>
+    <div class="next-links"><a href="../index.html#gis">All GIS work</a><a href="#top">Back to top</a></div>
   </main>
   <script src="../site.js" defer></script>
 </body>

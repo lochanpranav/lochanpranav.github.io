@@ -7,8 +7,11 @@
   <meta name="description" content="Furniture design case study: a dado-jointed tree bookshelf that keeps books at eye level, sized from anthropometric measurements, rendered and built in wood.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Hanken+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Hanken+Grotesk:wght@400..600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 rx=%2714%27 fill=%27%230B6E3F%27/%3E%3Ccircle cx=%2732%27 cy=%2728%27 r=%279%27 fill=%27%23fff%27/%3E%3Cpath d=%27M32 40v12%27 stroke=%27%23fff%27 stroke-width=%276%27 stroke-linecap=%27round%27/%3E%3C/svg%3E">
+  <meta property="og:title" content="A tree bookshelf built by hand">
+  <meta property="og:image" content="https://lochanpranav.com/assets/industrial/bookshelf.jpg">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="stylesheet" href="../styles.css">
   <script>document.documentElement.classList.add("js");</script>
 </head>
@@ -21,11 +24,25 @@
       <li><a href="../index.html#gis">GIS</a></li>
       <li><a href="../index.html#uiux">UI/UX</a></li>
       <li><a href="../index.html#campaigns">Brand</a></li>
-      <li><a href="../index.html#industrial" aria-current="page">Products</a></li>
+      <li><a href="../index.html#industrial" aria-current="true">Products</a></li>
       <li><a href="../index.html#about">About</a></li>
       <li><a href="../index.html#contact">Contact</a></li>
     </ul>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu">Menu</button>
   </nav>
+  </div>
+  <div class="menu" id="menu" role="dialog" aria-modal="true" aria-label="Site menu" aria-hidden="true">
+    <button class="menu-btn menu-close" type="button">Close</button>
+    <ul>
+      <li><a href="../index.html#index">Work</a></li>
+      <li><a href="../index.html#gis"><span class="mono">01</span>GIS</a></li>
+      <li><a href="../index.html#uiux"><span class="mono">02</span>UI/UX</a></li>
+      <li><a href="../index.html#campaigns"><span class="mono">03</span>Brand</a></li>
+      <li><a href="../index.html#industrial"><span class="mono">04</span>Products</a></li>
+      <li><a href="../index.html#about">About</a></li>
+      <li><a href="../index.html#contact">Contact</a></li>
+    </ul>
+    <div class="menu-foot"><span>Brooklyn, NY · 40.68° N, 73.94° W</span><span>lm5677@nyu.edu</span></div>
   </div>
 
   <header class="case-head wrap" data-stagger>
@@ -43,7 +60,7 @@
 
   <main class="wrap" id="main">
     <figure class="figure lead reveal">
-      <div class="frame"><img src="../assets/industrial/bookshelf.jpg" alt="A wooden tree-shaped bookshelf against a plain wall"></div>
+      <div class="frame"><img width="299" height="446" fetchpriority="high" src="../assets/industrial/bookshelf.jpg" alt="A wooden tree-shaped bookshelf against a plain wall"></div>
       <figcaption>The finished shelf.</figcaption>
     </figure>
 
@@ -56,14 +73,14 @@
       <p>The joint is a dado joint. Standard tree shelves come in four sizes, from 77 cm to 155 cm tall at 40 cm wide; the dimensions used here came from the anthropometric measurements, with 15 cm arms and 2 cm thick boards. A bookshelf that does not look old or boring, for the study or the living room, and one that attracts kids as much as book lovers.</p>
     </div>
     <figure class="figure reveal">
-        <div class="frame"><img src="../assets/industrial/bookshelf-ideation.jpg" alt="Photographs of a dado joint, a diagram of four standard tree shelf sizes, and a dimensioned sketch of the shelf" loading="lazy"></div>
+        <div class="frame"><img width="1115" height="630" src="../assets/industrial/bookshelf-ideation.jpg" alt="Photographs of a dado joint, a diagram of four standard tree shelf sizes, and a dimensioned sketch of the shelf" loading="lazy"></div>
         <figcaption>The dado joint, the standard sizes and the dimensions used.</figcaption>
       </figure>
     <div class="prose">
       <h2>Final concept</h2>
     </div>
     <figure class="figure reveal">
-        <div class="frame"><img src="../assets/industrial/bookshelf-renders.jpg" alt="3D renders of the tree bookshelf from three angles and photographs of the real wooden model" loading="lazy"></div>
+        <div class="frame"><img width="1094" height="463" src="../assets/industrial/bookshelf-renders.jpg" alt="3D renders of the tree bookshelf from three angles and photographs of the real wooden model" loading="lazy"></div>
         <figcaption>3D renders and the real-life model.</figcaption>
       </figure>
     <div class="prose">
@@ -75,13 +92,11 @@
       <span><a href="https://www.behance.net/gallery/160198111/Industrial-Design-Portfolio">Open on Behance</a></span>
     </div>
 
-    <div class="next reveal">
-      <a class="back" href="../index.html#industrial">All product design</a>
-      <a class="next-card" href="tulsa-event-monitor.html">
-        <div class="cover"><img src="../assets/tulsa/hero.jpg" alt=""></div>
-        <span><span class="eyebrow">Next project</span><span class="title">Finding where Tulsa actually gathers</span></span>
-      </a>
-    </div>
+    <a class="next-banner reveal" href="tulsa-event-monitor.html">
+      <img width="1600" height="909" src="../assets/tulsa/hero.jpg" alt="" loading="lazy">
+      <div class="nb-text"><span class="eyebrow">Next project</span><span class="title"><span class="title-text">Finding where Tulsa actually gathers</span> <svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+    </a>
+    <div class="next-links"><a href="../index.html#industrial">All product design</a><a href="#top">Back to top</a></div>
   </main>
   <script src="../site.js" defer></script>
 </body>

@@ -7,8 +7,11 @@
   <meta name="description" content="Eco design case study: a fully biodegradable shoe with cork soles, a post-consumer cotton upper and organic cotton laces, from a materials study to a hand-made prototype.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Hanken+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Hanken+Grotesk:wght@400..600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 rx=%2714%27 fill=%27%230B6E3F%27/%3E%3Ccircle cx=%2732%27 cy=%2728%27 r=%279%27 fill=%27%23fff%27/%3E%3Cpath d=%27M32 40v12%27 stroke=%27%23fff%27 stroke-width=%276%27 stroke-linecap=%27round%27/%3E%3C/svg%3E">
+  <meta property="og:title" content="A shoe that decomposes">
+  <meta property="og:image" content="https://lochanpranav.com/assets/industrial/shoes.jpg">
+  <meta name="twitter:card" content="summary_large_image">
   <link rel="stylesheet" href="../styles.css">
   <script>document.documentElement.classList.add("js");</script>
 </head>
@@ -21,11 +24,25 @@
       <li><a href="../index.html#gis">GIS</a></li>
       <li><a href="../index.html#uiux">UI/UX</a></li>
       <li><a href="../index.html#campaigns">Brand</a></li>
-      <li><a href="../index.html#industrial" aria-current="page">Products</a></li>
+      <li><a href="../index.html#industrial" aria-current="true">Products</a></li>
       <li><a href="../index.html#about">About</a></li>
       <li><a href="../index.html#contact">Contact</a></li>
     </ul>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu">Menu</button>
   </nav>
+  </div>
+  <div class="menu" id="menu" role="dialog" aria-modal="true" aria-label="Site menu" aria-hidden="true">
+    <button class="menu-btn menu-close" type="button">Close</button>
+    <ul>
+      <li><a href="../index.html#index">Work</a></li>
+      <li><a href="../index.html#gis"><span class="mono">01</span>GIS</a></li>
+      <li><a href="../index.html#uiux"><span class="mono">02</span>UI/UX</a></li>
+      <li><a href="../index.html#campaigns"><span class="mono">03</span>Brand</a></li>
+      <li><a href="../index.html#industrial"><span class="mono">04</span>Products</a></li>
+      <li><a href="../index.html#about">About</a></li>
+      <li><a href="../index.html#contact">Contact</a></li>
+    </ul>
+    <div class="menu-foot"><span>Brooklyn, NY · 40.68° N, 73.94° W</span><span>lm5677@nyu.edu</span></div>
   </div>
 
   <header class="case-head wrap" data-stagger>
@@ -43,7 +60,7 @@
 
   <main class="wrap" id="main">
     <figure class="figure lead reveal">
-      <div class="frame"><img src="../assets/industrial/shoes.jpg" alt="Photographs of a hand-made black shoe with a cork sole"></div>
+      <div class="frame"><img width="389" height="339" fetchpriority="high" src="../assets/industrial/shoes.jpg" alt="Photographs of a hand-made black shoe with a cork sole"></div>
       <figcaption>The hand-made prototype.</figcaption>
     </figure>
 
@@ -58,11 +75,11 @@
       <h2>Ideation</h2>
     </div>
     <figure class="figure reveal">
-        <div class="frame"><img src="../assets/industrial/shoes-ideation.jpg" alt="Pencil sketches of shoes and an exploded 3D render labelling the organic cotton lace, post-consumer cotton upper and heel cap, and cork insole and outsole" loading="lazy"></div>
+        <div class="frame"><img width="1115" height="540" src="../assets/industrial/shoes-ideation.jpg" alt="Pencil sketches of shoes and an exploded 3D render labelling the organic cotton lace, post-consumer cotton upper and heel cap, and cork insole and outsole" loading="lazy"></div>
         <figcaption>Sketches, and the exploded render: organic cotton lace, post-consumer cotton upper and heel cap, cork insole and outsole.</figcaption>
       </figure>
     <figure class="figure reveal narrow">
-        <div class="frame"><img src="../assets/industrial/shoes-render.jpg" alt="Render of a grey woven slip-on shoe with a cork sole, shown assembled and with the sole separated" loading="lazy"></div>
+        <div class="frame"><img width="680" height="600" src="../assets/industrial/shoes-render.jpg" alt="Render of a grey woven slip-on shoe with a cork sole, shown assembled and with the sole separated" loading="lazy"></div>
         <figcaption>The render.</figcaption>
       </figure>
     <div class="prose">
@@ -70,7 +87,7 @@
       <p>The prototype was made by hand. The sole is cork, very flexible and lightweight. The upper is cloth that can be decomposed. The lace is organic cotton, which grows with less water than traditional cotton. A shoe that is fully decomposable when thrown in the ground.</p>
     </div>
     <figure class="figure reveal">
-        <div class="frame"><img src="../assets/industrial/shoes-final.jpg" alt="Photographs of the shoe being made by hand, the finished black shoe with a cork sole, and close-ups of the sole, upper and lace" loading="lazy"></div>
+        <div class="frame"><img width="1102" height="629" src="../assets/industrial/shoes-final.jpg" alt="Photographs of the shoe being made by hand, the finished black shoe with a cork sole, and close-ups of the sole, upper and lace" loading="lazy"></div>
         <figcaption>Making the prototype, and the sole, upper and lace.</figcaption>
       </figure>
 
@@ -79,13 +96,11 @@
       <span><a href="https://www.behance.net/gallery/160198111/Industrial-Design-Portfolio">Open on Behance</a></span>
     </div>
 
-    <div class="next reveal">
-      <a class="back" href="../index.html#industrial">All product design</a>
-      <a class="next-card" href="tree-bookshelf.html">
-        <div class="cover"><img src="../assets/industrial/bookshelf.jpg" alt=""></div>
-        <span><span class="eyebrow">Next project</span><span class="title">A tree bookshelf built by hand</span></span>
-      </a>
-    </div>
+    <a class="next-banner reveal" href="tree-bookshelf.html">
+      <img width="299" height="446" src="../assets/industrial/bookshelf.jpg" alt="" loading="lazy">
+      <div class="nb-text"><span class="eyebrow">Next project</span><span class="title"><span class="title-text">A tree bookshelf built by hand</span> <svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+    </a>
+    <div class="next-links"><a href="../index.html#industrial">All product design</a><a href="#top">Back to top</a></div>
   </main>
   <script src="../site.js" defer></script>
 </body>
