@@ -1,6 +1,12 @@
 /* Lochan Pranav portfolio. One stylesheet, no build step.
    Atlas: an editorial, cartographic dark site. Big type, mono measurements, one green used as light. */
 
+/* Fonts served from this site (all four are Open Font License), latin subset, swapped in as they arrive */
+@font-face { font-family: 'Bricolage Grotesque'; font-style: normal; font-weight: 500 800; font-display: swap; src: url('assets/fonts/bricolage-grotesque.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'Hanken Grotesk'; font-style: normal; font-weight: 400 600; font-display: swap; src: url('assets/fonts/hanken-grotesk.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'Instrument Serif'; font-style: italic; font-weight: 400; font-display: swap; src: url('assets/fonts/instrument-serif-italic.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+@font-face { font-family: 'JetBrains Mono'; font-style: normal; font-weight: 400 500; font-display: swap; src: url('assets/fonts/jetbrains-mono.woff2') format('woff2'); unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD; }
+
 :root {
   --paper: #0F1215;
   --surface: #171B20;
@@ -130,15 +136,15 @@ h1.name .line { display: block; overflow: hidden; padding: .04em 0 .09em; margin
 h1.name .w { display: inline-block; }
 h1.name .w + .w { margin-left: .16em; }
 .ch { display: inline-block; font-variation-settings: 'opsz' 96, 'wght' 800; transition: font-variation-settings .5s var(--ease); }
-html.js h1.name .line > .w { transform: translateY(112%); animation: rise 1s var(--ease-out) forwards; }
-html.js h1.name .line > .w:nth-child(2) { animation-delay: .08s; }
+html.js h1.name .line > .w { transform: translateY(112%); animation: rise .75s var(--ease-out) forwards; }
+html.js h1.name .line > .w:nth-child(2) { animation-delay: .06s; }
 @keyframes rise { to { transform: none; } }
-html.js .hero .fade { opacity: 0; transform: translateY(12px); animation: fade .8s var(--ease-out) forwards; }
-html.js .hero .status.fade { animation-delay: .25s; }
-html.js .hero .tagline.fade { animation-delay: .5s; }
-html.js .hero .intro.fade { animation-delay: .6s; }
-html.js .hero .panel.fade { animation-delay: .7s; }
-html.js .hero .hero-foot { opacity: 0; animation: fade .8s var(--ease-out) 1s forwards; }
+html.js .hero .fade { opacity: 0; transform: translateY(12px); animation: fade .6s var(--ease-out) forwards; }
+html.js .hero .status.fade { animation-delay: .1s; }
+html.js .hero .tagline.fade { animation-delay: .26s; }
+html.js .hero .intro.fade { animation-delay: .34s; }
+html.js .hero .panel.fade { animation-delay: .4s; }
+html.js .hero .hero-foot { opacity: 0; animation: fade .6s var(--ease-out) .55s forwards; }
 @keyframes fade { to { opacity: 1; transform: none; } }
 html.seen h1.name .line > .w, html.seen .hero .fade, html.seen .hero .hero-foot { animation: none; opacity: 1; transform: none; }
 @media (prefers-reduced-motion: reduce) { html.js h1.name .line > .w, html.js .hero .fade, html.js .hero .hero-foot { animation: none; opacity: 1; transform: none; } .spot-bg .contours.bright { display: none; } .ch { transition: none; } }
