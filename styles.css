@@ -215,6 +215,21 @@ html.js .figure.lead.reveal { transform: translateY(14px) scale(.985); }
 @media (max-width: 720px) { .films { grid-template-columns: 1fr; } .film.tall .video { padding-top: 120%; } }
 
 /* Outcome numbers */
+/* Case page extras: paired figures, narrow figures, a single film, and the source link at the end */
+.pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; margin: 28px 0; align-items: start; }
+.pair .figure { margin: 0; }
+.figure.narrow { max-width: 760px; }
+.films.single { grid-template-columns: minmax(0, 1fr); }
+.films.single .film.wide { max-width: 960px; }
+.films.single .film.tall { max-width: 340px; }
+.prose ol { padding-left: 22px; margin: 0 0 14px; }
+.prose code { font-family: var(--mono); font-size: 14px; color: var(--ink); background: var(--surface); padding: 2px 6px; border-radius: 4px; }
+.more { margin-top: 40px; padding: 20px 22px; border: 1px solid var(--rule); border-radius: 6px; background: var(--surface); display: flex; flex-wrap: wrap; gap: 12px 24px; align-items: center; justify-content: space-between; }
+.more span { color: var(--muted); }
+.more a { font-weight: 600; white-space: nowrap; }
+.more a + a { margin-left: 18px; }
+@media (max-width: 720px) { .pair { grid-template-columns: 1fr; } .films.single .film.tall { max-width: 100%; } }
+
 .numbers { width: 100%; border-collapse: collapse; margin: 6px 0 20px; font-size: 15.5px; }
 .numbers td { padding: 10px 0; border-bottom: 1px solid var(--rule); vertical-align: top; }
 .numbers td.n { font-family: var(--display); font-weight: 700; font-size: 22px; letter-spacing: -0.02em; white-space: nowrap; width: 120px; font-variant-numeric: tabular-nums; color: var(--accent); }

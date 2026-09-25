@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Hospital accessibility in Miami-Dade County · Lochan Pranav</title>
+  <meta name="description" content="GIS network analysis of drive times to every hospital in Miami-Dade County, with two travel-speed models validated against Google Maps and census block group population joined to 3 and 7 minute service areas.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Hanken+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 rx=%2714%27 fill=%27%230B6E3F%27/%3E%3Ccircle cx=%2732%27 cy=%2728%27 r=%279%27 fill=%27%23fff%27/%3E%3Cpath d=%27M32 40v12%27 stroke=%27%23fff%27 stroke-width=%276%27 stroke-linecap=%27round%27/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="../styles.css">
+  <script>document.documentElement.classList.add("js");</script>
+</head>
+<body id="top">
+  <a class="skip" href="#main">Skip to content</a>
+  <div class="topbar">
+  <nav class="nav wrap" aria-label="Site">
+    <a class="brand" href="../index.html">Lochan Pranav</a>
+    <ul>
+      <li><a href="../index.html#gis" aria-current="page">GIS</a></li>
+      <li><a href="../index.html#uiux">UI/UX</a></li>
+      <li><a href="../index.html#campaigns">Brand</a></li>
+      <li><a href="../index.html#industrial">Products</a></li>
+      <li><a href="../index.html#about">About</a></li>
+      <li><a href="../index.html#contact">Contact</a></li>
+    </ul>
+  </nav>
+  </div>
+
+  <header class="case-head wrap" data-stagger>
+    <span class="eyebrow reveal">GIS analysis · Spring 2026 · Urban Spatial Analytics midterm, NYU Tandon and CUSP</span>
+    <h1 class="reveal">Hospital accessibility in Miami-Dade County</h1>
+    <p class="lede reveal">Network analysis of drive times to every hospital in the county, with two travel-speed models checked against Google Maps, then census block group population joined to the 3 and 7 minute service areas to count who is served and who is not.</p>
+    <dl class="spec reveal">
+      <div><dt>Role</dt><dd>Solo project</dd></div>
+      <div><dt>Course</dt><dd>Urban Spatial Analytics (CUSP-GX 8033), Spring 2026, midterm project</dd></div>
+      <div><dt>Tools</dt><dd>ArcGIS Pro, Network Analyst routes and service areas, spatial join</dd></div>
+      <div><dt>Data</dt><dd>U.S. Census TIGER roads, Miami-Dade hospitals, census block group population</dd></div>
+      <div><dt>Links</dt><dd><a href="https://storymaps.arcgis.com/stories/e04d2c69cf6f4c9f8685a91e6cd04945">Full StoryMap on ArcGIS</a></dd></div>
+    </dl>
+  </header>
+
+  <main class="wrap" id="main">
+    <figure class="figure lead reveal">
+      <div class="frame"><img src="../assets/maps/hospital-access.jpg" alt="Map of central Miami-Dade County with hospital symbols, purple 3 minute service areas and yellow 7 minute service areas"></div>
+      <figcaption>Service areas around the central Miami-Dade hospitals: purple within 3 minutes of travel, yellow within 7.</figcaption>
+    </figure>
+
+    <div class="prose">
+      <h2>Context</h2>
+      <p>Access to healthcare depends on where hospitals are and how the road network reaches them. The question was how many Miami-Dade residents can reach a hospital within 3 minutes, within 7 minutes, and beyond, and where the gaps are.</p>
+
+      <h2>Method</h2>
+      <p>Road network, hospital locations and census population were projected to a common coordinate system. The roads were cleaned to drivable segments only, and travel time was calculated for every segment from its road classification and speed limit. A network dataset with travel time as the impedance was built in Network Analyst.</p>
+      <p>Two travel time models were tested. Model 1 uses typical speed limits by road class; model 2 assumes slower speeds for congested conditions. Three routes were generated under each and compared with Google Maps. North Shore Medical Center to the Monaco Yacht Club took about 31 minutes under model 1 and 40 under model 2; Miami Jewish Health to the Miami Beach Convention Center 28 and 34; Hialeah Park to the airport 26 and 33. Model 1 came closest to Google Maps and was used for the analysis.</p>
+    </div>
+    <figure class="figure reveal">
+        <div class="frame"><img src="../assets/maps/hospital-method.jpg" alt="Flowchart of the workflow: data inputs, project and clip, road network cleaning, network dataset, route validation, service areas, population assignment and outputs" loading="lazy"></div>
+        <figcaption>The workflow, adapted from the Delamater et al. (2012) network-based method.</figcaption>
+      </figure>
+    <div class="pair" data-stagger>
+      <figure class="figure reveal">
+        <div class="frame"><img src="../assets/maps/hospital-route-1.jpg" alt="ArcGIS Pro route from Miami Jewish Health to the Miami Beach Convention Center under travel time model 1" loading="lazy"></div>
+        <figcaption>Model 1: Miami Jewish Health to the Miami Beach Convention Center, 28 minutes.</figcaption>
+      </figure>
+      <figure class="figure reveal">
+        <div class="frame"><img src="../assets/maps/hospital-route-2.jpg" alt="ArcGIS Pro route on the same trip under travel time model 2" loading="lazy"></div>
+        <figcaption>Model 2 on the same trip: 34 minutes. Model 1 was closer to Google Maps.</figcaption>
+      </figure>
+    </div>
+    <div class="prose">
+      <h2>Service areas</h2>
+      <p>Service area polygons were generated around each hospital for 0 to 3 minutes, excellent or emergency-level access, and 3 to 7 minutes, good access. Census block group population was then spatially joined to the zones to count who lives in each.</p>
+    </div>
+    <figure class="figure reveal">
+        <div class="frame"><img src="../assets/maps/hospital-county.jpg" alt="Map of all of Miami-Dade County with hospital symbols and small service areas around each" loading="lazy"></div>
+        <figcaption>The whole county. Hospitals cluster in the central, urbanized areas, and the service areas follow.</figcaption>
+      </figure>
+    <figure class="figure reveal">
+        <div class="frame"><img src="../assets/maps/hospital-population.jpg" alt="Map of Miami-Dade block groups shaded by population with the 3 and 7 minute hospital service areas overlaid" loading="lazy"></div>
+        <figcaption>Population by block group with the accessibility zones. Areas far from the hospital clusters have the lowest access.</figcaption>
+      </figure>
+    <div class="prose">
+      <h2>Result</h2>
+      <table class="numbers">
+        <tr><td class="n">1,612</td><td>residents within 3 minutes of a hospital, the emergency-level zone</td></tr>
+        <tr><td class="n">890,786</td><td>residents within 3 to 7 minutes</td></tr>
+        <tr><td class="n">1,809,369</td><td>residents beyond the 7 minute threshold, with limited access</td></tr>
+      </table>
+      <p>Hospitals concentrate in central and urbanized areas, so accessibility is highest there. Only a small number of residents live in the 0 to 3 minute zone. A much larger share is within 3 to 7 minutes, and a significant number of block groups fall outside both zones, mostly away from the central clusters. Those are the areas where planning or infrastructure could improve access.</p>
+
+      <h2>Limitations</h2>
+      <p>The model assumes constant travel speeds, with no congestion, accidents or time-of-day variation, and that residents travel by car with equal access to the road network. Hospital capacity, quality of care and available services are not considered. Future work would add traffic data, public transport accessibility and hospital capacity.</p>
+    </div>
+
+    <div class="more reveal">
+      <span>The full StoryMap has all three route comparisons, the appendix maps and the population table.</span>
+      <span><a href="https://storymaps.arcgis.com/stories/e04d2c69cf6f4c9f8685a91e6cd04945">Open the StoryMap</a></span>
+    </div>
+
+    <div class="next reveal">
+      <a class="back" href="../index.html#gis">All GIS work</a>
+      <a class="next-card" href="economics-of-proximity.html">
+        <div class="cover"><img src="../assets/maps/subway-zoning.jpg" alt=""></div>
+        <span><span class="eyebrow">Next project</span><span class="title">Why do New Yorkers value time over money?</span></span>
+      </a>
+    </div>
+  </main>
+  <script src="../site.js" defer></script>
+</body>
+</html>

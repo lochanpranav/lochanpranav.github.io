@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Left behind by electrification: evaluating MTA bus routes · Lochan Pranav</title>
+  <meta name="description" content="GIS analysis of which MTA bus routes in Manhattan and the Bronx can convert to battery-electric buses, using a 1-foot elevation model, GTFS daily mileage and Location-Allocation to site five charging stations.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Hanken+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 rx=%2714%27 fill=%27%230B6E3F%27/%3E%3Ccircle cx=%2732%27 cy=%2728%27 r=%279%27 fill=%27%23fff%27/%3E%3Cpath d=%27M32 40v12%27 stroke=%27%23fff%27 stroke-width=%276%27 stroke-linecap=%27round%27/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="../styles.css">
+  <script>document.documentElement.classList.add("js");</script>
+</head>
+<body id="top">
+  <a class="skip" href="#main">Skip to content</a>
+  <div class="topbar">
+  <nav class="nav wrap" aria-label="Site">
+    <a class="brand" href="../index.html">Lochan Pranav</a>
+    <ul>
+      <li><a href="../index.html#gis" aria-current="page">GIS</a></li>
+      <li><a href="../index.html#uiux">UI/UX</a></li>
+      <li><a href="../index.html#campaigns">Brand</a></li>
+      <li><a href="../index.html#industrial">Products</a></li>
+      <li><a href="../index.html#about">About</a></li>
+      <li><a href="../index.html#contact">Contact</a></li>
+    </ul>
+  </nav>
+  </div>
+
+  <header class="case-head wrap" data-stagger>
+    <span class="eyebrow reveal">GIS analysis · Spring 2026 · Urban Spatial Analytics, NYU Tandon and CUSP</span>
+    <h1 class="reveal">Left behind by electrification: evaluating MTA bus routes</h1>
+    <p class="lede reveal">New York has committed to an all-electric MTA bus fleet by 2040. Steep hills and long depot-to-depot cycles mean some routes in Manhattan and the Bronx cannot convert without new infrastructure. A five-stage GIS workflow finds those routes and sites the charging stations that unlock them.</p>
+    <dl class="spec reveal">
+      <div><dt>Team</dt><dd>Two: me and Vaishnavi Potphode</dd></div>
+      <div><dt>Course</dt><dd>Urban Spatial Analytics (CUSP-GX 8033), Spring 2026, final project</dd></div>
+      <div><dt>Study area</dt><dd>Manhattan and the Bronx</dd></div>
+      <div><dt>Tools</dt><dd>ArcGIS Pro 3.3 with Spatial Analyst and Network Analyst, ArcGIS StoryMaps, ArcGIS Online</dd></div>
+      <div><dt>Links</dt><dd><a href="https://storymaps.arcgis.com/stories/d6c58f64a05241c48da42ff44b1f8fb8">Full StoryMap on ArcGIS</a></dd></div>
+    </dl>
+  </header>
+
+  <main class="wrap" id="main">
+    <figure class="figure lead reveal">
+      <div class="frame"><img src="../assets/maps/bus-energy-burden.jpg" alt="Bus routes in Manhattan and the Bronx colored by slope percent, from yellow for flat to purple for steep"></div>
+      <figcaption>Energy burden map: every route segment in Manhattan and the Bronx colored by slope, from 0 to 2 percent in yellow to more than 5 percent in purple.</figcaption>
+    </figure>
+
+    <div class="prose">
+      <h2>The problem</h2>
+      <p>Battery-electric buses face two geographic constraints that diesel buses do not. Every climb draws more power, and current heavy-duty electric buses see significantly faster battery drain on routes where more than 15 percent of the length has a gradient steeper than 5 percent. And an articulated MTA electric bus has a real-world range of about 150 miles on one charge, which several Bronx and Manhattan routes approach or exceed once the full daily cycle from depot to depot is modelled. Where a route carries both penalties, its effective range shrinks further.</p>
+      <p>The research question: how do topography and route distance dictate the physical feasibility of converting MTA bus routes in Manhattan and the Bronx to battery-electric vehicles, and where should mid-route charging go to unlock the most constrained routes?</p>
+
+      <h2>Data</h2>
+      <ul>
+        <li>MTA bus routes: the polyline geometry and stops of every local, SBS and express route in the two boroughs, used to build each route's full depot-to-depot cycle.</li>
+        <li>NYC 1-foot digital elevation model: bare-earth elevation at one-foot resolution, the finest public elevation data for the city, clipped to the study area.</li>
+        <li>Nine bus depots from the NYC Facilities Database, verified against MTA records: Kingsbridge, Gun Hill, Eastchester, West Farms, Zerega, Mother Clara Hale, Manhattanville, Tuskegee Airmen and MJ Quill.</li>
+        <li>GTFS static data for Bronx and Manhattan stops, to sum daily service miles per route.</li>
+        <li>2020 census tracts and NYSERDA's 2023 Disadvantaged Community boundaries for context.</li>
+      </ul>
+
+      <h2>Method</h2>
+      <p>Five stages, each built on the output of the one before: data inputs, topographic modelling in Spatial Analyst, route and range modelling in Network Analyst, integration into a single hard-to-convert routes layer, and charging station siting with Location-Allocation.</p>
+      <figure class="figure reveal narrow">
+        <div class="frame"><img src="../assets/maps/bus-method.png" alt="Flowchart of the five-stage GIS workflow, from data inputs to the feasibility map and the charging station plan" loading="lazy"></div>
+        <figcaption>The five-stage workflow, from raw inputs to two deliverables: a feasibility map and a charging station plan.</figcaption>
+      </figure>
+    </div>
+    <div class="pair" data-stagger>
+      <figure class="figure reveal">
+        <div class="frame"><img src="../assets/maps/bus-elevation.jpg" alt="Map of Manhattan and the Bronx with the 1-foot elevation model in greyscale" loading="lazy"></div>
+        <figcaption>Study area and elevation. The Bronx reads bright, with ridgelines in Riverdale, University Heights and Morris Heights up to 293 feet. Manhattan stays flat until Washington Heights and Inwood.</figcaption>
+      </figure>
+      <figure class="figure reveal">
+        <div class="frame"><img src="../assets/maps/bus-route-types.jpg" alt="Map of bus routes in Manhattan and the Bronx colored by type: local, SBS and limited" loading="lazy"></div>
+        <figcaption>Types of bus routes. Local routes form the dense grid; SBS routes cover longer gaps between stops and accumulate more daily mileage per cycle.</figcaption>
+      </figure>
+    </div>
+    <div class="prose">
+      <h3>Stage 2: topography</h3>
+      <p>Slope was derived from the elevation model and extracted along every route. Segments at a 5 percent grade or steeper were isolated, and a <code>Percent_Difficult</code> field on the route totals table records what share of each route is steep terrain: steep frequency divided by total frequency, times 100. Routes above 15 percent were flagged as topographically difficult.</p>
+      <h3>Stage 3: range</h3>
+      <p>Daily miles per route came from the GTFS data, summed over the full cycle. A 150 mile range was the baseline for a healthy battery. Effective range takes the hill penalty off that figure, <code>Eff_Range = 150 × (1 − Percent_Difficult / 100)</code>, and the range gap is daily service miles minus effective range.</p>
+    </div>
+    <div class="pair" data-stagger>
+      <figure class="figure reveal">
+        <div class="frame"><img src="../assets/maps/bus-energy-full.jpg" alt="Energy burden map: routes colored by slope percent, yellow for 0 to 2 percent, orange for 2 to 5 and purple above 5" loading="lazy"></div>
+        <figcaption>Energy burden map. Yellow routes at 0 to 2 percent grade dominate Midtown and lower Manhattan; purple routes, where more than 15 percent of the length exceeds a 5 percent grade, cluster in the western and central Bronx.</figcaption>
+      </figure>
+      <figure class="figure reveal">
+        <div class="frame"><img src="../assets/maps/bus-range-gap.jpg" alt="Operational range deficit map: routes colored green, cyan and blue by how far their daily miles exceed 150" loading="lazy"></div>
+        <figcaption>Operational range deficit. Every route already exceeds 150 miles. Green, 150 to 185 miles, is reachable with one charging stop; cyan, 185 to 210, needs deliberate infrastructure; blue, above 210, has a critical feasibility gap.</figcaption>
+      </figure>
+    </div>
+    <div class="prose">
+      <p>The depot pins matter. Routes from Kingsbridge and West Farms carry the heaviest cyan and blue concentrations, because those depots sit at the geographic edges of long service corridors. A long route becomes even more constrained when the depot it returns to is far from the middle of its service area.</p>
+      <h3>Stage 4: where both constraints meet</h3>
+      <p>Intersecting the two highest-stress layers gives the critical terrain intersections: the street segments where two or more constrained routes share the same steep ground. A battery stress score, daily miles divided by effective range, marks routes that would use more than all of their usable energy. Brown routes fail both tests. Blue routes exceed the range limit but stay on manageable gradients, so one charging stop is likely enough. The yellow dots are the shared segments, and they become the candidates for charging.</p>
+      <h3>Stage 5: siting five stations</h3>
+      <p>Hot spot analysis (Getis-Ord Gi*) ran on the intersection counts with a fixed distance band of 1,320 feet, a quarter mile. Only sites in the 99 percent confidence bin went forward as candidates. Location-Allocation in Network Analyst, with the Maximize Coverage problem type and a distance cutoff, then picked the subset of candidates that serves the most at-risk routes while keeping an operational distance from existing facilities.</p>
+    </div>
+    <div class="pair" data-stagger>
+      <figure class="figure reveal">
+        <div class="frame"><img src="../assets/maps/bus-feasibility.jpg" alt="Feasibility map: blue routes over the range limit, brown routes that also fail the terrain test, and yellow dots at critical intersections" loading="lazy"></div>
+        <figcaption>Feasibility categorisation with critical terrain intersections. Brown routes and yellow dots follow the same ridge terrain as the elevation model.</figcaption>
+      </figure>
+      <figure class="figure reveal">
+        <div class="frame"><img src="../assets/maps/bus-siting.jpg" alt="Map of bus routes with five proposed charging station symbols from upper Manhattan to lower Manhattan" loading="lazy"></div>
+        <figcaption>EV charging station siting. Five stations from the solver, each on a corridor shared by several constrained routes, spread from upper Manhattan through Midtown to lower Manhattan.</figcaption>
+      </figure>
+    </div>
+    <div class="pair" data-stagger>
+      <figure class="figure reveal">
+        <div class="frame"><img src="../assets/maps/bus-slope.jpg" alt="ArcGIS Pro screenshot with steep route segments selected and their attribute table open" loading="lazy"></div>
+        <figcaption>Isolating the segments with a slope of 5 percent or more in ArcGIS Pro.</figcaption>
+      </figure>
+      <figure class="figure reveal">
+        <div class="frame"><img src="../assets/maps/bus-location-allocation.jpg" alt="ArcGIS Pro screenshot of the Location-Allocation layer with facilities, demand points and lines" loading="lazy"></div>
+        <figcaption>The Location-Allocation layer: candidate facilities, demand routes and the chosen sites.</figcaption>
+      </figure>
+    </div>
+    <div class="prose">
+      <h2>Findings</h2>
+      <table class="numbers">
+        <tr><td class="n">5</td><td>charging stations on shared corridors, the minimum to unlock the hardest routes in the study area</td></tr>
+        <tr><td class="n">150 mi</td><td>real-world range of an articulated electric bus, the baseline that most routes already exceed</td></tr>
+        <tr><td class="n">9</td><td>depots serving Manhattan and the Bronx; Kingsbridge and West Farms carry the heaviest range burden</td></tr>
+        <tr><td class="n">293 ft</td><td>highest ridge elevation in the Bronx, the root cause of the terrain penalty</td></tr>
+      </table>
+      <p>Topographic difficulty concentrates in the western and central Bronx, through Morris Heights, Fordham and the Grand Concourse corridor, and at the northern tip of Manhattan. Range constraint is widespread: most routes exceed the 150 mile daily cycle before any terrain penalty is applied. The two compound each other, so the grade-adjusted range of the hardest routes is meaningfully below the manufacturer figure. The pattern mirrors what Los Angeles Metro found, and supports Santiago's approach of mapping constraints before setting a conversion schedule.</p>
+
+      <h2>Recommendations</h2>
+      <ol>
+        <li>Run a network-wide spatial feasibility assessment before finalising the conversion timeline, extending this method to all five boroughs.</li>
+        <li>Fund shared-corridor charging stations as foundational infrastructure rather than optional additions: one station serves several routes at once.</li>
+        <li>Plan with grade-adjusted range, not the flat manufacturer specification, so hilly routes get the infrastructure they need before buses enter service.</li>
+      </ol>
+
+      <h2>Limitations</h2>
+      <p>The study measures two physical constraints. Grid capacity at each depot, capital costs, fleet replacement schedules, winter battery performance and training are outside it, and the five stations solve routing feasibility, not the wider infrastructure question. The study area is Manhattan and the Bronx; Staten Island would likely show stronger patterns. Next steps: all five boroughs, a cost model for the priority stations, and a test of the solver's sites against MTA operations.</p>
+    </div>
+
+    <div class="more reveal">
+      <span>The full StoryMap has the literature review, every map at full size and the references.</span>
+      <span><a href="https://storymaps.arcgis.com/stories/d6c58f64a05241c48da42ff44b1f8fb8">Open the StoryMap</a></span>
+    </div>
+
+    <div class="next reveal">
+      <a class="back" href="../index.html#gis">All GIS work</a>
+      <a class="next-card" href="hospital-accessibility.html">
+        <div class="cover"><img src="../assets/maps/hospital-access.jpg" alt=""></div>
+        <span><span class="eyebrow">Next project</span><span class="title">Hospital accessibility in Miami-Dade County</span></span>
+      </a>
+    </div>
+  </main>
+  <script src="../site.js" defer></script>
+</body>
+</html>

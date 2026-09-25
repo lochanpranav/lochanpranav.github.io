@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Why do New Yorkers value time over money? · Lochan Pranav</title>
+  <meta name="description" content="The economics of proximity: HUD Location Affordability Index data mapped at census-tract level across the five boroughs against the subway network, to show where high rent buys back commuting time.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Hanken+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 rx=%2714%27 fill=%27%230B6E3F%27/%3E%3Ccircle cx=%2732%27 cy=%2728%27 r=%279%27 fill=%27%23fff%27/%3E%3Cpath d=%27M32 40v12%27 stroke=%27%23fff%27 stroke-width=%276%27 stroke-linecap=%27round%27/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="../styles.css">
+  <script>document.documentElement.classList.add("js");</script>
+</head>
+<body id="top">
+  <a class="skip" href="#main">Skip to content</a>
+  <div class="topbar">
+  <nav class="nav wrap" aria-label="Site">
+    <a class="brand" href="../index.html">Lochan Pranav</a>
+    <ul>
+      <li><a href="../index.html#gis" aria-current="page">GIS</a></li>
+      <li><a href="../index.html#uiux">UI/UX</a></li>
+      <li><a href="../index.html#campaigns">Brand</a></li>
+      <li><a href="../index.html#industrial">Products</a></li>
+      <li><a href="../index.html#about">About</a></li>
+      <li><a href="../index.html#contact">Contact</a></li>
+    </ul>
+  </nav>
+  </div>
+
+  <header class="case-head wrap" data-stagger>
+    <span class="eyebrow reveal">GIS analysis · 2025 · Group project, NYU Tandon and CUSP</span>
+    <h1 class="reveal">Why do New Yorkers value time over money?</h1>
+    <p class="lede reveal">The economics of proximity: measuring the true value of being on the line. HUD's Location Affordability Index mapped at census tract level across the five boroughs, against the subway network, to show where high rent buys back commuting time.</p>
+    <dl class="spec reveal">
+      <div><dt>Team</dt><dd>Three: me, Milka Vincentiya and Vaishnavi Potphode</dd></div>
+      <div><dt>Tools</dt><dd>ArcGIS Pro, ArcGIS Online, ArcGIS StoryMaps</dd></div>
+      <div><dt>Data</dt><dd>HUD Location Affordability Index for the five boroughs, MTA subway lines and stops from GTFS, NYC zoning districts</dd></div>
+      <div><dt>Links</dt><dd><a href="https://storymaps.arcgis.com/stories/739dad0b2501412a8d2ed50def3e9f26">Full StoryMap on ArcGIS</a></dd></div>
+    </dl>
+  </header>
+
+  <main class="wrap" id="main">
+    <figure class="figure lead reveal">
+      <div class="frame"><img src="../assets/maps/subway-zoning.jpg" alt="Web map of New York City subway lines and stops over zoning districts colored by type"></div>
+      <figcaption>Subway lines and stops over zoning districts. Data: GTFS and NYC GIS zoning.</figcaption>
+    </figure>
+
+    <div class="prose">
+      <h2>The question</h2>
+      <p>Housing affordability in New York is usually judged on rent alone. That misses the time and transportation costs that come with an address. Households take smaller, more expensive homes for shorter, more predictable commutes, or cheaper rent for longer ones. The Housing + Transportation Affordability Index from the Center for Neighborhood Technology treats the two together as location efficiency, and this project maps that idea across the five boroughs.</p>
+      <p>Two research questions. Do areas with a lower affordability index show lower transportation costs or higher transit use, suggesting time savings? And how does combining housing and transportation costs reveal patterns of location efficiency within the city?</p>
+
+      <h2>Method</h2>
+      <p>Housing cost stands for money; transportation patterns stand in for time. Each variable was cleaned, joined to tract boundaries, standardised to one projection and mapped with a consistent classification, then combined into one H+T map. The four layers come from HUD's Location Affordability Index, filtered to the five boroughs:</p>
+      <ul>
+        <li>Annual housing cost: the median total cost of occupying a home, gross rent or owner costs plus basic utilities, from the American Community Survey.</li>
+        <li>Modelled annual transportation cost: an estimate from household income, household size and employment access, covering the likelihood of car ownership, distance driven and transit fares.</li>
+        <li>Subway transit usage: the share of workers aged 16 and over in each tract who commute by public transportation.</li>
+        <li>Combined H+T cost: housing plus transportation costs as a share of household income.</li>
+      </ul>
+
+      <h2>Findings</h2>
+      <h3>Buying your morning back</h3>
+      <p>The housing cost map shows a purple core in Manhattan and along the subway spines of Brooklyn and Queens, where residents pay a premium to live inside the half-mile station buffers. The highest tier of annual housing cost is, in effect, a pre-payment for proximity.</p>
+    </div>
+    <figure class="figure reveal">
+        <div class="frame"><img src="../assets/maps/proximity-housing.jpg" alt="Choropleth map of New York City census tracts by annual housing cost within half a mile of a subway station, with subway lines overlaid" loading="lazy"></div>
+        <figcaption>Annual housing cost within the half-mile subway buffer.</figcaption>
+      </figure>
+    <div class="prose">
+      <h3>The sunk cost fallacy</h3>
+      <p>The transportation cost map is a heat map of the outer boroughs: costs spike where there is no rapid transit. As rent drops toward the edges, car dependency and its costs rise to fill the gap, and the savings vanish into insurance and fuel.</p>
+    </div>
+    <figure class="figure reveal">
+        <div class="frame"><img src="../assets/maps/proximity-transport.jpg" alt="Choropleth map of New York City census tracts by modelled annual transportation cost in dollars" loading="lazy"></div>
+        <figcaption>Modelled annual transportation cost in dollars.</figcaption>
+      </figure>
+    <div class="prose">
+      <h3>The wait of the world</h3>
+      <p>Transit use is pinned to the subway network and its 10 minute walk buffers. The scatter plot of transit share against the distance from each tract's centroid to the nearest station shows a clear downward trend as the distance grows. New Yorkers walk about half a mile for a train, and not much further.</p>
+    </div>
+    <figure class="figure reveal">
+        <div class="frame"><img src="../assets/maps/proximity-transit.jpg" alt="Choropleth map of New York City census tracts by the percentage of workers who use transit to get to work" loading="lazy"></div>
+        <figcaption>Share of workers who commute by transit, by tract.</figcaption>
+      </figure>
+    <figure class="figure reveal narrow">
+        <div class="frame"><img src="../assets/maps/proximity-scatter.jpg" alt="Scatter plot of percent transit use against distance to the nearest subway station, with a downward trend line" loading="lazy"></div>
+        <figcaption>Transit share against distance to the nearest station, one point per tract. The trend is downward; R² is 0.11.</figcaption>
+      </figure>
+    <div class="prose">
+      <h3>The final math</h3>
+      <p>The combined H+T map shows lighter affordability ribbons following the subway lines into the outer boroughs. There, near-zero transportation cost offsets high rent and keeps households within a more sustainable total. Those are the time-rich tracts, where the subway subsidises the rent.</p>
+    </div>
+    <figure class="figure reveal">
+        <div class="frame"><img src="../assets/maps/proximity-ht.jpg" alt="Choropleth map of New York City census tracts by combined housing and transportation cost as a percentage of income" loading="lazy"></div>
+        <figcaption>Combined housing and transportation cost as a share of income.</figcaption>
+      </figure>
+    <div class="prose">
+      <h2>Limitations</h2>
+      <p>Housing quality and space, schools and life stage, rent regulation, social ties and income and credit constraints all shape where people live and sit outside this analysis. Future work would add school quality, building age and condition, rent stabilisation status, employment location by sector, and transit reliability rather than proximity alone.</p>
+
+      <h2>Conclusion</h2>
+      <p>Housing prices in New York reflect time as well as space. Choosing a smaller, more expensive home near the train is often a strategic response to daily friction rather than an irrational one, and affordability has to be read through location efficiency, not rent alone. In a city this dense, policies that improve mobility may be among the most effective ways to return time to people's days.</p>
+    </div>
+
+    <div class="more reveal">
+      <span>The full StoryMap has the case studies from London and the Pratt Center, the data notes and the references.</span>
+      <span><a href="https://storymaps.arcgis.com/stories/739dad0b2501412a8d2ed50def3e9f26">Open the StoryMap</a></span>
+    </div>
+
+    <div class="next reveal">
+      <a class="back" href="../index.html#gis">All GIS work</a>
+      <a class="next-card" href="sarathi.html">
+        <div class="cover"><img src="../assets/sarathi/hero.png" alt=""></div>
+        <span><span class="eyebrow">Next project</span><span class="title">Redesigning India's learner's licence portal</span></span>
+      </a>
+    </div>
+  </main>
+  <script src="../site.js" defer></script>
+</body>
+</html>
