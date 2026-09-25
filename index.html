@@ -16,7 +16,7 @@
 <link rel="preload" href="assets/fonts/hanken-grotesk.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/contours.svg" as="image">
   <link rel="stylesheet" href="styles.css">
-  <script>document.documentElement.classList.add("js");try{var t=localStorage.getItem("theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t);if(sessionStorage.getItem("seen"))document.documentElement.classList.add("seen");sessionStorage.setItem("seen","1");}catch(e){}</script>
+  <script>document.documentElement.classList.add("js");try{var t=localStorage.getItem("theme");if(t==="dark")document.documentElement.setAttribute("data-theme","dark");if(sessionStorage.getItem("seen"))document.documentElement.classList.add("seen");sessionStorage.setItem("seen","1");}catch(e){}</script>
   <link rel="stylesheet" href="terminal.css">
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Lochan Pranav Mohanasundar","alternateName":"Lochan Pranav","url":"https://lochanpranav.com","jobTitle":"Spatial data scientist and product designer","email":"mailto:lm5677@nyu.edu","address":{"@type":"PostalAddress","addressLocality":"Brooklyn","addressRegion":"NY","addressCountry":"US"},"alumniOf":[{"@type":"CollegeOrUniversity","name":"New York University, Tandon School of Engineering"},{"@type":"CollegeOrUniversity","name":"MIT World Peace University"}],"sameAs":["https://www.linkedin.com/in/lochanpranav","https://github.com/lochanpranav","https://www.behance.net/lochanpranav","http://dribbble.com/LochanPranav"]}</script>
 </head>
@@ -62,14 +62,13 @@
       <p class="boot-meta"><span>plotting</span><span class="sep" aria-hidden="true">·</span><b id="boot-pct">0%</b><span class="sep" aria-hidden="true">·</span><span>40.68° N, 73.94° W</span></p>
     </div>
     <div class="boot-split" id="boot-choose" hidden>
-      <button type="button" class="half night" data-choose="dark"><span class="lbl">Night</span><span class="sub">Dark paper, green light</span></button>
-      <button type="button" class="half day" data-choose="light"><span class="lbl">Day</span><span class="sub">Cream paper, ink</span></button>
+      <button type="button" class="half paper" data-choose="light"><span class="lbl">Paper</span><span class="sub">Cream paper, aubergine ink</span></button>
+      <button type="button" class="half ink" data-choose="dark"><span class="lbl">Ink</span><span class="sub">Aubergine paper, cream ink</span></button>
       <p class="boot-q"><span>Pick your light</span></p>
       <p class="boot-note">You can switch any time from the sun and moon in the top bar</p>
     </div>
     <p class="boot-hint" id="boot-hint">Click anywhere to skip</p>
   </div>
-  <div class="survey" aria-hidden="true"></div>
   <nav class="dots" aria-label="Sections">
     <a href="#top"><span>Home</span><i></i></a>
     <a href="#index"><span>Work</span><i></i></a>
@@ -121,7 +120,6 @@
         </div>
       </div>
       <div class="strip-tools">
-        <span class="cmd">$ ls work/ --all</span>
         <span class="sync"><span class="live" aria-hidden="true"></span>20 pages · updated Sept 2026</span>
         <div class="ticker-ctl" id="ticker-ctl">
           <button type="button" class="play" data-ticker="play" aria-label="Auto-scroll the index"><svg viewBox="0 0 12 12" aria-hidden="true"><path d="M3 2l7 4-7 4z" fill="currentColor"/></svg></button>

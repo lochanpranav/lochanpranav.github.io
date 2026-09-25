@@ -302,15 +302,15 @@
     if (mode === 'auto') { try { localStorage.removeItem('theme'); } catch (e) {} mode = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark'; }
     else { try { localStorage.setItem('theme', mode); } catch (e) {} }
     root.classList.add('theme-fade');
-    if (mode === 'light') root.setAttribute('data-theme', 'light'); else root.removeAttribute('data-theme');
-    $$('[data-theme-toggle]').forEach(function (b) { b.setAttribute('aria-label', mode === 'light' ? 'Switch to dark mode' : 'Switch to light mode'); });
-    if (!silent) toast(mode === 'light' ? 'Light mode' : 'Dark mode');
+    if (mode === 'dark') root.setAttribute('data-theme', 'dark'); else root.removeAttribute('data-theme');
+    $$('[data-theme-toggle]').forEach(function (b) { b.setAttribute('aria-label', mode === 'dark' ? 'Switch to paper' : 'Switch to ink'); });
+    if (!silent) toast(mode === 'dark' ? 'Ink' : 'Paper');
     setTimeout(function () { root.classList.remove('theme-fade'); }, 400);
   }
   window.setTheme = setTheme;
   $$('[data-theme-toggle]').forEach(function (b) {
-    b.setAttribute('aria-label', root.getAttribute('data-theme') === 'light' ? 'Switch to dark mode' : 'Switch to light mode');
-    b.addEventListener('click', function () { setTheme(root.getAttribute('data-theme') === 'light' ? 'dark' : 'light'); });
+    b.setAttribute('aria-label', root.getAttribute('data-theme') === 'dark' ? 'Switch to paper' : 'Switch to ink');
+    b.addEventListener('click', function () { setTheme(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'); });
   });
 
   /* Toast */
@@ -321,7 +321,7 @@
   /* Keyboard shortcuts: ? help, Cmd/Ctrl+K terminal, g then h/l/b/r/w, Esc */
   var help = document.createElement('div'); help.className = 'help'; help.setAttribute('role', 'dialog'); help.setAttribute('aria-modal', 'true'); help.setAttribute('aria-label', 'Keyboard shortcuts');
   help.innerHTML = '<div class="box"><h3>Keyboard shortcuts</h3><dl>' +
-    [['Open the terminal', '&#8984;K / Ctrl+K'], ['This help', '?'], ['Open GitHub', 'g then h'], ['Open LinkedIn', 'g then l'], ['Open Behance', 'g then b'], ['Open the resume', 'g then r'], ['Jump to the work index', 'g then w'], ['Toggle light and dark', 'g then t'], ['Close overlays', 'Esc']]
+    [['Open the terminal', '&#8984;K / Ctrl+K'], ['This help', '?'], ['Open GitHub', 'g then h'], ['Open LinkedIn', 'g then l'], ['Open Behance', 'g then b'], ['Open the resume', 'g then r'], ['Jump to the work index', 'g then w'], ['Toggle paper and ink', 'g then t'], ['Close overlays', 'Esc']]
       .map(function (r) { return '<div><span>' + r[0] + '</span><kbd>' + r[1] + '</kbd></div>'; }).join('') +
     '</dl><button type="button" class="close">Close</button></div>';
   document.body.appendChild(help);
@@ -342,7 +342,7 @@
       var go = { h: ['https://github.com/lochanpranav', 'GitHub'], l: ['https://www.linkedin.com/in/lochanpranav', 'LinkedIn'], b: ['https://www.behance.net/lochanpranav', 'Behance'], r: [base + 'assets/Lochan_Pranav_Resume.pdf', 'Resume'] }[e.key];
       if (go) { window.open(go[0], '_blank', 'noopener'); toast('→ ' + go[1]); }
       else if (e.key === 'w') { if (document.getElementById('index')) { document.getElementById('index').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' }); toast('→ Work'); } else { location.href = base + 'index.html#index'; } }
-      else if (e.key === 't') { setTheme(root.getAttribute('data-theme') === 'light' ? 'dark' : 'light'); }
+      else if (e.key === 't') { setTheme(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'); }
     }
   });
 
@@ -386,7 +386,7 @@
         if (asking) return; asking = true; clearAll();
         stage.hidden = true; hint.hidden = true; choose.hidden = false; choose.classList.add('in');
         $$('[data-choose]', choose).forEach(function (bt) { bt.addEventListener('click', function (e) { e.stopPropagation(); setTheme(bt.getAttribute('data-choose'), true); finish(); }); });
-        $('[data-choose="dark"]', choose).focus();
+        $('[data-choose="light"]', choose).focus();
       }
       function bootNext() { if (!hasTheme) askMode(); else finish(); }
       timers.push(setTimeout(bootNext, 2100));
@@ -394,7 +394,8 @@
       document.addEventListener('keydown', function (e) {
         if (!boot.classList.contains('on') || done) return;
         if (!asking && (e.key === 'Escape' || e.key === 'Enter' || e.key === ' ')) { bootNext(); return; }
-        if (asking && (e.key === 'ArrowLeft' || e.key === 'ArrowRight')) { e.preventDefault(); $(e.key === 'ArrowLeft' ? '[data-choose="dark"]' : '[data-choose="light"]', choose).focus(); }
+        if (asking && e.key === 'Escape') { setTheme('light', true); finish(); return; }
+        if (asking && (e.key === 'ArrowLeft' || e.key === 'ArrowRight')) { e.preventDefault(); $(e.key === 'ArrowLeft' ? '[data-choose="light"]' : '[data-choose="dark"]', choose).focus(); }
       });
     }
   }
@@ -412,39 +413,6 @@
       dots.forEach(function (a) { a.classList.toggle('on', a.getAttribute('href') === '#' + activeSec.id); });
     }, { rootMargin: '-40% 0px -50% 0px', threshold: 0 });
     targets.forEach(function (t) { dio.observe(t); });
-  }
-
-  /* Reticle cursor on fine pointers */
-  if (fine && !reduce) {
-    var cur = document.createElement('div'); cur.className = 'cur'; cur.setAttribute('aria-hidden', 'true'); cur.innerHTML = '<i class="dot"></i><i class="ring"></i>';
-    document.body.appendChild(cur);
-    root.classList.add('cursor-on');
-    var cx = -100, cy = -100, rx = -100, ry = -100, cdot = $('.dot', cur), cring = $('.ring', cur), curRaf = false, shown = false;
-    function curFrame() {
-      curRaf = false;
-      cdot.style.transform = 'translate(' + cx + 'px,' + cy + 'px)' + (cur.classList.contains('over') ? ' scale(.5)' : '');
-      rx += (cx - rx) * .3; ry += (cy - ry) * .3;
-      cring.style.transform = 'translate(' + rx + 'px,' + ry + 'px)' + (cur.classList.contains('down') ? ' scale(.85)' : '');
-      if (Math.abs(cx - rx) > .3 || Math.abs(cy - ry) > .3) { curRaf = true; raf(curFrame); }
-    }
-    document.addEventListener('mousemove', function (e) {
-      cx = e.clientX; cy = e.clientY;
-      if (!shown) { shown = true; rx = cx; ry = cy; cur.classList.remove('hide'); }
-      var t = e.target && e.target.closest ? e.target.closest('a, button, [role="button"], input, textarea, select, label, summary, .strip') : null;
-      cur.classList.toggle('over', !!t);
-      if (!curRaf) { curRaf = true; raf(curFrame); }
-    }, { passive: true });
-    document.addEventListener('mousedown', function () { cur.classList.add('down'); });
-    document.addEventListener('mouseup', function () { cur.classList.remove('down'); });
-    function hideCur() { cur.classList.add('hide'); }
-    function showCur() { cur.classList.remove('hide'); }
-    document.addEventListener('mouseleave', hideCur);
-    document.addEventListener('mouseenter', showCur);
-    window.addEventListener('blur', hideCur);
-    window.addEventListener('focus', showCur);
-    window.addEventListener('pageshow', showCur);
-    document.addEventListener('visibilitychange', function () { if (!document.hidden) showCur(); });
-    document.addEventListener('mousemove', showCur, { passive: true });
   }
 
   /* Elevation-profile dividers: a deterministic profile per divider, drawn when it enters view */
