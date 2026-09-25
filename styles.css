@@ -118,13 +118,13 @@ html.spot .hero-bg .contours.bright { opacity: .95; }
   @keyframes breathe { to { translate: -1.5% 1.2%; scale: 1.04; } }
 }
 .hero > *:not(.hero-bg) { position: relative; }
-.status { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; margin: 0 0 6px; font-family: var(--mono); font-size: 12.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.status { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; margin: auto 0 6px; font-family: var(--mono); font-size: 12.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
 .status time { color: var(--ink); font-variant-numeric: tabular-nums; display: inline-block; min-width: 8ch; }
 .status .sep { color: var(--rule); }
 .status .live, .panel .live { display: inline-block; width: 7px; height: 7px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 0 rgba(63, 191, 122, .5); }
 @media (prefers-reduced-motion: no-preference) { .status .live { animation: pulse 3.6s ease-out infinite; } }
 @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(63, 191, 122, .55); } 70% { box-shadow: 0 0 0 9px rgba(63, 191, 122, 0); } 100% { box-shadow: 0 0 0 0 rgba(63, 191, 122, 0); } }
-h1.name { font-size: clamp(52px, min(15.95vw - 6px, 25.5vh), 217px); line-height: .92; letter-spacing: -0.045em; margin: 4px 0 14px; max-width: none; color: var(--cream); font-variation-settings: 'opsz' 96; white-space: nowrap; }
+h1.name { font-size: clamp(52px, min(15.95vw - 6px, 27vh), 217px); line-height: .92; letter-spacing: -0.045em; margin: 4px 0 14px; max-width: none; color: var(--cream); font-variation-settings: 'opsz' 96; white-space: nowrap; }
 h1.name .line { display: block; overflow: hidden; padding: .04em 0 .09em; margin: -.04em 0 -.09em; }
 h1.name .w { display: inline-block; }
 h1.name .w + .w { margin-left: .16em; }
@@ -144,16 +144,14 @@ html.seen h1.name .line > .w, html.seen .hero .fade, html.seen .hero .hero-foot 
 .hero-row { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(300px, .9fr); gap: 28px 64px; align-items: start; border-top: 1px solid var(--rule); padding-top: 22px; }
 .tagline { font-family: var(--display); font-weight: 500; font-size: clamp(22px, 2.7vw, 34px); letter-spacing: -0.02em; line-height: 1.15; max-width: 30ch; margin: 0 0 16px; text-wrap: balance; }
 .tagline em { font-family: var(--serif); font-style: italic; font-weight: 400; font-size: var(--serif-bump); color: var(--accent); letter-spacing: 0; }
-.hero .intro { font-size: 17px; line-height: 1.5; max-width: 60ch; margin: 0; color: var(--prose); }
-.hero .intro p { margin: 0 0 10px; }
-.hero .intro p:last-child { margin-bottom: 0; color: var(--muted); }
+.hero .intro { font-size: 18px; line-height: 1.5; max-width: 60ch; margin: 0; color: var(--prose); }
 .hero .intro strong { color: var(--ink); font-weight: 500; }
 .panel { border-left: 1px solid var(--rule); padding: 2px 0 0 28px; }
 .panel dl { margin: 0; display: grid; gap: 16px; }
 .panel dt { font-family: var(--mono); font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
 .panel dd { margin: 0; font-size: 15px; line-height: 1.45; }
 .panel dd .mono { display: block; margin-top: 3px; }
-.hero-foot { display: flex; align-items: center; gap: 22px; margin-top: 28px; font-family: var(--mono); font-size: 11.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.hero-foot { display: flex; align-items: center; gap: 22px; margin-top: auto; padding-top: 28px; font-family: var(--mono); font-size: 11.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
 .hero-foot .scroll-label { flex: 0 0 auto; }
 .ticker { flex: 1; min-width: 0; overflow: hidden; -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
 .ticker ul { display: flex; width: max-content; margin: 0; padding: 0; list-style: none; }
@@ -163,7 +161,7 @@ html.seen h1.name .line > .w, html.seen .hero .fade, html.seen .hero .hero-foot 
 @keyframes ticker { to { transform: translateX(-50%); } }
 @media (max-width: 900px) { .hero-row { grid-template-columns: 1fr; gap: 24px; } .panel { border-left: 0; border-top: 1px solid var(--rule); padding: 20px 0 0; max-width: 520px; } .hero { min-height: 0; } }
 @media (max-width: 560px) { h1.name { white-space: normal; font-size: clamp(56px, 28vw, 120px); margin-bottom: 18px; } h1.name .w { display: block; } h1.name .w + .w { margin-left: 0; } }
-@media (max-width: 560px) { .hero-bg .contours { display: none; } .hero .intro { font-size: 16.5px; } .hero-foot { margin-top: 32px; } }
+@media (max-width: 560px) { .hero-bg .contours { display: none; } .hero .intro { font-size: 16.5px; } }
 
 /* Hero background drifts as you scroll, where the browser supports scroll timelines */
 @supports (animation-timeline: scroll()) {
