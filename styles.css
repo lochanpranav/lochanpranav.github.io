@@ -18,7 +18,7 @@
 }
 
 * { box-sizing: border-box; }
-html { color-scheme: dark; }
+html { color-scheme: dark; overflow-x: clip; }
 @media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
 
 body {
@@ -65,8 +65,8 @@ h2 { font-family: var(--display); font-weight: 700; font-size: clamp(24px, 3vw, 
 
 /* Home: hero, with a faint map grid behind it */
 .hero { position: relative; padding-block: 64px 52px; border-bottom: 1px solid var(--rule); }
-.hero::before { content: ''; position: absolute; inset: 0 -20px; background-image: radial-gradient(var(--rule) 1px, transparent 1.3px); background-size: 22px 22px; opacity: .9; -webkit-mask-image: linear-gradient(to bottom, black 20%, transparent 90%); mask-image: linear-gradient(to bottom, black 20%, transparent 90%); pointer-events: none; }
-.hero::after { content: ''; position: absolute; inset: -40px -20px 0; background: radial-gradient(60% 55% at 18% 28%, rgba(63, 191, 122, .16), rgba(63, 191, 122, 0) 70%); pointer-events: none; }
+.hero::before { content: ''; position: absolute; top: 0; bottom: 0; left: 50%; width: 100vw; transform: translateX(-50%); background-image: radial-gradient(var(--rule) 1px, transparent 1.3px); background-size: 22px 22px; opacity: .9; -webkit-mask-image: linear-gradient(to bottom, black 20%, transparent 90%); mask-image: linear-gradient(to bottom, black 20%, transparent 90%); pointer-events: none; }
+.hero::after { content: ''; position: absolute; top: -40px; bottom: 0; left: 50%; width: 100vw; transform: translateX(-50%); background: radial-gradient(40% 55% at 30% 28%, rgba(63, 191, 122, .16), rgba(63, 191, 122, 0) 70%); pointer-events: none; }
 .hero > * { position: relative; }
 h1.name { font-size: clamp(48px, 8vw, 92px); letter-spacing: -0.035em; margin: 10px 0 10px; max-width: none; }
 .tagline { font-family: var(--display); font-weight: 600; font-size: clamp(22px, 2.9vw, 34px); letter-spacing: -0.02em; line-height: 1.15; max-width: 30ch; margin: 0 0 18px; text-wrap: balance; }
