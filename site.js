@@ -189,17 +189,49 @@
     }
   }
 
-  /* Hero contours drift with the pointer */
-  var contours = document.querySelector('.hero-bg .contours');
-  if (contours && fine && !reduce) {
-    var hero = document.querySelector('.hero');
-    var hx = 0, hy = 0, hTick = false;
-    hero.addEventListener('mousemove', function (e) {
-      var b = hero.getBoundingClientRect();
-      hx = ((e.clientX - b.left) / b.width - 0.5) * 18;
-      hy = ((e.clientY - b.top) / b.height - 0.5) * 12;
-      if (!hTick) { hTick = true; raf(function () { hTick = false; contours.style.translate = hx + 'px ' + hy + 'px'; }); }
+  /* Hero: the letters lighten under the pointer and the contour map brightens around it */
+  var heroEl = document.querySelector('.hero');
+  var chars = heroEl ? heroEl.querySelectorAll('h1.name .ch') : [];
+  var bright = document.querySelector('.hero-bg .contours.bright');
+  if (heroEl && fine && !reduce && (chars.length || bright)) {
+    var hx = -9999, hy = -9999, hTick = false, centers = null, far = true;
+    function measure() {
+      centers = [];
+      for (var i2 = 0; i2 < chars.length; i2++) {
+        var cb = chars[i2].getBoundingClientRect();
+        centers.push([cb.left + cb.width / 2, cb.top + cb.height / 2]);
+      }
+    }
+    function heroFrame() {
+      hTick = false;
+      if (bright) {
+        var bb = bright.getBoundingClientRect();
+        bright.style.setProperty('--mx', (hx - bb.left) + 'px');
+        bright.style.setProperty('--my', (hy - bb.top) + 'px');
+      }
+      if (!centers) measure();
+      var anyNear = false;
+      for (var k2 = 0; k2 < chars.length; k2++) {
+        var dx = centers[k2][0] - hx, dy = centers[k2][1] - hy;
+        var d2 = dx * dx + dy * dy;
+        var w = 800;
+        if (d2 < 250000) { w = Math.round(800 - 230 * Math.exp(-d2 / (2 * 150 * 150))); anyNear = true; }
+        chars[k2].style.fontVariationSettings = "'opsz' 96, 'wght' " + w;
+      }
+      far = !anyNear;
+    }
+    heroEl.addEventListener('mousemove', function (e) {
+      hx = e.clientX; hy = e.clientY;
+      if (!hTick) { hTick = true; raf(heroFrame); }
     }, { passive: true });
+    heroEl.addEventListener('mouseenter', function () { document.documentElement.classList.add('spot'); });
+    heroEl.addEventListener('mouseleave', function () {
+      document.documentElement.classList.remove('spot');
+      hx = -9999; hy = -9999;
+      if (!hTick) { hTick = true; raf(heroFrame); }
+    });
+    window.addEventListener('resize', function () { centers = null; });
+    window.addEventListener('scroll', function () { centers = null; }, { passive: true });
+    setTimeout(function () { centers = null; }, 1600);
   }
-
 })();
