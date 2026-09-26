@@ -58,16 +58,21 @@
   <div class="boot" id="boot" aria-hidden="true">
     <div class="boot-stage" id="boot-stage">
       <div class="boot-map" id="boot-map" aria-hidden="true"></div>
-      <div class="boot-name" aria-hidden="true"><span class="line"><span class="w">Lochan</span> <span class="w">Pranav</span></span></div>
-      <p class="boot-meta"><span>plotting</span><span class="sep" aria-hidden="true">·</span><b id="boot-pct">0%</b><span class="sep" aria-hidden="true">·</span><span>40.68° N, 73.94° W</span></p>
-    </div>
-    <div class="boot-split" id="boot-choose" hidden>
-      <button type="button" class="half paper" data-choose="light"><span class="lbl">Paper</span><span class="sub">Cream paper, aubergine ink</span></button>
-      <button type="button" class="half ink" data-choose="dark"><span class="lbl">Ink</span><span class="sub">Aubergine paper, cream ink</span></button>
-      <p class="boot-q"><span>Pick your light</span></p>
-      <p class="boot-note">You can switch any time from the sun and moon in the top bar</p>
+      <div class="boot-pins" id="boot-pins" aria-hidden="true"></div>
+      <div class="boot-scan" aria-hidden="true"></div>
+      <div class="boot-name" aria-hidden="true"><span class="w"><span class="ch" style="--i:0">L</span><span class="ch" style="--i:1">o</span><span class="ch" style="--i:2">c</span><span class="ch" style="--i:3">h</span><span class="ch" style="--i:4">a</span><span class="ch" style="--i:5">n</span></span><span class="w"><span class="ch" style="--i:0">P</span><span class="ch" style="--i:1">r</span><span class="ch" style="--i:2">a</span><span class="ch" style="--i:3">n</span><span class="ch" style="--i:4">a</span><span class="ch" style="--i:5">v</span></span></div>
+      <p class="boot-meta"><span>plotting</span><span class="sep" aria-hidden="true">·</span><span>40.68° N, 73.94° W</span><span class="sep" aria-hidden="true">·</span><span>Brooklyn</span></p>
+      <div class="boot-pct" id="boot-pct" aria-hidden="true">0</div>
     </div>
     <p class="boot-hint" id="boot-hint">Click anywhere to skip</p>
+  </div>
+  <div class="pick" id="pick" role="dialog" aria-label="Paper or ink" hidden>
+    <p class="pick-q">Paper or ink?</p>
+    <div class="pick-opts">
+      <button type="button" class="pick-opt paper" data-pick="light"><span class="chip" aria-hidden="true"></span>Paper</button>
+      <button type="button" class="pick-opt ink" data-pick="dark"><span class="chip" aria-hidden="true"></span>Ink</button>
+    </div>
+    <button type="button" class="pick-close" data-pick="light" aria-label="Keep paper and close">Keep paper</button>
   </div>
   <nav class="dots" aria-label="Sections">
     <a href="#top"><span>Home</span><i></i></a>
@@ -77,6 +82,7 @@
     <a href="#uiux"><span>UI/UX</span><i></i></a>
     <a href="#campaigns"><span>Brand</span><i></i></a>
     <a href="#industrial"><span>Products</span><i></i></a>
+    <a href="#numbers"><span>Numbers</span><i></i></a>
     <a href="#experience"><span>Experience</span><i></i></a>
     <a href="#education"><span>Education</span><i></i></a>
     <a href="#skills"><span>Skills</span><i></i></a>
@@ -88,7 +94,7 @@
 
   <header class="hero wrap" data-spot>
     <div class="hero-bg spot-bg" aria-hidden="true"><div class="contours"></div><div class="contours bright"></div><div class="grid"></div><div class="glow"></div></div>
-    <p class="status fade"><span class="live" aria-hidden="true"></span><span>Brooklyn, NY</span><span class="sep" aria-hidden="true">·</span><span><time id="clock" data-tz="America/New_York">--:-- --</time> local</span><span class="sep" aria-hidden="true">·</span><span>40.68° N, 73.94° W</span><span class="sep" aria-hidden="true">·</span><span class="greet"><span id="greet">good day</span>, still <b class="word" id="status-word">mapping</b></span></p>
+    <p class="status fade"><span class="live" aria-hidden="true"></span><span>Brooklyn, NY</span><span class="sep" aria-hidden="true">·</span><span><time id="clock" data-tz="America/New_York">--:-- --</time> local</span><span class="sep coords-sep" aria-hidden="true">·</span><span class="coords">40.68° N, 73.94° W</span><span class="sep" aria-hidden="true">·</span><span class="greet"><span id="greet">good day</span>, still <b class="word" id="status-word">mapping</b></span><span class="sep live-sep" aria-hidden="true" hidden>·</span><span class="live-data" id="live-data" hidden></span></p>
     <h1 class="name"><span class="sr-only">Lochan Pranav</span><span class="line" aria-hidden="true"><span class="w"><span class="ch">L</span><span class="ch">o</span><span class="ch">c</span><span class="ch">h</span><span class="ch">a</span><span class="ch">n</span></span> <span class="w"><span class="ch">P</span><span class="ch">r</span><span class="ch">a</span><span class="ch">n</span><span class="ch">a</span><span class="ch">v</span></span></span></h1>
     <div class="hero-row">
       <div class="hero-main">
@@ -350,6 +356,47 @@
     </section>
 
     <div class="divider" aria-hidden="true"></div>
+    <section id="numbers" class="sec">
+      <div class="sec-head reveal">
+        <div>
+          <p class="kicker"><i class="dot"></i><span>By the numbers</span><span class="sep" aria-hidden="true">·</span><span>Four results, drawn to scale</span></p>
+          <h2>What the data said</h2>
+        </div>
+        <p class="aside">Every figure is from the project itself</p>
+      </div>
+      <div class="charts">
+        <figure class="chart reveal">
+          <figcaption><b>Hospital access in Miami-Dade</b><span>Residents by drive time to the nearest hospital · Network Analyst, Spring 2026</span></figcaption>
+          <div class="stack" role="img" aria-label="1,612 residents within 3 minutes, 890,786 within 3 to 7 minutes, 1,809,369 beyond 7 minutes">
+            <div class="seg a" style="--w:0.06%"><i></i></div><div class="seg b" style="--w:32.97%"><i></i></div><div class="seg c" style="--w:66.97%"><i></i></div>
+          </div>
+          <ul class="legend"><li><i class="a"></i><b>1,612</b> within 3 min</li><li><i class="b"></i><b>890,786</b> 3 to 7 min</li><li><i class="c"></i><b>1,809,369</b> beyond 7 min</li></ul>
+        </figure>
+        <figure class="chart reveal">
+          <figcaption><b>Predicting housing and transport burden</b><span>R² on 2,120 NYC tracts, best of six cross-validated models · Machine Learning for Cities, Spring 2026</span></figcaption>
+          <div class="bars" role="img" aria-label="R squared 0.485 with housing features only, 0.710 with transit features added">
+            <div class="bar"><span class="lbl">Housing only</span><div class="track"><i style="--w:48.5%"></i></div><b>0.485</b></div>
+            <div class="bar hi"><span class="lbl">With transit</span><div class="track"><i style="--w:71%"></i></div><b>0.710</b></div>
+          </div>
+          <p class="note">148 tracts flagged as transit traps: high burden, low transit access, long commutes.</p>
+        </figure>
+        <figure class="chart reveal">
+          <figcaption><b>Address Masters dashboard</b><span>Usability tests with 18 users, then a component library · Bangalore, 2024</span></figcaption>
+          <div class="bars" role="img" aria-label="Task efficiency up 32 percent, design iteration time down 25 percent">
+            <div class="bar hi"><span class="lbl">Task efficiency</span><div class="track"><i style="--w:32%"></i></div><b>+32%</b></div>
+            <div class="bar"><span class="lbl">Iteration time</span><div class="track"><i style="--w:25%"></i></div><b>−25%</b></div>
+          </div>
+          <p class="note">40+ screens and 12+ workflows shipped with the engineers.</p>
+        </figure>
+        <figure class="chart reveal big">
+          <figcaption><b>Tulsa Event Monitor</b><span>Community venues geocoded through the Google Places API · City of Tulsa Auditor's Office, 2025</span></figcaption>
+          <div class="bignum"><b data-count="493">493</b><span>venues on one map, from <b>3</b> event platforms, in <b>5</b> views</span></div>
+          <div class="dots-grid" aria-hidden="true"></div>
+        </figure>
+      </div>
+    </section>
+
+    <div class="divider" aria-hidden="true"></div>
     <section id="experience" class="sec">
       <div class="sec-head reveal">
         <div>
@@ -519,6 +566,26 @@
         <p class="reveal">I studied product design at MIT World Peace University in Pune and spent 2024 as the designer at Address Masters, an early-stage startup in Bangalore, working across the product and its marketing.</p>
         <p class="reveal">In 2025 I moved to Brooklyn for the M.S. in Urban Data Science at NYU Tandon. Through NYU's Center for Urban Science and Progress I spent a semester with the City of Tulsa Auditor's Office, where my teammate and I built a mapping tool the office now owns.</p>
         <p class="reveal">The through line is data that people have to act on. Designers usually hand that problem to someone else. I would rather understand the data well enough to design the right thing, and increasingly, to build it.</p>
+        <div class="worlds reveal">
+          <div>
+            <p class="kicker"><i class="dot ui"></i><span>As a designer</span></p>
+            <ul>
+              <li>Figma prototypes tested with 18 users, then iterated</li>
+              <li>A component library that cut iteration time by a quarter</li>
+              <li>Brand systems, 200+ creatives and two films</li>
+              <li>Seven physical products, from sketch to render</li>
+            </ul>
+          </div>
+          <div>
+            <p class="kicker"><i class="dot gis"></i><span>As a data scientist</span></p>
+            <ul>
+              <li>Network and hot-spot analysis in ArcGIS Pro</li>
+              <li>Six cross-validated models on 2,120 census tracts</li>
+              <li>Mixed-methods research for a city audit office</li>
+              <li>A Streamlit app on 493 geocoded venues</li>
+            </ul>
+          </div>
+        </div>
       </div>
       <div class="about-side">
         <ul class="lines reveal">
