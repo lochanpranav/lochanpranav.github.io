@@ -36,7 +36,6 @@
     </ul>
       <div class="tools">
         <button class="termbtn" type="button" data-terminal-open aria-label="Open the terminal"><span class="caret">&gt;_</span><span>ask me anything</span><kbd>&#8984;K</kbd></button>
-        <button class="iconbtn" type="button" data-theme-toggle aria-label="Switch theme"><svg class="moon" viewBox="0 0 16 16" aria-hidden="true"><path d="M13.5 9.5A6 6 0 0 1 6.5 2.5a6 6 0 1 0 7 7Z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg><svg class="sun" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="3" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M8 1v2M8 13v2M1 8h2M13 8h2M3 3l1.4 1.4M11.6 11.6 13 13M3 13l1.4-1.4M11.6 4.4 13 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></button>
       </div>
       <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu">Menu</button>
   </nav>
@@ -57,22 +56,18 @@
 
   <div class="boot" id="boot" aria-hidden="true">
     <div class="boot-stage" id="boot-stage">
+      <canvas class="boot-cv" id="boot-cv" aria-hidden="true"></canvas>
       <div class="boot-map" id="boot-map" aria-hidden="true"></div>
-      <div class="boot-pins" id="boot-pins" aria-hidden="true"></div>
+      <i class="hud tl" aria-hidden="true"></i><i class="hud tr" aria-hidden="true"></i><i class="hud bl" aria-hidden="true"></i><i class="hud br" aria-hidden="true"></i>
+      <div class="boot-cross" aria-hidden="true"></div>
       <div class="boot-scan" aria-hidden="true"></div>
-      <div class="boot-name" aria-hidden="true"><span class="w"><span class="ch" style="--i:0">L</span><span class="ch" style="--i:1">o</span><span class="ch" style="--i:2">c</span><span class="ch" style="--i:3">h</span><span class="ch" style="--i:4">a</span><span class="ch" style="--i:5">n</span></span><span class="w"><span class="ch" style="--i:0">P</span><span class="ch" style="--i:1">r</span><span class="ch" style="--i:2">a</span><span class="ch" style="--i:3">n</span><span class="ch" style="--i:4">a</span><span class="ch" style="--i:5">v</span></span></div>
+      <div class="boot-name" aria-hidden="true"><span class="w"><span class="ch" data-ch="L" style="--i:0">L</span><span class="ch" data-ch="o" style="--i:1">o</span><span class="ch" data-ch="c" style="--i:2">c</span><span class="ch" data-ch="h" style="--i:3">h</span><span class="ch" data-ch="a" style="--i:4">a</span><span class="ch" data-ch="n" style="--i:5">n</span></span><span class="w"><span class="ch" data-ch="P" style="--i:0">P</span><span class="ch" data-ch="r" style="--i:1">r</span><span class="ch" data-ch="a" style="--i:2">a</span><span class="ch" data-ch="n" style="--i:3">n</span><span class="ch" data-ch="a" style="--i:4">a</span><span class="ch" data-ch="v" style="--i:5">v</span></span></div>
       <p class="boot-meta"><span>plotting</span><span class="sep" aria-hidden="true">·</span><span>40.68° N, 73.94° W</span><span class="sep" aria-hidden="true">·</span><span>Brooklyn</span></p>
-      <div class="boot-pct" id="boot-pct" aria-hidden="true">0</div>
+      <div class="boot-read" id="boot-read" aria-hidden="true"></div>
+      <div class="boot-bar" aria-hidden="true"><div class="segs" id="boot-segs"></div><b id="boot-pct">0%</b></div>
+      <div class="boot-ring" aria-hidden="true"><i></i><b id="boot-bearing">000°</b></div>
     </div>
     <p class="boot-hint" id="boot-hint">Click anywhere to skip</p>
-  </div>
-  <div class="pick" id="pick" role="dialog" aria-label="Paper or ink" hidden>
-    <p class="pick-q">Paper or ink?</p>
-    <div class="pick-opts">
-      <button type="button" class="pick-opt paper" data-pick="light"><span class="chip" aria-hidden="true"></span>Paper</button>
-      <button type="button" class="pick-opt ink" data-pick="dark"><span class="chip" aria-hidden="true"></span>Ink</button>
-    </div>
-    <button type="button" class="pick-close" data-pick="light" aria-label="Keep paper and close">Keep paper</button>
   </div>
   <nav class="dots" aria-label="Sections">
     <a href="#top"><span>Home</span><i></i></a>

@@ -321,7 +321,7 @@
   /* Keyboard shortcuts: ? help, Cmd/Ctrl+K terminal, g then h/l/b/r/w, Esc */
   var help = document.createElement('div'); help.className = 'help'; help.setAttribute('role', 'dialog'); help.setAttribute('aria-modal', 'true'); help.setAttribute('aria-label', 'Keyboard shortcuts');
   help.innerHTML = '<div class="box"><h3>Keyboard shortcuts</h3><dl>' +
-    [['Open the terminal', '&#8984;K / Ctrl+K'], ['This help', '?'], ['Open GitHub', 'g then h'], ['Open LinkedIn', 'g then l'], ['Open Behance', 'g then b'], ['Open the resume', 'g then r'], ['Jump to the work index', 'g then w'], ['Toggle paper and ink', 'g then t'], ['Close overlays', 'Esc']]
+    [['Open the terminal', '&#8984;K / Ctrl+K'], ['This help', '?'], ['Open GitHub', 'g then h'], ['Open LinkedIn', 'g then l'], ['Open Behance', 'g then b'], ['Open the resume', 'g then r'], ['Jump to the work index', 'g then w'], ['Close overlays', 'Esc']]
       .map(function (r) { return '<div><span>' + r[0] + '</span><kbd>' + r[1] + '</kbd></div>'; }).join('') +
     '</dl><button type="button" class="close">Close</button></div>';
   document.body.appendChild(help);
@@ -342,66 +342,78 @@
       var go = { h: ['https://github.com/lochanpranav', 'GitHub'], l: ['https://www.linkedin.com/in/lochanpranav', 'LinkedIn'], b: ['https://www.behance.net/lochanpranav', 'Behance'], r: [base + 'assets/Lochan_Pranav_Resume.pdf', 'Resume'] }[e.key];
       if (go) { window.open(go[0], '_blank', 'noopener'); toast('→ ' + go[1]); }
       else if (e.key === 'w') { if (document.getElementById('index')) { document.getElementById('index').scrollIntoView({ behavior: reduce ? 'auto' : 'smooth' }); toast('→ Work'); } else { location.href = base + 'index.html#index'; } }
-      else if (e.key === 't') { setTheme(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark'); }
     }
   });
 
-  /* Boot: the contour map plots itself with pins, the name rises, a counter runs; once per session, click or key to skip.
-     After a first loading, a small card asks Paper or ink. ?boot or the footer's "Replay intro" link replays the loading. */
-  var boot = document.getElementById('boot'), pick = document.getElementById('pick');
-  function previewTheme(mode) { if (mode === 'dark') root.setAttribute('data-theme', 'dark'); else root.removeAttribute('data-theme'); }
-  function askPick() {
-    if (!pick) return;
-    var stored = null;
-    try { stored = localStorage.getItem('theme'); } catch (e) {}
-    if (stored) return;
-    pick.hidden = false; void pick.offsetWidth; pick.classList.add('on');
-    var current = root.getAttribute('data-theme') === 'dark' ? 'dark' : 'light', closeT;
-    function closePick(mode) { clearTimeout(closeT); if (mode) setTheme(mode, false); else previewTheme(current); pick.classList.remove('on'); setTimeout(function () { pick.hidden = true; }, 400); }
-    $$('.pick-opt', pick).forEach(function (bt) {
-      var m = bt.getAttribute('data-pick');
-      bt.addEventListener('mouseenter', function () { previewTheme(m); });
-      bt.addEventListener('focus', function () { previewTheme(m); });
-      bt.addEventListener('mouseleave', function () { previewTheme(current); });
-      bt.addEventListener('blur', function () { previewTheme(current); });
-      bt.addEventListener('click', function () { closePick(m); });
-    });
-    $('.pick-close', pick).addEventListener('click', function () { closePick('light'); });
-    document.addEventListener('keydown', function onk(e) { if (e.key === 'Escape' && !pick.hidden) { closePick('light'); document.removeEventListener('keydown', onk); } });
-    closeT = setTimeout(function () { if (!pick.hidden) closePick(null); }, 16000);
-  }
+  /* Boot: a scan reveals the terrain as points, the contour lines draw, readouts tick, the name decodes, then the hand-off. */
+  var boot = document.getElementById('boot');
   if (boot) {
-    var booted = false, hasTheme = false, force = /[?&]boot\b/.test(location.search);
-    try { booted = !!sessionStorage.getItem('booted'); hasTheme = !!localStorage.getItem('theme'); } catch (e) { booted = true; }
+    var booted = false, force = /[?&]boot\b/.test(location.search);
+    try { booted = !!sessionStorage.getItem('booted'); } catch (e) { booted = true; }
     if ((!booted || force) && !reduce) {
       boot.classList.add('on'); boot.setAttribute('aria-hidden', 'false');
-      var mapEl = document.getElementById('boot-map'), pctEl = document.getElementById('boot-pct'), pinsEl = document.getElementById('boot-pins');
-      var timers = [], done = false, t0 = null;
+      var mapEl = document.getElementById('boot-map'), cv = document.getElementById('boot-cv'), ctx = cv.getContext('2d'), readEl = document.getElementById('boot-read'), segsEl = document.getElementById('boot-segs'), pctEl = document.getElementById('boot-pct'), bearingEl = document.getElementById('boot-bearing'), scanEl = boot.querySelector('.boot-scan');
+      var timers = [], done = false, t0 = null, pts = [], dpr = Math.min(2, window.devicePixelRatio || 1), W = window.innerWidth, H = window.innerHeight;
+      cv.width = W * dpr; cv.height = H * dpr; ctx.scale(dpr, dpr);
+      for (var sg = 0; sg < 20; sg++) segsEl.appendChild(document.createElement('i'));
+      var reads = [['lat', '40.6782° N'], ['lon', '73.9442° W'], ['elev', '24 m'], ['basemap', 'tiles 00/12'], ['index', '20 pages'], ['fonts', 'ok'], ['status', 'plotting']];
+      var readRows = reads.map(function (r, i) { var d = document.createElement('div'); d.style.setProperty('--d', (200 + i * 140) + 'ms'); d.innerHTML = '<span>' + r[0] + '</span><b></b>'; readEl.appendChild(d); return d.querySelector('b'); });
+      var glyphs = '0123456789ABCDEF·/\\|_';
+      function scr(final, p) { var out = ''; for (var i = 0; i < final.length; i++) out += (final[i] === ' ' || Math.random() < p) ? final[i] : glyphs[Math.floor(Math.random() * glyphs.length)]; return out; }
+      var ink = getComputedStyle(root).getPropertyValue('--ink').trim() || '#2B1E3A', acc = getComputedStyle(root).getPropertyValue('--accent').trim() || '#D9571F';
       fetch('assets/contours.svg').then(function (r) { return r.text(); }).then(function (svg) {
         if (done) return;
         mapEl.innerHTML = svg;
-        var sv = mapEl.querySelector('svg');
-        if (!sv) return;
+        var sv = mapEl.querySelector('svg'); if (!sv) return;
         sv.setAttribute('preserveAspectRatio', 'xMidYMid slice'); sv.removeAttribute('width'); sv.removeAttribute('height');
+        var vb = (sv.getAttribute('viewBox') || '0 0 1600 1000').split(/\s+/).map(Number), vw = vb[2], vh = vb[3];
+        var scale = Math.max(W * 1.12 / vw, H * 1.12 / vh), ox = (W - vw * scale) / 2, oy = (H - vh * scale) / 2;
         $$('path, polyline, polygon', sv).forEach(function (pth, i) {
-          try { var L = pth.getTotalLength(); pth.style.strokeDasharray = L; pth.style.strokeDashoffset = L; pth.style.setProperty('--i', i); pth.classList.add('draw'); } catch (e) {}
+          try {
+            var L = pth.getTotalLength();
+            for (var d = 0; d < L; d += 8) { var q = pth.getPointAtLength(d); pts.push([ox + q.x * scale, oy + q.y * scale]); }
+            pth.style.strokeDasharray = L; pth.style.strokeDashoffset = L; pth.style.setProperty('--i', i); pth.classList.add('draw');
+          } catch (e) {}
         });
       }).catch(function () {});
-      [[22, 34, 'GIS', 900], [72, 28, 'UI/UX', 1100], [28, 70, 'Brand', 1300], [76, 66, 'Products', 1500], [50, 56, 'Brooklyn', 1700]].forEach(function (pn) {
-        var d = document.createElement('div'); d.className = 'pin'; d.style.left = pn[0] + '%'; d.style.top = pn[1] + '%'; d.style.setProperty('--d', pn[3] + 'ms');
-        d.innerHTML = '<i></i><span>' + pn[2] + '</span>'; pinsEl.appendChild(d);
-      });
-      function tickPct(now) {
+      var chars = $$('.boot-name .ch');
+      function frame(now) {
         if (done) return;
         if (t0 === null) t0 = now;
-        var p = Math.min(1, (now - t0) / 2300);
-        pctEl.textContent = Math.round(p * 100);
-        if (p < 1) raf(tickPct);
+        var t = now - t0, p = Math.min(1, t / 2500);
+        var scanY = -40 + (H + 80) * Math.min(1, Math.max(0, (t - 150) / 1500));
+        scanEl.style.opacity = t > 150 && t < 1700 ? 1 : 0; scanEl.style.transform = 'translateY(' + scanY + 'px)';
+        ctx.clearRect(0, 0, W, H);
+        for (var i = 0; i < pts.length; i++) {
+          var q = pts[i]; if (q[1] > scanY) continue;
+          var fresh = scanY - q[1] < 60;
+          ctx.fillStyle = fresh ? acc : ink; ctx.globalAlpha = fresh ? .9 : (t > 1900 ? .12 : .4);
+          var rr = fresh ? 1.8 : 1.1; ctx.fillRect(q[0] - rr / 2, q[1] - rr / 2, rr, rr);
+        }
+        ctx.globalAlpha = 1;
+        if (t > 1750 && !mapEl.classList.contains('show')) mapEl.classList.add('show');
+        var tiles = Math.min(12, Math.floor(Math.max(0, t - 300) / 130));
+        readRows[3].textContent = 'tiles ' + (tiles < 10 ? '0' : '') + tiles + '/12';
+        readRows[0].textContent = t < 900 ? scr(reads[0][1], t / 900) : reads[0][1];
+        readRows[1].textContent = t < 1100 ? scr(reads[1][1], t / 1100) : reads[1][1];
+        readRows[2].textContent = t < 1200 ? scr(reads[2][1], t / 1200) : reads[2][1];
+        readRows[4].textContent = reads[4][1]; readRows[5].textContent = t > 1000 ? 'ok' : 'loading';
+        readRows[6].textContent = t < 1800 ? 'plotting' : t < 2300 ? 'rendering' : 'ready';
+        var on = Math.round(p * 20); $$('i', segsEl).forEach(function (sgi, k) { sgi.classList.toggle('on', k < on); });
+        pctEl.textContent = Math.round(p * 100) + '%';
+        var brg = Math.round((t / 4000) * 360) % 360; bearingEl.textContent = (brg < 10 ? '00' : brg < 100 ? '0' : '') + brg + '°';
+        for (var c = 0; c < chars.length; c++) {
+          var lockAt = 500 + c * 85;
+          if (t > lockAt) { if (!chars[c].classList.contains('lock')) { chars[c].textContent = chars[c].getAttribute('data-ch'); chars[c].classList.add('lock'); } }
+          else if (t > 120 && Math.random() < .5) chars[c].textContent = glyphs[Math.floor(Math.random() * 16)];
+        }
+        raf(frame);
       }
-      raf(tickPct);
+      raf(frame);
       function finish() {
         if (done) return; done = true;
         timers.forEach(clearTimeout);
+        chars.forEach(function (ch) { ch.textContent = ch.getAttribute('data-ch'); ch.classList.add('lock'); });
         try { sessionStorage.setItem('booted', '1'); } catch (e) {}
         boot.setAttribute('aria-hidden', 'true');
         var heroLine = document.querySelector('h1.name .line'), bn = boot.querySelector('.boot-name'), flew = false;
@@ -417,22 +429,19 @@
             setTimeout(function () {
               root.classList.add('handoff'); root.classList.remove('boot-hold');
               boot.classList.add('gone');
-              setTimeout(function () { boot.classList.remove('on'); sweepAll(); if (!hasTheme) askPick(); }, 380);
+              setTimeout(function () { boot.classList.remove('on'); sweepAll(); }, 380);
             }, 700);
           }
         }
         if (!flew) {
           root.classList.remove('boot-hold');
           boot.classList.add('leaving');
-          setTimeout(function () { boot.classList.remove('on'); sweepAll(); if (!hasTheme) askPick(); }, 780);
+          setTimeout(function () { boot.classList.remove('on'); sweepAll(); }, 780);
         }
       }
-      timers.push(setTimeout(finish, 2650));
+      timers.push(setTimeout(finish, 2750));
       boot.addEventListener('click', finish);
       document.addEventListener('keydown', function (e) { if (boot.classList.contains('on') && !done && (e.key === 'Escape' || e.key === 'Enter' || e.key === ' ')) finish(); });
-    } else if (!hasTheme && !reduce && pick) {
-      root.classList.remove('boot-hold');
-      setTimeout(askPick, 1200);
     } else { root.classList.remove('boot-hold'); }
   } else { root.classList.remove('boot-hold'); }
   $$('[data-replay-intro]').forEach(function (a) { a.addEventListener('click', function (e) { e.preventDefault(); try { sessionStorage.removeItem('booted'); } catch (err) {} location.href = location.pathname + '?boot'; }); });
@@ -441,22 +450,16 @@
   /* The plotter rail: ticks placed by where each section sits on the page, a carriage that follows the scroll */
   var rail = document.querySelector('.dots'), ticks = $$('.dots a');
   if (rail && ticks.length) {
-    var car = document.createElement('div'); car.className = 'pl-car'; rail.appendChild(car);
-    var read = document.createElement('div'); read.className = 'pl-read'; rail.appendChild(read);
     var tickTargets = ticks.map(function (a) { return document.querySelector(a.getAttribute('href')); });
     var railTick = false, docH = 1;
     function placeTicks() {
       docH = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
       ticks.forEach(function (a, i) { var t = tickTargets[i]; if (!t) return; var y = Math.min(1, Math.max(0, (t.getBoundingClientRect().top + window.scrollY - 80) / docH)); a.style.setProperty('--y', (y * 100).toFixed(2) + '%'); });
     }
-    var readT;
     function moveCar() {
       railTick = false;
-      if (window.scrollY > 40) { read.classList.add('show'); clearTimeout(readT); readT = setTimeout(function () { read.classList.remove('show'); }, 1400); }
       var p = Math.min(1, Math.max(0, window.scrollY / docH)), idx = 0, mid = window.scrollY + window.innerHeight * 0.4;
       for (var i = 0; i < tickTargets.length; i++) { var t = tickTargets[i]; if (t && t.getBoundingClientRect().top + window.scrollY <= mid) idx = i; }
-      car.style.setProperty('--p', (p * 100).toFixed(2) + '%'); read.style.setProperty('--p', (p * 100).toFixed(2) + '%');
-      read.innerHTML = '<b>' + (ticks[idx].querySelector('span') ? ticks[idx].querySelector('span').textContent : '') + '</b> ' + (idx + 1 < 10 ? '0' : '') + (idx + 1) + '/' + ticks.length + ' · ' + Math.round(p * 100) + '%';
       ticks.forEach(function (a, i) { a.classList.toggle('on', i === idx); });
     }
     placeTicks(); moveCar();
@@ -826,130 +829,4 @@
     words.forEach(function (w, k) { var o = document.createElement('span'); o.className = 'w'; var inner = document.createElement('span'); inner.textContent = w; inner.style.setProperty('--i', k); o.appendChild(inner); caseH1.appendChild(o); if (k < words.length - 1) caseH1.appendChild(document.createTextNode(' ')); });
   }
 
-  /* The route: computed from where the sections sit, drawn by scroll progress, a marker at its head */
-  var routeTargets = ['#index', '#featured', '#gis', '#uiux', '#campaigns', '#industrial', '#numbers', '#experience', '#education', '#skills', '#recent', '#about', '#contact'].map(function (q) { return document.querySelector(q); }).filter(Boolean);
-  if (routeTargets.length > 3 && !reduce && document.querySelector('.hero')) {
-    var NS = 'http://www.w3.org/2000/svg';
-    var svg = document.createElementNS(NS, 'svg'); svg.setAttribute('class', 'route'); svg.setAttribute('aria-hidden', 'true');
-    var ghost = document.createElementNS(NS, 'path'); ghost.setAttribute('class', 'route-ghost');
-    var line = document.createElementNS(NS, 'path');
-    var pin = document.createElementNS(NS, 'g'); pin.setAttribute('class', 'route-pin');
-    var ring = document.createElementNS(NS, 'circle'); ring.setAttribute('r', '6'); ring.setAttribute('class', 'pin-ring');
-    var core = document.createElementNS(NS, 'circle'); core.setAttribute('r', '4.5'); core.setAttribute('class', 'pin-core');
-    var label = document.createElementNS(NS, 'text'); label.setAttribute('class', 'pin-label'); label.setAttribute('x', '14'); label.setAttribute('y', '4');
-    pin.appendChild(ring); pin.appendChild(core); pin.appendChild(label);
-    svg.appendChild(ghost); svg.appendChild(line); svg.appendChild(pin);
-    document.body.insertBefore(svg, document.body.firstChild);
-    var L = 1, startY = 0, endY = 1, pts = [], routeTick = false;
-    function buildRoute() {
-      var W = document.documentElement.clientWidth, mainEl = document.querySelector('main'), H = Math.ceil(mainEl.getBoundingClientRect().bottom + window.scrollY + 60);
-      svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H); svg.setAttribute('width', W); svg.setAttribute('height', H); svg.style.height = H + 'px';
-      var first = routeTargets[0].getBoundingClientRect();
-      var left = Math.max(28, (W - 1360) / 2 - 10), right = Math.min(W - 28, (W + 1360) / 2 + 10);
-      pts = [[left + 30, first.top + window.scrollY - 30]];
-      routeTargets.forEach(function (t, i) {
-        var r = t.getBoundingClientRect(), y = r.top + window.scrollY + Math.min(160, r.height * 0.25);
-        pts.push([i % 2 === 0 ? right : left, y]);
-        if (r.height > 900) pts.push([i % 2 === 0 ? left + (right - left) * 0.42 : left + (right - left) * 0.58, y + r.height * 0.55]);
-      });
-      var last = routeTargets[routeTargets.length - 1].getBoundingClientRect();
-      pts.push([W / 2, last.bottom + window.scrollY + 40]);
-      var d = 'M' + pts[0][0] + ',' + pts[0][1];
-      for (var k = 0; k < pts.length - 1; k++) {
-        var p0 = pts[Math.max(0, k - 1)], p1 = pts[k], p2 = pts[k + 1], p3 = pts[Math.min(pts.length - 1, k + 2)];
-        var c1x = p1[0] + (p2[0] - p0[0]) / 6, c1y = p1[1] + (p2[1] - p0[1]) / 6, c2x = p2[0] - (p3[0] - p1[0]) / 6, c2y = p2[1] - (p3[1] - p1[1]) / 6;
-        d += ' C' + c1x.toFixed(1) + ',' + c1y.toFixed(1) + ' ' + c2x.toFixed(1) + ',' + c2y.toFixed(1) + ' ' + p2[0].toFixed(1) + ',' + p2[1].toFixed(1);
-      }
-      line.setAttribute('d', d); ghost.setAttribute('d', d);
-      try { L = line.getTotalLength(); } catch (e) { L = 1; }
-      line.style.strokeDasharray = L; line.style.strokeDashoffset = L;
-      startY = pts[0][1]; endY = pts[pts.length - 1][1];
-      drawRoute();
-    }
-    function drawRoute() {
-      routeTick = false;
-      var y = window.scrollY + window.innerHeight * 0.55;
-      var p = Math.min(1, Math.max(0, (y - startY) / (endY - startY)));
-      line.style.strokeDashoffset = L * (1 - p);
-      var pt = line.getPointAtLength(L * p);
-      pin.setAttribute('transform', 'translate(' + pt.x.toFixed(1) + ',' + pt.y.toFixed(1) + ')');
-      pin.style.opacity = p > 0.005 ? 1 : 0;
-      var near = null;
-      for (var i = 0; i < routeTargets.length; i++) { var r = routeTargets[i].getBoundingClientRect(); if (r.top < window.innerHeight * 0.55) near = routeTargets[i]; }
-      var kk = near ? (near.querySelector('h2') || near.querySelector('.kicker span:not(.sep)')) : null;
-      label.textContent = kk ? kk.textContent.trim().slice(0, 18) : '';
-    }
-    buildRoute();
-    window.addEventListener('scroll', function () { if (!routeTick) { routeTick = true; raf(drawRoute); } }, { passive: true });
-    window.addEventListener('resize', buildRoute);
-    window.addEventListener('load', buildRoute);
-    setTimeout(buildRoute, 1600);
-    setTimeout(buildRoute, 4000);
-  }
-
-  /* The pigeon. It lives on the underside of the top bar, in the gaps where nothing else sits. */
-  if (fine && !reduce && document.querySelector('.hero') && window.innerWidth >= 1100) {
-    var bird = document.createElement('div'); bird.className = 'pigeon'; bird.setAttribute('aria-hidden', 'true'); bird.title = 'A Brooklyn pigeon';
-    bird.innerHTML = '<svg viewBox="0 0 46 38"><g class="legs"><path class="leg" d="M19 30 L17 36 M17 36 L14 37 M17 36 L20 37"/><path class="leg" d="M25 30 L27 36 M27 36 L24 37 M27 36 L30 37"/></g>' +
-      '<path class="tail" d="M8 24 L0 18 L1 28 Z"/><ellipse class="body" cx="21" cy="23" rx="14" ry="9"/><ellipse class="wing" cx="20" cy="21" rx="9.5" ry="5" transform="rotate(-14 20 21)"/>' +
-      '<g class="headg"><ellipse class="neck" cx="30" cy="19" rx="4" ry="3.2"/><circle class="head" cx="34" cy="14" r="6.2"/><path class="beak" d="M39 13 L46 15 L39 17 Z"/><circle class="eye" cx="36" cy="12.5" r="1.3"/></g></svg>';
-    document.body.appendChild(bird);
-    var px = -100, py = -60, tx = -100, ty = -60, pdir = 1, birdRaf = false, mode = 'away', settleT, idleT, lastScrollY = window.scrollY, ledge = 30, zones = [];
-    function zonesFromBar() {
-      var brand = document.querySelector('.nav .brand'), ul = document.querySelector('.nav ul'), tools = document.querySelector('.nav .tools');
-      zones = [];
-      if (brand && ul) { var a = brand.getBoundingClientRect().right + 24, b = ul.getBoundingClientRect().left - 70; if (b - a > 40) zones.push([a, b]); }
-      if (ul && tools) { var c = ul.getBoundingClientRect().right + 24, d = tools.getBoundingClientRect().left - 70; if (d - c > 40) zones.push([c, d]); }
-      if (!zones.length) zones.push([window.innerWidth * 0.3, window.innerWidth * 0.6]);
-    }
-    function setMode(m) { mode = m; bird.className = 'pigeon on ' + m; }
-    function render() { bird.style.transform = 'translate(' + px.toFixed(1) + 'px,' + py.toFixed(1) + 'px) scaleX(' + pdir + ')'; }
-    function loop() {
-      birdRaf = false;
-      var k = mode === 'fly' ? .09 : mode === 'hop' ? .2 : .14;
-      px += (tx - px) * k; py += (ty - py) * k;
-      render();
-      if (Math.abs(tx - px) > .6 || Math.abs(ty - py) > .6) { birdRaf = true; raf(loop); }
-      else { px = tx; py = ty; render(); if (mode === 'land' || mode === 'walk' || mode === 'hop') { setMode('idle'); scheduleIdle(); } }
-    }
-    function go(x, y, m) { tx = x; ty = y; if (x < px - 4) pdir = -1; else if (x > px + 4) pdir = 1; setMode(m); if (!birdRaf) { birdRaf = true; raf(loop); } }
-    function pickX(avoid) {
-      zonesFromBar();
-      var z = zones.length > 1 && avoid !== undefined ? zones[avoid > (zones[0][1] + zones[1][0]) / 2 ? 0 : 1] : zones[Math.floor(Math.random() * zones.length)];
-      return z[0] + Math.random() * Math.max(1, z[1] - z[0]);
-    }
-    function scheduleIdle() {
-      clearTimeout(idleT);
-      idleT = setTimeout(function () {
-        if (mode !== 'idle') return;
-        var r = Math.random();
-        if (r < .45) { setMode('peck'); setTimeout(function () { if (mode === 'peck') { setMode('idle'); scheduleIdle(); } }, 520); }
-        else if (r < .8) { zonesFromBar(); var z = zones[0]; for (var i = 0; i < zones.length; i++) if (px >= zones[i][0] - 30 && px <= zones[i][1] + 30) z = zones[i]; go(Math.min(z[1], Math.max(z[0], px + (Math.random() - .5) * 90)), ledge, 'walk'); }
-        else { pdir = -pdir; render(); scheduleIdle(); }
-      }, 1400 + Math.random() * 2600);
-    }
-    function land() { var x = pickX(px); tx = x; px = x; py = -70; go(x, ledge, 'land'); }
-    function escape(comeBack) {
-      clearTimeout(idleT);
-      go(px + pdir * 90, -90, 'fly');
-      if (comeBack) { clearTimeout(settleT); settleT = setTimeout(function () { if (mode === 'fly') land(); }, comeBack); }
-    }
-    window.addEventListener('scroll', function () {
-      var y = window.scrollY, dy = y - lastScrollY; lastScrollY = y;
-      if (y < 320) { if (mode !== 'away') { setMode('away'); tx = px; ty = -90; py = -90; render(); } return; }
-      if (mode === 'away') { setMode('fly'); clearTimeout(settleT); settleT = setTimeout(land, 500); return; }
-      if (dy > 14 && (mode === 'idle' || mode === 'walk' || mode === 'peck')) { escape(900 + Math.random() * 700); }
-      else if (dy < -14 && (mode === 'idle' || mode === 'peck')) { pdir = -pdir; go(px - pdir * 26, ledge - 16, 'hop'); setTimeout(function () { if (mode === 'hop') go(px, ledge, 'hop'); }, 160); }
-    }, { passive: true });
-    bird.addEventListener('click', function () { escape(2600 + Math.random() * 1400); });
-    bird.addEventListener('mouseenter', function () { if (mode === 'idle') { pdir = pdir; setMode('peck'); setTimeout(function () { if (mode === 'peck') setMode('idle'); }, 520); } });
-    window.addEventListener('resize', function () { if (mode !== 'away' && mode !== 'fly') { zonesFromBar(); land(); } });
-    setMode('away'); render();
-    function maybeLand() { lastScrollY = window.scrollY; if (window.scrollY >= 320 && mode === 'away') { clearTimeout(settleT); settleT = setTimeout(land, 700); } }
-    maybeLand();
-    window.addEventListener('load', maybeLand);
-    window.addEventListener('pageshow', maybeLand);
-    setTimeout(maybeLand, 1200);
-    setInterval(maybeLand, 2500);
-  }
 })();
