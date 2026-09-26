@@ -527,16 +527,6 @@ html.js .boot.on { display: block; }
 @media (max-width: 700px) { .boot-name { font-size: clamp(40px, 13vw, 72px); } .boot-read { display: none; } .boot-cross { display: none; } }
 
 /* The plotter: a fixed rail on the right that maps the page. Ticks are the sections, the carriage is where you are. */
-.dots { position: fixed; right: 26px; top: 50%; height: 48vh; width: 16px; transform: translateY(-50%); z-index: 36; display: none; }
-@media (min-width: 1100px) { html.js .dots { display: block; } }
-.dots::before { content: ''; position: absolute; left: 7px; top: 0; bottom: 0; width: 1px; background: var(--rule); }
-.dots a { position: absolute; left: 0; top: var(--y, 0%); width: 16px; height: 12px; transform: translateY(-50%); text-decoration: none; color: var(--muted); }
-.dots a i { position: absolute; left: 4px; top: 3px; width: 7px; height: 7px; border-radius: 50%; background: var(--paper); border: 1px solid var(--muted); transition: background-color .25s ease, border-color .25s ease, transform .3s var(--ease); }
-.dots a span { position: absolute; right: 24px; top: -3px; font-family: var(--mono); font-size: 10.5px; letter-spacing: .12em; text-transform: uppercase; white-space: nowrap; opacity: 0; transform: translateX(6px); transition: opacity .2s ease, transform .3s var(--ease); pointer-events: none; }
-.dots a:hover i, .dots a.on i { background: var(--ink); border-color: var(--ink); }
-.dots a.on i { transform: scale(1.25); }
-.dots a:hover span, .dots a:focus-visible span { opacity: 1; transform: none; }
-.dots a:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; border-radius: 4px; }
 .pl-car, .pl-read { display: none; }
 
 /* Elevation-profile dividers between sections, drawn when they come into view */
@@ -950,19 +940,7 @@ html.handoff h1.name .line > .w { animation: none; transform: none; }
 .portrait img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .portrait figcaption { margin-top: 10px; font-family: var(--mono); font-size: 11.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
 
-/* Two companions. The plotter: a pen carriage on a rail under the top bar that draws as you scroll.
-   The caret: a terminal cursor at the bottom that types the path of where you are. Desktop only. */
-.plotter { position: fixed; left: 0; right: 0; top: var(--bar); height: 14px; z-index: 39; pointer-events: none; display: none; }
-@media (min-width: 900px) and (prefers-reduced-motion: no-preference) { html.js .plotter { display: block; } }
-.plotter .rail { position: absolute; left: 0; right: 0; top: 6px; height: 1px; background: var(--rule); }
-.plotter .trace { position: absolute; left: 0; top: 5px; height: 2px; width: 0; background: var(--accent); transform-origin: left; }
-.plotter .head { position: absolute; left: 0; top: -6px; width: 14px; height: 22px; transform: translateX(-7px); transition: transform .3s var(--ease); }
-.plotter .head::before { content: ''; position: absolute; left: 2px; top: 0; width: 10px; height: 13px; background: var(--ink); border-radius: 2px 2px 1px 1px; }
-.plotter .head::after { content: ''; position: absolute; left: 50%; top: 13px; width: 0; height: 0; border-left: 4px solid transparent; border-right: 4px solid transparent; border-top: 7px solid var(--accent); transform: translateX(-50%); }
-.plotter .head.up { transform: translateX(-7px) translateY(-5px); }
-.plotter .head.up::after { border-top-color: var(--muted); }
-.plotter .readout { position: absolute; top: -2px; font-family: var(--mono); font-size: 10px; letter-spacing: .1em; color: var(--muted); white-space: nowrap; transform: translateX(14px); opacity: 0; transition: opacity .25s ease; }
-.plotter .readout.show { opacity: 1; }
+/* The caret: a terminal cursor at the bottom that types the path of where you are. Desktop only. */
 .caret { position: fixed; left: 24px; bottom: 18px; z-index: 39; display: none; align-items: center; gap: 0; font-family: var(--mono); font-size: 12px; letter-spacing: .06em; color: var(--muted); pointer-events: none; }
 @media (min-width: 900px) and (prefers-reduced-motion: no-preference) { html.js .caret { display: flex; } }
 .caret .prompt { color: var(--accent-deep); margin-right: 8px; }
@@ -990,3 +968,27 @@ html.handoff h1.name .line > .w { animation: none; transform: none; }
 .boot-con .dim { color: var(--muted); }
 .boot-con .c { display: inline-block; width: 7px; height: 12px; background: var(--accent); vertical-align: -2px; animation: blink 1s steps(2) infinite; }
 @media (max-width: 900px) { .boot-spec, .boot-con, .guide, .boot-name .sel { display: none; } }
+
+/* The route: one line down the right side, the length of the page. Desktop only, no reduced motion. */
+.route { position: absolute; top: 0; right: 0; width: 96px; height: 0; z-index: 30; pointer-events: none; overflow: visible; display: none; }
+@media (min-width: 900px) and (prefers-reduced-motion: no-preference) { html.js .route { display: block; } }
+.route line, .route path { fill: none; stroke-linecap: round; }
+.route .r-ticks { stroke: var(--rule); stroke-width: 1; }
+.route .r-ghost { stroke: var(--ink); stroke-width: 1; opacity: .18; stroke-dasharray: 1 6; }
+.route .r-ink { stroke: var(--accent); stroke-width: 2; }
+.route .r-tip .halo { fill: var(--accent); opacity: .22; transition: opacity .5s ease; }
+.route .r-tip.idle .halo { opacity: 0; }
+.route .r-tip .pt { fill: var(--accent); }
+.route .r-mark .r-x { stroke: var(--rule); stroke-width: 1.5; transition: stroke .3s ease; }
+.route .r-mark.passed .r-x { stroke: var(--accent); }
+.route .r-way { pointer-events: auto; cursor: pointer; outline: none; }
+.route .r-way .r-dot { fill: var(--paper); stroke: var(--muted); stroke-width: 1.4; transform-box: fill-box; transform-origin: center; transition: fill .3s ease, stroke .3s ease, transform .3s var(--ease); }
+.route .r-way.passed .r-dot { fill: var(--accent); stroke: var(--accent); }
+.route .r-way:hover .r-dot, .route .r-way:focus-visible .r-dot { transform: scale(1.35); stroke: var(--accent); }
+.route .r-way .r-ring { fill: none; stroke: var(--accent); stroke-width: 1.2; opacity: 0; transform-box: fill-box; transform-origin: center; }
+.route .r-way.passed .r-ring { animation: r-pulse .9s ease-out 1; }
+@keyframes r-pulse { from { transform: scale(1); opacity: .8; } to { transform: scale(4.5); opacity: 0; } }
+.route .r-label { font-family: var(--mono); font-size: 10px; letter-spacing: .14em; text-transform: uppercase; fill: var(--muted); opacity: .75; transition: fill .3s ease, opacity .3s ease; }
+.route .r-way.passed .r-label, .route .r-way:hover .r-label, .route .r-way:focus-visible .r-label { fill: var(--ink); opacity: 1; }
+.route .r-way.inv .r-label, .route .r-way.inv.passed .r-label { fill: #F3EBDD; }
+@media (max-width: 1399px) { .route .r-label { display: none; } }

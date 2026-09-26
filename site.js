@@ -469,28 +469,6 @@
   $$('[data-replay-intro]').forEach(function (a) { a.addEventListener('click', function (e) { e.preventDefault(); try { sessionStorage.removeItem('booted'); } catch (err) {} location.href = location.pathname + '?boot'; }); });
   function sweepAll() { $$('.reveal').forEach(function (el) { var b = el.getBoundingClientRect(); if (b.top < window.innerHeight * 1.1 && b.bottom > 0) el.classList.add('in'); }); }
 
-  /* The plotter rail: ticks placed by where each section sits on the page, a carriage that follows the scroll */
-  var rail = document.querySelector('.dots'), ticks = $$('.dots a');
-  if (rail && ticks.length) {
-    var tickTargets = ticks.map(function (a) { return document.querySelector(a.getAttribute('href')); });
-    var railTick = false, docH = 1;
-    function placeTicks() {
-      docH = Math.max(1, document.documentElement.scrollHeight - window.innerHeight);
-      ticks.forEach(function (a, i) { var t = tickTargets[i]; if (!t) return; var y = Math.min(1, Math.max(0, (t.getBoundingClientRect().top + window.scrollY - 80) / docH)); a.style.setProperty('--y', (y * 100).toFixed(2) + '%'); });
-    }
-    function moveCar() {
-      railTick = false;
-      var p = Math.min(1, Math.max(0, window.scrollY / docH)), idx = 0, mid = window.scrollY + window.innerHeight * 0.4;
-      for (var i = 0; i < tickTargets.length; i++) { var t = tickTargets[i]; if (t && t.getBoundingClientRect().top + window.scrollY <= mid) idx = i; }
-      ticks.forEach(function (a, i) { a.classList.toggle('on', i === idx); });
-    }
-    placeTicks(); moveCar();
-    window.addEventListener('scroll', function () { if (!railTick) { railTick = true; raf(moveCar); } }, { passive: true });
-    window.addEventListener('resize', function () { placeTicks(); moveCar(); });
-    window.addEventListener('load', function () { placeTicks(); moveCar(); });
-    setTimeout(function () { placeTicks(); moveCar(); }, 1500);
-  }
-
   /* Elevation-profile dividers: a deterministic profile per divider, drawn when it enters view */
   var dividers = $$('.divider');
   if (dividers.length) {
@@ -856,12 +834,8 @@
   var portrait = document.getElementById('portrait'), portraitImg = document.getElementById('portrait-img');
   if (portrait && portraitImg) { portraitImg.addEventListener('load', function () { if (portraitImg.naturalWidth > 100) portrait.hidden = false; }); portraitImg.src = 'assets/portrait.jpg'; }
 
-  /* The plotter head and the caret */
+  /* The caret: a terminal cursor at the bottom left that types the path of where you are */
   if (document.querySelector('.hero') && !reduce && window.innerWidth >= 900) {
-    var plot = document.createElement('div'); plot.className = 'plotter'; plot.setAttribute('aria-hidden', 'true');
-    plot.innerHTML = '<i class="rail"></i><i class="trace"></i><i class="head"></i><span class="readout"></span>';
-    document.body.appendChild(plot);
-    var pHead = plot.querySelector('.head'), pTrace = plot.querySelector('.trace'), pRead = plot.querySelector('.readout'), pUpT, pReadT, plotTick = false;
     var caret = document.createElement('div'); caret.className = 'caret'; caret.setAttribute('aria-hidden', 'true');
     caret.innerHTML = '<span class="prompt">lochan@brooklyn:</span><span class="path">~</span><i class="blink"></i>';
     document.body.appendChild(caret);
@@ -878,23 +852,93 @@
       }
       step();
     }
-    function plotFrame() {
-      plotTick = false;
-      var max = Math.max(1, document.documentElement.scrollHeight - window.innerHeight), p = Math.min(1, Math.max(0, window.scrollY / max)), W = window.innerWidth;
-      var x = 24 + p * (W - 48);
-      pHead.style.left = x + 'px'; pTrace.style.width = x + 'px';
-      pRead.style.left = x + 'px'; pRead.textContent = Math.round(p * 100) + '%';
+    var caretTick = false;
+    function caretFrame() {
+      caretTick = false;
       var near = null;
       for (var i = 0; i < secEls.length; i++) { if (secEls[i].getBoundingClientRect().top < window.innerHeight * 0.45) near = secEls[i]; }
       typeTo(near ? '~/' + secNames[near.id] : '~');
     }
-    window.addEventListener('scroll', function () {
-      pHead.classList.remove('up'); pRead.classList.add('show');
-      clearTimeout(pUpT); pUpT = setTimeout(function () { pHead.classList.add('up'); }, 420);
-      clearTimeout(pReadT); pReadT = setTimeout(function () { pRead.classList.remove('show'); }, 1200);
-      if (!plotTick) { plotTick = true; raf(plotFrame); }
-    }, { passive: true });
-    window.addEventListener('resize', plotFrame);
-    pHead.classList.add('up'); plotFrame();
+    window.addEventListener('scroll', function () { if (!caretTick) { caretTick = true; raf(caretFrame); } }, { passive: true });
+    caretFrame();
+  }
+
+  /* The route: one line down the right side, the length of the page. Ink is laid behind you as you scroll and the way
+     ahead is only dotted. Every section is a waypoint with its name, and a waypoint is a link. Desktop only, no reduced motion. */
+  var routeNames = { index: 'All projects', featured: 'Selected work', gis: 'GIS', uiux: 'UI/UX', campaigns: 'Brand', industrial: 'Product', numbers: 'Data', experience: 'Experience', education: 'Education', skills: 'Tools', recent: 'Log', about: 'About', contact: 'Contact' };
+  var routeSecs = Object.keys(routeNames).map(function (id) { return document.getElementById(id); }).filter(Boolean);
+  if (routeSecs.length > 3 && !reduce && document.querySelector('.hero') && window.innerWidth >= 900) {
+    var NS = 'http://www.w3.org/2000/svg';
+    function svgEl(name, attrs, parent) { var e = document.createElementNS(NS, name); for (var k in attrs) e.setAttribute(k, attrs[k]); if (parent) parent.appendChild(e); return e; }
+    var RW = 96, RX = RW - 28;
+    var rsvg = svgEl('svg', { 'class': 'route', width: RW, height: 0 });
+    var rTicks = svgEl('path', { 'class': 'r-ticks' }, rsvg);
+    var rGhost = svgEl('line', { 'class': 'r-ghost', x1: RX, x2: RX }, rsvg);
+    var rInk = svgEl('line', { 'class': 'r-ink', x1: RX, x2: RX }, rsvg);
+    var rWays = svgEl('g', { 'class': 'r-ways' }, rsvg);
+    var rStart = svgEl('g', { 'class': 'r-mark r-start' }, rsvg);
+    svgEl('path', { 'class': 'r-x', d: 'M-6,0 H6' }, rStart);
+    var rEnd = svgEl('g', { 'class': 'r-mark r-end' }, rsvg);
+    svgEl('path', { 'class': 'r-x', d: 'M-5,-5 L5,5 M5,-5 L-5,5' }, rEnd);
+    var rTip = svgEl('g', { 'class': 'r-tip idle' }, rsvg);
+    svgEl('circle', { 'class': 'halo', r: 11 }, rTip);
+    svgEl('circle', { 'class': 'pt', r: 3.2 }, rTip);
+    document.body.insertBefore(rsvg, document.body.firstChild);
+    var rY0 = 0, rY1 = 1, rDrawn = 0, rTarget = 0, rRun = false, rIdleT = null, rWayEls = [], rWayY = [];
+    function routeTarget() {
+      /* the ink reaches a fixed spot near the bottom of the screen: what you have scrolled past is inked */
+      return Math.min(rY1 - rY0, Math.max(0, window.scrollY + window.innerHeight - 72 - rY0));
+    }
+    function renderRoute() {
+      var yTip = rY0 + rDrawn;
+      rInk.setAttribute('y2', yTip);
+      rTip.setAttribute('transform', 'translate(' + RX + ',' + yTip + ')');
+      for (var i = 0; i < rWayEls.length; i++) rWayEls[i].classList.toggle('passed', yTip >= rWayY[i]);
+      rStart.classList.toggle('passed', rDrawn > 2);
+      rEnd.classList.toggle('passed', yTip >= rY1 - 2);
+    }
+    var rLast = 0;
+    function stepRoute(now) {
+      var d = rTarget - rDrawn, dt = rLast ? Math.min(200, now - rLast) : 16; rLast = now;
+      if (Math.abs(d) < 0.5) { rDrawn = rTarget; rRun = false; rLast = 0; } else { rDrawn += d * (1 - Math.exp(-dt / 80)); raf(stepRoute); }
+      renderRoute();
+    }
+    function buildRoute() {
+      var sy = window.scrollY, mainEl = document.querySelector('main') || document.body;
+      var H = Math.ceil(mainEl.getBoundingClientRect().bottom + sy);
+      var y0 = Math.round(routeSecs[0].getBoundingClientRect().top + sy) - 8, y1 = H - 40;
+      if (y1 - y0 < 200) return;
+      rY0 = y0; rY1 = y1;
+      rsvg.setAttribute('viewBox', '0 0 ' + RW + ' ' + H); rsvg.setAttribute('height', H); rsvg.style.height = H + 'px';
+      rGhost.setAttribute('y1', rY0); rGhost.setAttribute('y2', rY1); rInk.setAttribute('y1', rY0);
+      var t = '';
+      for (var y = rY0 + 100; y < rY1 - 30; y += 100) t += 'M' + (RX - 3) + ',' + y + 'h6';
+      rTicks.setAttribute('d', t);
+      rStart.setAttribute('transform', 'translate(' + RX + ',' + rY0 + ')');
+      rEnd.setAttribute('transform', 'translate(' + RX + ',' + rY1 + ')');
+      while (rWays.firstChild) rWays.removeChild(rWays.firstChild);
+      rWayEls = []; rWayY = [];
+      routeSecs.forEach(function (sec) {
+        var y = Math.round(sec.getBoundingClientRect().top + sy);
+        var a = svgEl('a', { 'class': 'r-way' + (sec.id === 'featured' ? ' inv' : ''), href: '#' + sec.id, transform: 'translate(' + RX + ',' + y + ')' }, rWays);
+        svgEl('title', {}, a).textContent = routeNames[sec.id];
+        svgEl('circle', { 'class': 'r-ring', r: 5 }, a);
+        svgEl('circle', { 'class': 'r-dot', r: 4 }, a);
+        svgEl('text', { 'class': 'r-label', transform: 'translate(5,13) rotate(90)' }, a).textContent = routeNames[sec.id];
+        rWayEls.push(a); rWayY.push(y);
+      });
+      rTarget = routeTarget(); rDrawn = rTarget; renderRoute();
+    }
+    function onRouteScroll() {
+      rTarget = routeTarget();
+      rTip.classList.remove('idle'); clearTimeout(rIdleT); rIdleT = setTimeout(function () { rTip.classList.add('idle'); }, 700);
+      if (!rRun) { rRun = true; raf(stepRoute); }
+    }
+    buildRoute();
+    window.addEventListener('scroll', onRouteScroll, { passive: true });
+    window.addEventListener('resize', buildRoute);
+    window.addEventListener('load', buildRoute);
+    if (window.ResizeObserver) { var rRO = null; new ResizeObserver(function () { clearTimeout(rRO); rRO = setTimeout(buildRoute, 120); }).observe(document.body); }
+    else { setTimeout(buildRoute, 1600); setTimeout(buildRoute, 4000); }
   }
 })();
