@@ -886,4 +886,70 @@
     setTimeout(buildRoute, 1600);
     setTimeout(buildRoute, 4000);
   }
+
+  /* The pigeon. It lives on the underside of the top bar, in the gaps where nothing else sits. */
+  if (fine && !reduce && document.querySelector('.hero') && window.innerWidth >= 1100) {
+    var bird = document.createElement('div'); bird.className = 'pigeon'; bird.setAttribute('aria-hidden', 'true'); bird.title = 'A Brooklyn pigeon';
+    bird.innerHTML = '<svg viewBox="0 0 46 38"><g class="legs"><path class="leg" d="M19 30 L17 36 M17 36 L14 37 M17 36 L20 37"/><path class="leg" d="M25 30 L27 36 M27 36 L24 37 M27 36 L30 37"/></g>' +
+      '<path class="tail" d="M8 24 L0 18 L1 28 Z"/><ellipse class="body" cx="21" cy="23" rx="14" ry="9"/><ellipse class="wing" cx="20" cy="21" rx="9.5" ry="5" transform="rotate(-14 20 21)"/>' +
+      '<g class="headg"><ellipse class="neck" cx="30" cy="19" rx="4" ry="3.2"/><circle class="head" cx="34" cy="14" r="6.2"/><path class="beak" d="M39 13 L46 15 L39 17 Z"/><circle class="eye" cx="36" cy="12.5" r="1.3"/></g></svg>';
+    document.body.appendChild(bird);
+    var px = -100, py = -60, tx = -100, ty = -60, pdir = 1, birdRaf = false, mode = 'away', settleT, idleT, lastScrollY = window.scrollY, ledge = 30, zones = [];
+    function zonesFromBar() {
+      var brand = document.querySelector('.nav .brand'), ul = document.querySelector('.nav ul'), tools = document.querySelector('.nav .tools');
+      zones = [];
+      if (brand && ul) { var a = brand.getBoundingClientRect().right + 24, b = ul.getBoundingClientRect().left - 70; if (b - a > 40) zones.push([a, b]); }
+      if (ul && tools) { var c = ul.getBoundingClientRect().right + 24, d = tools.getBoundingClientRect().left - 70; if (d - c > 40) zones.push([c, d]); }
+      if (!zones.length) zones.push([window.innerWidth * 0.3, window.innerWidth * 0.6]);
+    }
+    function setMode(m) { mode = m; bird.className = 'pigeon on ' + m; }
+    function render() { bird.style.transform = 'translate(' + px.toFixed(1) + 'px,' + py.toFixed(1) + 'px) scaleX(' + pdir + ')'; }
+    function loop() {
+      birdRaf = false;
+      var k = mode === 'fly' ? .09 : mode === 'hop' ? .2 : .14;
+      px += (tx - px) * k; py += (ty - py) * k;
+      render();
+      if (Math.abs(tx - px) > .6 || Math.abs(ty - py) > .6) { birdRaf = true; raf(loop); }
+      else { px = tx; py = ty; render(); if (mode === 'land' || mode === 'walk' || mode === 'hop') { setMode('idle'); scheduleIdle(); } }
+    }
+    function go(x, y, m) { tx = x; ty = y; if (x < px - 4) pdir = -1; else if (x > px + 4) pdir = 1; setMode(m); if (!birdRaf) { birdRaf = true; raf(loop); } }
+    function pickX(avoid) {
+      zonesFromBar();
+      var z = zones.length > 1 && avoid !== undefined ? zones[avoid > (zones[0][1] + zones[1][0]) / 2 ? 0 : 1] : zones[Math.floor(Math.random() * zones.length)];
+      return z[0] + Math.random() * Math.max(1, z[1] - z[0]);
+    }
+    function scheduleIdle() {
+      clearTimeout(idleT);
+      idleT = setTimeout(function () {
+        if (mode !== 'idle') return;
+        var r = Math.random();
+        if (r < .45) { setMode('peck'); setTimeout(function () { if (mode === 'peck') { setMode('idle'); scheduleIdle(); } }, 520); }
+        else if (r < .8) { zonesFromBar(); var z = zones[0]; for (var i = 0; i < zones.length; i++) if (px >= zones[i][0] - 30 && px <= zones[i][1] + 30) z = zones[i]; go(Math.min(z[1], Math.max(z[0], px + (Math.random() - .5) * 90)), ledge, 'walk'); }
+        else { pdir = -pdir; render(); scheduleIdle(); }
+      }, 1400 + Math.random() * 2600);
+    }
+    function land() { var x = pickX(px); tx = x; px = x; py = -70; go(x, ledge, 'land'); }
+    function escape(comeBack) {
+      clearTimeout(idleT);
+      go(px + pdir * 90, -90, 'fly');
+      if (comeBack) { clearTimeout(settleT); settleT = setTimeout(function () { if (mode === 'fly') land(); }, comeBack); }
+    }
+    window.addEventListener('scroll', function () {
+      var y = window.scrollY, dy = y - lastScrollY; lastScrollY = y;
+      if (y < 320) { if (mode !== 'away') { setMode('away'); tx = px; ty = -90; py = -90; render(); } return; }
+      if (mode === 'away') { setMode('fly'); clearTimeout(settleT); settleT = setTimeout(land, 500); return; }
+      if (dy > 14 && (mode === 'idle' || mode === 'walk' || mode === 'peck')) { escape(900 + Math.random() * 700); }
+      else if (dy < -14 && (mode === 'idle' || mode === 'peck')) { pdir = -pdir; go(px - pdir * 26, ledge - 16, 'hop'); setTimeout(function () { if (mode === 'hop') go(px, ledge, 'hop'); }, 160); }
+    }, { passive: true });
+    bird.addEventListener('click', function () { escape(2600 + Math.random() * 1400); });
+    bird.addEventListener('mouseenter', function () { if (mode === 'idle') { pdir = pdir; setMode('peck'); setTimeout(function () { if (mode === 'peck') setMode('idle'); }, 520); } });
+    window.addEventListener('resize', function () { if (mode !== 'away' && mode !== 'fly') { zonesFromBar(); land(); } });
+    setMode('away'); render();
+    function maybeLand() { lastScrollY = window.scrollY; if (window.scrollY >= 320 && mode === 'away') { clearTimeout(settleT); settleT = setTimeout(land, 700); } }
+    maybeLand();
+    window.addEventListener('load', maybeLand);
+    window.addEventListener('pageshow', maybeLand);
+    setTimeout(maybeLand, 1200);
+    setInterval(maybeLand, 2500);
+  }
 })();

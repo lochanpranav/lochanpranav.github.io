@@ -960,3 +960,25 @@ html.handoff h1.name .line > .w { animation: none; transform: none; }
 main, .hero { position: relative; z-index: 1; }
 
 .term-fab { position: fixed; }
+
+/* The pigeon: a paper-cutout Brooklyn pigeon that perches under the top bar, escapes when you scroll, and comes back */
+.pigeon { position: fixed; left: 0; top: 0; width: 46px; height: 38px; z-index: 46; cursor: pointer; will-change: transform; display: none; }
+@media (min-width: 1100px) and (prefers-reduced-motion: no-preference) { html.js .pigeon.on { display: block; } }
+.pigeon svg { width: 100%; height: 100%; overflow: visible; display: block; }
+.pigeon .body, .pigeon .head, .pigeon .tail { fill: var(--ink); }
+.pigeon .wing { fill: var(--c-product); transform-origin: 26px 22px; }
+.pigeon .neck { fill: var(--accent); opacity: .9; }
+.pigeon .beak, .pigeon .leg { fill: var(--accent); stroke: var(--accent); }
+.pigeon .leg { stroke-width: 2; stroke-linecap: round; fill: none; }
+.pigeon .eye { fill: var(--paper); }
+.pigeon .headg { transform-origin: 32px 16px; }
+.pigeon.idle .headg { animation: bob 1.6s ease-in-out infinite; }
+.pigeon.peck .headg { animation: peck .5s ease-in-out 1; }
+.pigeon.walk .headg { animation: bob .5s ease-in-out infinite; }
+.pigeon.walk .legs { animation: steps .3s steps(2) infinite; }
+.pigeon.fly .wing { animation: flap .16s ease-in-out infinite alternate; }
+.pigeon.fly .legs { transform: translateY(-4px) scaleY(.5); }
+@keyframes bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(1.5px) translateX(-1px); } }
+@keyframes peck { 0%, 100% { transform: rotate(0); } 40% { transform: rotate(26deg) translateY(2px); } }
+@keyframes steps { to { transform: translateX(2px); } }
+@keyframes flap { from { transform: rotate(-38deg) scaleY(1.2); } to { transform: rotate(18deg); } }
