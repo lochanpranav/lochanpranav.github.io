@@ -403,16 +403,38 @@
         if (done) return; done = true;
         timers.forEach(clearTimeout);
         try { sessionStorage.setItem('booted', '1'); } catch (e) {}
-        boot.classList.add('leaving'); boot.setAttribute('aria-hidden', 'true');
-        setTimeout(function () { boot.classList.remove('on'); sweepAll(); if (!hasTheme) askPick(); }, 780);
+        boot.setAttribute('aria-hidden', 'true');
+        var heroLine = document.querySelector('h1.name .line'), bn = boot.querySelector('.boot-name'), flew = false;
+        if (heroLine && bn && bn.animate) {
+          var from = bn.getBoundingClientRect(), to = heroLine.getBoundingClientRect();
+          if (from.width > 0 && to.width > 0) {
+            flew = true;
+            var sc = to.width / from.width;
+            var dx = (to.left + to.width / 2) - (from.left + from.width / 2), dy = (to.top + to.height / 2) - (from.top + from.height / 2);
+            boot.classList.add('handing');
+            bn.style.transformOrigin = '50% 50%';
+            bn.animate([{ transform: 'translate(0, 0) scale(1)' }, { transform: 'translate(' + dx + 'px, ' + dy + 'px) scale(' + sc + ')' }], { duration: 720, easing: 'cubic-bezier(.16,1,.3,1)', fill: 'forwards' });
+            setTimeout(function () {
+              root.classList.add('handoff'); root.classList.remove('boot-hold');
+              boot.classList.add('gone');
+              setTimeout(function () { boot.classList.remove('on'); sweepAll(); if (!hasTheme) askPick(); }, 380);
+            }, 700);
+          }
+        }
+        if (!flew) {
+          root.classList.remove('boot-hold');
+          boot.classList.add('leaving');
+          setTimeout(function () { boot.classList.remove('on'); sweepAll(); if (!hasTheme) askPick(); }, 780);
+        }
       }
       timers.push(setTimeout(finish, 2650));
       boot.addEventListener('click', finish);
       document.addEventListener('keydown', function (e) { if (boot.classList.contains('on') && !done && (e.key === 'Escape' || e.key === 'Enter' || e.key === ' ')) finish(); });
     } else if (!hasTheme && !reduce && pick) {
+      root.classList.remove('boot-hold');
       setTimeout(askPick, 1200);
-    }
-  }
+    } else { root.classList.remove('boot-hold'); }
+  } else { root.classList.remove('boot-hold'); }
   $$('[data-replay-intro]').forEach(function (a) { a.addEventListener('click', function (e) { e.preventDefault(); try { sessionStorage.removeItem('booted'); } catch (err) {} location.href = location.pathname + '?boot'; }); });
   function sweepAll() { $$('.reveal').forEach(function (el) { var b = el.getBoundingClientRect(); if (b.top < window.innerHeight * 1.1 && b.bottom > 0) el.classList.add('in'); }); }
 
@@ -502,6 +524,7 @@
       });
     }, { threshold: 0.5 });
     counters.forEach(function (c) { cio.observe(c); });
+    window.observeCount = function (el) { cio.observe(el); };
   }
 
   /* Index ticker: auto-advance one chip at a time, speed from the slider, pauses on hover, focus and drag */
@@ -578,6 +601,12 @@
       gdots.innerHTML = f.images.map(function (_, k) { return '<button type="button" data-img="' + k + '" aria-label="Image ' + (k + 1) + '"></button>'; }).join('');
       $$('.feat-thumb').forEach(function (b, k) { b.classList.toggle('on', k === i); b.setAttribute('aria-pressed', k === i ? 'true' : 'false'); });
       renderGallery();
+      if (!reduce) $$('.feat-stats b').forEach(function (bEl) {
+        var m = bEl.textContent.match(/^([\d,]+)(.*)$/); if (!m) return;
+        var target = parseInt(m[1].replace(/,/g, ''), 10), suffix = m[2], commas = m[1].indexOf(',') !== -1, st = null;
+        function fr(ts) { if (st === null) st = ts; var p = Math.min((ts - st) / 900, 1), v = Math.round(target * (1 - Math.pow(1 - p, 3))); bEl.textContent = (commas ? v.toLocaleString('en-US') : String(v)) + suffix; if (p < 1) raf(fr); }
+        raf(fr);
+      });
     }
     $$('.feat-thumb').forEach(function (b) { b.addEventListener('click', function () { var i = parseInt(b.getAttribute('data-feat'), 10); if (i !== fi) show(i); }); });
     gal.addEventListener('click', function (e) {
@@ -637,7 +666,9 @@
       e.viewTransition.finished.then(clearNames, clearNames);
     });
   } else if (!reduce) {
+    var sheet = document.createElement('div'); sheet.className = 'page-wipe'; sheet.setAttribute('aria-hidden', 'true'); document.body.appendChild(sheet);
     root.classList.add('arriving');
+    setTimeout(function () { root.classList.remove('arriving'); }, 700);
     document.addEventListener('click', function (e) {
       var a = e.target && e.target.closest ? e.target.closest('a[href]') : null;
       if (!a || a.target === '_blank' || a.hasAttribute('download') || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0 || e.defaultPrevented) return;
@@ -647,7 +678,7 @@
       if (url.pathname === location.pathname && url.hash) return;
       e.preventDefault();
       root.classList.add('leaving');
-      setTimeout(function () { location.href = url.href; }, 220);
+      setTimeout(function () { location.href = url.href; }, 360);
     });
     window.addEventListener('pageshow', function () { root.classList.remove('leaving'); });
   }
@@ -764,17 +795,21 @@
     function withTimeout(p, ms) { return Promise.race([p, new Promise(function (_, rej) { setTimeout(function () { rej(new Error('timeout')); }, ms); })]); }
     var cached = null;
     try { cached = JSON.parse(sessionStorage.getItem('live') || 'null'); } catch (e) {}
-    if (cached && Date.now() - cached.t < 600000) { showLive(cached.html); }
+    function show311(v) { var tile = document.getElementById('live-tile'), num = document.getElementById('live-311'), span = document.getElementById('live-span'); if (!tile || !num || !v || !v.n) return; tile.hidden = false; num.setAttribute('data-count', v.n); num.textContent = Number(v.n).toLocaleString('en-US'); if (span) span.textContent = v.span; if (window.observeCount) window.observeCount(num); }
+    if (cached && Date.now() - cached.t < 600000) { showLive(cached.html); show311(cached.n311); }
     else {
       var nyDate = (function () { try { return new Intl.DateTimeFormat('en-CA', { timeZone: 'America/New_York', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date()); } catch (e) { return new Date().toISOString().slice(0, 10); } })();
       var wx = withTimeout(fetch('https://api.open-meteo.com/v1/forecast?latitude=40.68&longitude=-73.94&current=temperature_2m,wind_speed_10m,weather_code&temperature_unit=fahrenheit&wind_speed_unit=mph&timezone=America%2FNew_York').then(function (r) { return r.json(); }), 6000);
-      var calls = withTimeout(fetch('https://data.cityofnewyork.us/resource/erm2-nwe9.json?$select=count(*)%20as%20n&$where=created_date%20%3E%20%27' + nyDate + 'T00:00:00%27').then(function (r) { return r.json(); }), 8000);
+      function iso(msAgo) { var d = new Date(Date.now() - msAgo); try { return new Intl.DateTimeFormat('sv-SE', { timeZone: 'America/New_York', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false }).format(d).replace(' ', 'T'); } catch (e) { return d.toISOString().slice(0, 19); } }
+      function countSince(msAgo) { return withTimeout(fetch('https://data.cityofnewyork.us/resource/erm2-nwe9.json?$select=count(*)%20as%20n&$where=created_date%20%3E%20%27' + iso(msAgo) + '%27').then(function (r) { return r.json(); }).then(function (j) { return j && j[0] ? Number(j[0].n) : 0; }), 8000); }
+      var calls = countSince(86400000).then(function (n) { return n > 0 ? { n: n, span: 'in the last 24 hours' } : countSince(7 * 86400000).then(function (n7) { return { n: n7, span: 'in the last seven days' }; }); });
       var codes = { 0: 'clear', 1: 'mostly clear', 2: 'partly cloudy', 3: 'overcast', 45: 'fog', 48: 'fog', 51: 'drizzle', 53: 'drizzle', 55: 'drizzle', 61: 'rain', 63: 'rain', 65: 'heavy rain', 71: 'snow', 73: 'snow', 75: 'snow', 80: 'showers', 81: 'showers', 82: 'showers', 95: 'thunder' };
       Promise.allSettled ? Promise.allSettled([wx, calls]).then(function (res) {
         var parts = [];
         if (res[0].status === 'fulfilled' && res[0].value && res[0].value.current) { var c = res[0].value.current; parts.push('<b>' + Math.round(c.temperature_2m) + '°F</b> ' + (codes[c.weather_code] || '') + ', wind ' + Math.round(c.wind_speed_10m) + ' mph'); }
-        if (res[1].status === 'fulfilled' && res[1].value && res[1].value[0] && res[1].value[0].n) { parts.push('<b>' + Number(res[1].value[0].n).toLocaleString('en-US') + '</b> NYC 311 calls today'); }
-        if (parts.length) { var html = parts.join(' <span class="sep" aria-hidden="true">·</span> ') + ' <span class="src">live</span>'; showLive(html); try { sessionStorage.setItem('live', JSON.stringify({ t: Date.now(), html: html })); } catch (e) {} }
+        var n311 = (res[1].status === 'fulfilled' && res[1].value && res[1].value.n) ? res[1].value : null;
+        if (parts.length) { var html = parts.join(' <span class="sep" aria-hidden="true">·</span> ') + ' <span class="src">live</span>'; showLive(html); try { sessionStorage.setItem('live', JSON.stringify({ t: Date.now(), html: html, n311: n311 })); } catch (e) {} }
+        show311(n311);
       }) : null;
     }
   }
@@ -782,4 +817,73 @@
   /* Dot grid under the Tulsa number: 493 dots, one per venue */
   var dg = document.querySelector('.dots-grid');
   if (dg) { var frag = document.createDocumentFragment(); for (var q3 = 0; q3 < 493; q3++) { var dot = document.createElement('i'); dot.style.setProperty('--d', Math.min(900, q3 * 2) + 'ms'); if (q3 % 7 === 0) dot.className = 'on'; frag.appendChild(dot); } dg.appendChild(frag); }
+
+  /* Case titles rise word by word on arrival */
+  var caseH1 = document.querySelector('.case-head h1');
+  if (caseH1 && !reduce && !caseH1.querySelector('.w')) {
+    var words = caseH1.textContent.trim().split(/\s+/);
+    caseH1.textContent = '';
+    words.forEach(function (w, k) { var o = document.createElement('span'); o.className = 'w'; var inner = document.createElement('span'); inner.textContent = w; inner.style.setProperty('--i', k); o.appendChild(inner); caseH1.appendChild(o); if (k < words.length - 1) caseH1.appendChild(document.createTextNode(' ')); });
+  }
+
+  /* The route: computed from where the sections sit, drawn by scroll progress, a marker at its head */
+  var routeTargets = ['#index', '#featured', '#gis', '#uiux', '#campaigns', '#industrial', '#numbers', '#experience', '#education', '#skills', '#recent', '#about', '#contact'].map(function (q) { return document.querySelector(q); }).filter(Boolean);
+  if (routeTargets.length > 3 && !reduce && document.querySelector('.hero')) {
+    var NS = 'http://www.w3.org/2000/svg';
+    var svg = document.createElementNS(NS, 'svg'); svg.setAttribute('class', 'route'); svg.setAttribute('aria-hidden', 'true');
+    var ghost = document.createElementNS(NS, 'path'); ghost.setAttribute('class', 'route-ghost');
+    var line = document.createElementNS(NS, 'path');
+    var pin = document.createElementNS(NS, 'g'); pin.setAttribute('class', 'route-pin');
+    var ring = document.createElementNS(NS, 'circle'); ring.setAttribute('r', '6'); ring.setAttribute('class', 'pin-ring');
+    var core = document.createElementNS(NS, 'circle'); core.setAttribute('r', '4.5'); core.setAttribute('class', 'pin-core');
+    var label = document.createElementNS(NS, 'text'); label.setAttribute('class', 'pin-label'); label.setAttribute('x', '14'); label.setAttribute('y', '4');
+    pin.appendChild(ring); pin.appendChild(core); pin.appendChild(label);
+    svg.appendChild(ghost); svg.appendChild(line); svg.appendChild(pin);
+    document.body.insertBefore(svg, document.body.firstChild);
+    var L = 1, startY = 0, endY = 1, pts = [], routeTick = false;
+    function buildRoute() {
+      var W = document.documentElement.clientWidth, mainEl = document.querySelector('main'), H = Math.ceil(mainEl.getBoundingClientRect().bottom + window.scrollY + 60);
+      svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H); svg.setAttribute('width', W); svg.setAttribute('height', H); svg.style.height = H + 'px';
+      var first = routeTargets[0].getBoundingClientRect();
+      var left = Math.max(28, (W - 1360) / 2 - 10), right = Math.min(W - 28, (W + 1360) / 2 + 10);
+      pts = [[left + 30, first.top + window.scrollY - 30]];
+      routeTargets.forEach(function (t, i) {
+        var r = t.getBoundingClientRect(), y = r.top + window.scrollY + Math.min(160, r.height * 0.25);
+        pts.push([i % 2 === 0 ? right : left, y]);
+        if (r.height > 900) pts.push([i % 2 === 0 ? left + (right - left) * 0.42 : left + (right - left) * 0.58, y + r.height * 0.55]);
+      });
+      var last = routeTargets[routeTargets.length - 1].getBoundingClientRect();
+      pts.push([W / 2, last.bottom + window.scrollY + 40]);
+      var d = 'M' + pts[0][0] + ',' + pts[0][1];
+      for (var k = 0; k < pts.length - 1; k++) {
+        var p0 = pts[Math.max(0, k - 1)], p1 = pts[k], p2 = pts[k + 1], p3 = pts[Math.min(pts.length - 1, k + 2)];
+        var c1x = p1[0] + (p2[0] - p0[0]) / 6, c1y = p1[1] + (p2[1] - p0[1]) / 6, c2x = p2[0] - (p3[0] - p1[0]) / 6, c2y = p2[1] - (p3[1] - p1[1]) / 6;
+        d += ' C' + c1x.toFixed(1) + ',' + c1y.toFixed(1) + ' ' + c2x.toFixed(1) + ',' + c2y.toFixed(1) + ' ' + p2[0].toFixed(1) + ',' + p2[1].toFixed(1);
+      }
+      line.setAttribute('d', d); ghost.setAttribute('d', d);
+      try { L = line.getTotalLength(); } catch (e) { L = 1; }
+      line.style.strokeDasharray = L; line.style.strokeDashoffset = L;
+      startY = pts[0][1]; endY = pts[pts.length - 1][1];
+      drawRoute();
+    }
+    function drawRoute() {
+      routeTick = false;
+      var y = window.scrollY + window.innerHeight * 0.55;
+      var p = Math.min(1, Math.max(0, (y - startY) / (endY - startY)));
+      line.style.strokeDashoffset = L * (1 - p);
+      var pt = line.getPointAtLength(L * p);
+      pin.setAttribute('transform', 'translate(' + pt.x.toFixed(1) + ',' + pt.y.toFixed(1) + ')');
+      pin.style.opacity = p > 0.005 ? 1 : 0;
+      var near = null;
+      for (var i = 0; i < routeTargets.length; i++) { var r = routeTargets[i].getBoundingClientRect(); if (r.top < window.innerHeight * 0.55) near = routeTargets[i]; }
+      var kk = near ? (near.querySelector('h2') || near.querySelector('.kicker span:not(.sep)')) : null;
+      label.textContent = kk ? kk.textContent.trim().slice(0, 18) : '';
+    }
+    buildRoute();
+    window.addEventListener('scroll', function () { if (!routeTick) { routeTick = true; raf(drawRoute); } }, { passive: true });
+    window.addEventListener('resize', buildRoute);
+    window.addEventListener('load', buildRoute);
+    setTimeout(buildRoute, 1600);
+    setTimeout(buildRoute, 4000);
+  }
 })();

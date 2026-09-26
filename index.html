@@ -16,7 +16,7 @@
 <link rel="preload" href="assets/fonts/hanken-grotesk.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="assets/contours.svg" as="image">
   <link rel="stylesheet" href="styles.css">
-  <script>document.documentElement.classList.add("js");try{var t=localStorage.getItem("theme");if(t==="dark")document.documentElement.setAttribute("data-theme","dark");if(sessionStorage.getItem("seen"))document.documentElement.classList.add("seen");sessionStorage.setItem("seen","1");}catch(e){}</script>
+  <script>document.documentElement.classList.add("js");try{var t=localStorage.getItem("theme");if(t==="dark")document.documentElement.setAttribute("data-theme","dark");if((!sessionStorage.getItem("booted")||/[?&]boot\b/.test(location.search))&&!matchMedia("(prefers-reduced-motion: reduce)").matches)document.documentElement.classList.add("boot-hold");}catch(e){}</script>
   <link rel="stylesheet" href="terminal.css">
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"Person","name":"Lochan Pranav Mohanasundar","alternateName":"Lochan Pranav","url":"https://lochanpranav.com","jobTitle":"Spatial data scientist and product designer","email":"mailto:lm5677@nyu.edu","address":{"@type":"PostalAddress","addressLocality":"Brooklyn","addressRegion":"NY","addressCountry":"US"},"alumniOf":[{"@type":"CollegeOrUniversity","name":"New York University, Tandon School of Engineering"},{"@type":"CollegeOrUniversity","name":"MIT World Peace University"}],"sameAs":["https://www.linkedin.com/in/lochanpranav","https://github.com/lochanpranav","https://www.behance.net/lochanpranav","http://dribbble.com/LochanPranav"]}</script>
 </head>
@@ -94,7 +94,7 @@
 
   <header class="hero wrap" data-spot>
     <div class="hero-bg spot-bg" aria-hidden="true"><div class="contours"></div><div class="contours bright"></div><div class="grid"></div><div class="glow"></div></div>
-    <p class="status fade"><span class="live" aria-hidden="true"></span><span>Brooklyn, NY</span><span class="sep" aria-hidden="true">·</span><span><time id="clock" data-tz="America/New_York">--:-- --</time> local</span><span class="sep coords-sep" aria-hidden="true">·</span><span class="coords">40.68° N, 73.94° W</span><span class="sep" aria-hidden="true">·</span><span class="greet"><span id="greet">good day</span>, still <b class="word" id="status-word">mapping</b></span><span class="sep live-sep" aria-hidden="true" hidden>·</span><span class="live-data" id="live-data" hidden></span></p>
+    <p class="status fade"><span class="live" aria-hidden="true"></span><span>Brooklyn, NY</span><span class="sep" aria-hidden="true">·</span><span><time id="clock" data-tz="America/New_York">--:-- --</time> local</span><span class="sep live-sep" aria-hidden="true" hidden>·</span><span class="live-data" id="live-data" hidden></span></p>
     <h1 class="name"><span class="sr-only">Lochan Pranav</span><span class="line" aria-hidden="true"><span class="w"><span class="ch">L</span><span class="ch">o</span><span class="ch">c</span><span class="ch">h</span><span class="ch">a</span><span class="ch">n</span></span> <span class="w"><span class="ch">P</span><span class="ch">r</span><span class="ch">a</span><span class="ch">n</span><span class="ch">a</span><span class="ch">v</span></span></span></h1>
     <div class="hero-row">
       <div class="hero-main">
@@ -109,7 +109,7 @@
         </dl>
       </aside>
     </div>
-    <div class="hero-foot"><span class="scroll-label">Scroll</span><div class="ticker" aria-hidden="true"><ul><li>Spatial analysis</li><li>Machine learning</li><li>Cartography</li><li>Product design</li><li>UI/UX</li><li>Design systems</li><li>Brand and campaign</li><li>Industrial design</li><li>Python</li><li>ArcGIS Pro</li><li>Figma</li><li>Brooklyn, NY</li><li>Spatial analysis</li><li>Machine learning</li><li>Cartography</li><li>Product design</li><li>UI/UX</li><li>Design systems</li><li>Brand and campaign</li><li>Industrial design</li><li>Python</li><li>ArcGIS Pro</li><li>Figma</li><li>Brooklyn, NY</li></ul></div></div>
+    <div class="hero-foot"><span class="scroll-label greet"><span id="greet">good day</span>, still <b class="word" id="status-word">mapping</b></span><div class="ticker" aria-hidden="true"><ul><li>Spatial analysis</li><li>Machine learning</li><li>Cartography</li><li>Product design</li><li>UI/UX</li><li>Design systems</li><li>Brand and campaign</li><li>Industrial design</li><li>Python</li><li>ArcGIS Pro</li><li>Figma</li><li>Brooklyn, NY</li><li>Spatial analysis</li><li>Machine learning</li><li>Cartography</li><li>Product design</li><li>UI/UX</li><li>Design systems</li><li>Brand and campaign</li><li>Industrial design</li><li>Python</li><li>ArcGIS Pro</li><li>Figma</li><li>Brooklyn, NY</li></ul></div></div>
   </header>
 
   <main class="wrap" id="main">
@@ -187,11 +187,14 @@
         <div>
           <div class="feat-gallery" id="feat-gallery">
             <img src="assets/tulsa/hero.jpg" width="1600" height="1100" alt="" class="on" loading="eager" decoding="async"><img src="assets/tulsa/places.jpg" width="1600" height="1100" alt="" class="" loading="lazy" decoding="async">
-            <button type="button" class="gbtn prev" data-g="prev" aria-label="Previous image"><svg viewBox="0 0 14 14" aria-hidden="true"><path d="M9 2 4 7l5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
-            <button type="button" class="gbtn next" data-g="next" aria-label="Next image"><svg viewBox="0 0 14 14" aria-hidden="true"><path d="m5 2 5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <i class="wipe" aria-hidden="true"></i>
             <span class="ref" id="feat-ref">img_ref: 01/02</span>
           </div>
-          <div class="feat-dots" id="feat-dots"><button type="button" class="on" data-img="0" aria-label="Image 1"></button><button type="button" class="" data-img="1" aria-label="Image 2"></button></div>
+          <div class="feat-ctl">
+            <button type="button" class="gbtn prev" data-g="prev" aria-label="Previous image"><svg viewBox="0 0 14 14" aria-hidden="true"><path d="M9 2 4 7l5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+            <div class="feat-dots" id="feat-dots"><button type="button" class="on" data-img="0" aria-label="Image 1"></button><button type="button" class="" data-img="1" aria-label="Image 2"></button></div>
+            <button type="button" class="gbtn next" data-g="next" aria-label="Next image"><svg viewBox="0 0 14 14" aria-hidden="true"><path d="m5 2 5 5-5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          </div>
         </div>
         <div class="feat-side">
           <p class="sub" id="feat-sub">Every community event in Tulsa, on one map the audit office can act on.</p>
@@ -359,7 +362,7 @@
     <section id="numbers" class="sec">
       <div class="sec-head reveal">
         <div>
-          <p class="kicker"><i class="dot"></i><span>By the numbers</span><span class="sep" aria-hidden="true">·</span><span>Four results, drawn to scale</span></p>
+          <p class="kicker"><i class="dot"></i><span>By the numbers</span><span class="sep" aria-hidden="true">·</span><span>Results, drawn to scale</span></p>
           <h2>What the data said</h2>
         </div>
         <p class="aside">Every figure is from the project itself</p>
@@ -387,6 +390,10 @@
             <div class="bar"><span class="lbl">Iteration time</span><div class="track"><i style="--w:25%"></i></div><b>−25%</b></div>
           </div>
           <p class="note">40+ screens and 12+ workflows shipped with the engineers.</p>
+        </figure>
+        <figure class="chart reveal live-tile" id="live-tile" hidden>
+          <figcaption><b>New York, right now</b><span>NYC Open Data, 311 service requests · fetched when you opened this page</span></figcaption>
+          <div class="bignum"><b id="live-311">0</b><span>requests to 311 <em id="live-span">in the last 24 hours</em>, the city's front desk for everything from noise to potholes</span></div>
         </figure>
         <figure class="chart reveal big">
           <figcaption><b>Tulsa Event Monitor</b><span>Community venues geocoded through the Google Places API · City of Tulsa Auditor's Office, 2025</span></figcaption>
