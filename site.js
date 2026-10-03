@@ -562,16 +562,27 @@
     $('[data-marquee="pause"]', fctl).addEventListener('click', function () { ftick.classList.add('paused'); fctl.classList.remove('playing'); });
   }
 
-  /* Contact form: posts to Formspree once a form id is set, otherwise opens a mail draft */
+  /* Contact form: posts to Formspree in place and says so, with a mail draft as the fallback */
   var form = document.getElementById('contact-form');
   if (form) {
     form.addEventListener('submit', function (e) {
-      if (form.action.indexOf('FORM_ID') === -1) return;
-      e.preventDefault();
       var fd = new FormData(form);
-      var body = 'Hi Lochan,%0D%0A%0D%0A' + encodeURIComponent(fd.get('message') || '') + '%0D%0A%0D%0A' + encodeURIComponent(fd.get('name') || '') + '%0D%0A' + encodeURIComponent(fd.get('email') || '');
-      location.href = 'mailto:lm5677@nyu.edu?subject=' + encodeURIComponent('Hello from ' + (fd.get('name') || 'your site')) + '&body=' + body;
-      toast('Opening your mail app');
+      if (form.action.indexOf('FORM_ID') !== -1 || !window.fetch) {
+        e.preventDefault();
+        var body = 'Hi Lochan,%0D%0A%0D%0A' + encodeURIComponent(fd.get('message') || '') + '%0D%0A%0D%0A' + encodeURIComponent(fd.get('name') || '') + '%0D%0A' + encodeURIComponent(fd.get('email') || '');
+        location.href = 'mailto:lm5677@nyu.edu?subject=' + encodeURIComponent('Hello from ' + (fd.get('name') || 'your site')) + '&body=' + body;
+        toast('Opening your mail app');
+        return;
+      }
+      e.preventDefault();
+      var btn = form.querySelector('[type="submit"]');
+      if (btn) { btn.disabled = true; }
+      fetch(form.action, { method: 'POST', body: fd, headers: { Accept: 'application/json' } }).then(function (r) {
+        if (!r.ok) throw new Error('send failed');
+        form.reset(); toast('Sent. Thank you, I will reply soon.');
+      }).catch(function () {
+        toast('Could not send. Email lm5677@nyu.edu instead.');
+      }).then(function () { if (btn) btn.disabled = false; });
     });
   }
 
