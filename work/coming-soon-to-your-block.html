@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Coming Soon to Your Block · Lochan Pranav</title>
+  <meta name="description" content="Design project built on NYC Film Permits open data: two rows about Monitor Street, Greenpoint, a short film from inside the apartment, and a sign, an app and a text alert so a block knows before the trucks arrive. 26 screens in Figma.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 rx=%2714%27 fill=%27%230B6E3F%27/%3E%3Ccircle cx=%2732%27 cy=%2728%27 r=%279%27 fill=%27%23fff%27/%3E%3Cpath d=%27M32 40v12%27 stroke=%27%23fff%27 stroke-width=%276%27 stroke-linecap=%27round%27/%3E%3C/svg%3E">
+  <meta property="og:title" content="Coming Soon to Your Block">
+  <meta property="og:image" content="https://lochanpranav.com/assets/block/hero.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+<link rel="preload" href="../assets/fonts/bricolage-grotesque.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/hanken-grotesk.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="../styles.css">
+  <script>document.documentElement.classList.add("js");try{var t=localStorage.getItem("theme");if(t==="dark")document.documentElement.setAttribute("data-theme","dark");}catch(e){}</script>
+</head>
+<body id="top">
+  <a class="skip" href="#main">Skip to content</a>
+  <div class="topbar">
+  <nav class="nav wrap" aria-label="Site">
+    <a class="brand" href="../index.html">Lochan Pranav</a>
+    <ul>
+      <li><a href="../index.html#gis">GIS</a></li>
+      <li><a href="../index.html#uiux" aria-current="true">UI/UX</a></li>
+      <li><a href="../index.html#campaigns">Brand</a></li>
+      <li><a href="../index.html#industrial">Products</a></li>
+      <li><a href="../index.html#about">About</a></li>
+      <li><a href="../index.html#contact">Contact</a></li>
+    </ul>
+      <div class="tools">
+              <button class="iconbtn" type="button" data-theme-toggle aria-label="Switch theme"><svg class="moon" viewBox="0 0 16 16" aria-hidden="true"><path d="M13.5 9.5A6 6 0 0 1 6.5 2.5a6 6 0 1 0 7 7Z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg><svg class="sun" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="3" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M8 1v2M8 13v2M1 8h2M13 8h2M3 3l1.4 1.4M11.6 11.6 13 13M3 13l1.4-1.4M11.6 4.4 13 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></button>
+      </div>
+      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu">Menu</button>
+  </nav>
+  </div>
+  <div class="menu" id="menu" role="dialog" aria-modal="true" aria-label="Site menu" aria-hidden="true">
+    <button class="menu-btn menu-close" type="button">Close</button>
+    <ul>
+      <li><a href="../index.html#index">Work</a></li>
+      <li><a href="../index.html#gis"><span class="mono">01</span>GIS</a></li>
+      <li><a href="../index.html#uiux"><span class="mono">02</span>UI/UX</a></li>
+      <li><a href="../index.html#campaigns"><span class="mono">03</span>Brand</a></li>
+      <li><a href="../index.html#industrial"><span class="mono">04</span>Products</a></li>
+      <li><a href="../index.html#about">About</a></li>
+      <li><a href="../index.html#contact">Contact</a></li>
+    </ul>
+    <div class="menu-foot"><span>Brooklyn, NY · 40.68° N, 73.94° W</span><span>lm5677@nyu.edu</span></div>
+  </div>
+
+  <header class="case-head wrap" data-stagger>
+    <span class="eyebrow reveal">UI/UX case study · Fall 2026 · Design course, NYU</span>
+    <h1 class="reveal">Coming Soon to Your Block</h1>
+    <p class="lede reveal">What two rows of city data told me about the street outside a bedroom window. Built on NYC Film Permits: a short film, a redesigned No Parking sign, and an app and a text alert so a block knows before the trucks arrive.</p>
+    <dl class="spec reveal">
+      <div><dt>Role</dt><dd>Research, story, film, sign and prototype</dd></div>
+      <div><dt>Timeline</dt><dd>Fall 2026</dd></div>
+      <div><dt>Tools</dt><dd>Figma, FigJam, video</dd></div>
+      <div><dt>Data</dt><dd>NYC Film Permits, Mayor's Office of Media and Entertainment, on NYC Open Data</dd></div>
+      <div><dt>Links</dt><dd><a href="https://youtu.be/t2TtaPOoQEg" target="_blank" rel="noopener">The film on YouTube</a></dd></div>
+    </dl>
+  </header>
+
+  <main class="wrap" id="main">
+    <figure class="figure lead reveal">
+      <div class="frame"><img width="1600" height="1000" fetchpriority="high" src="../assets/block/hero.jpg" alt="A redesigned No Parking film shoot sign with a QR code, beside two phone screens: the block's shoot schedule for the week and a text alert thread"></div>
+      <figcaption>Three parts, one dataset: the No Parking sign productions already post, with a QR code; the app, your block the night before; the text, for any phone.</figcaption>
+    </figure>
+
+    <div class="prose">
+      <h2>What the data showed</h2>
+      <p>NYC Film Permits is published by the Mayor's Office of Media and Entertainment on NYC Open Data and updated daily. It holds streets, dates and hours for every shoot in the city. Not one production name.</p>
+      <table class="numbers">
+        <tr><td class="n">580+</td><td>times one block was held. West 48th Street between 6th and 7th Avenues appears in more than 580 permits since 2023.</td></tr>
+        <tr><td class="n">19 h</td><td>one permit, one day. Church Avenue, Brooklyn: 8:00 AM to 3:00 AM the next morning.</td></tr>
+        <tr><td class="n">2 days</td><td>back to back. Monitor Street, Greenpoint: June 25 until 11:30 PM, June 26 until 1:00 AM.</td></tr>
+      </table>
+
+      <h2>Two rows that started everything</h2>
+      <p>The dataset sorted by the ParkingHeld field. Two rows name the same block face, two days running.</p>
+      <table class="data">
+        <tr><th>EventType</th><th>StartDateTime</th><th>EndDateTime</th><th>ParkingHeld</th></tr>
+        <tr class="hit"><td>Shooting Permit</td><td>06/26/2026 10:00 AM</td><td>06/27/2026 01:00 AM</td><td>MONITOR STREET between GREENPOINT AVENUE and NORMAN AVENUE</td></tr>
+        <tr><td>Rigging Permit</td><td>06/26/2026 06:00 AM</td><td>06/26/2026 08:00 PM</td><td>EAST 69 STREET between 5 AVENUE and MADISON AVENUE</td></tr>
+        <tr><td>Shooting Permit</td><td>06/24/2026 07:30 AM</td><td>06/24/2026 10:00 PM</td><td>Henry Hudson Parkway West between W 252nd street and W 254th street</td></tr>
+        <tr class="hit"><td>Shooting Permit</td><td>06/25/2026 09:00 AM</td><td>06/25/2026 11:30 PM</td><td>MONITOR STREET between GREENPOINT AVENUE and NORMAN AVENUE</td></tr>
+      </table>
+
+      <h2>Who is affected</h2>
+      <ul>
+        <li><strong>Students and night-shift workers.</strong> Need the block quiet at a specific hour. Find out from a paper sign, if they walk past it.</li>
+        <li><strong>Parents and people working from home.</strong> Lights in the windows, generators past midnight, a curb they can't park on.</li>
+        <li><strong>Shop staff and delivery riders.</strong> Depend on the block but don't live on it, so no notice ever reaches them.</li>
+        <li><strong>The productions.</strong> Fewer surprised neighbors means fewer complaints and fewer calls to the city.</li>
+      </ul>
+      <p>What they do today: notice the sign, ask on Nextdoor, call 311 during the shoot, move the car at the last minute.</p>
+
+      <h2>Monitor Street, Greenpoint</h2>
+      <figure class="figure narrow reveal">
+        <div class="frame">
+          <svg viewBox="0 0 540 420" role="img" aria-label="Map of one block: Monitor Street between Greenpoint Avenue and Norman Avenue, with the held curb marked and a dot for the window">
+            <g fill="var(--rule)">
+              <rect x="39" y="86" width="460" height="12"/>
+              <rect x="39" y="220" width="460" height="12"/>
+              <rect x="39" y="355" width="460" height="12"/>
+              <rect x="202" y="43" width="12" height="336"/>
+              <rect x="375" y="43" width="12" height="336"/>
+            </g>
+            <line x1="199" y1="98" x2="199" y2="220" stroke="var(--accent)" stroke-width="6"/>
+            <circle cx="208" cy="184" r="7" fill="var(--ink)" stroke="var(--paper)" stroke-width="2.5"/>
+            <g style="font-family:var(--mono);font-size:11px;letter-spacing:.08em;fill:var(--muted)">
+              <text x="43" y="76">GREENPOINT AVE</text>
+              <text x="43" y="210">NORMAN AVE</text>
+              <text x="43" y="345">NASSAU AVE</text>
+              <text x="226" y="150" style="fill:var(--ink);font-weight:700">MONITOR ST</text>
+              <text x="398" y="150">KINGSLAND AVE</text>
+            </g>
+          </svg>
+        </div>
+        <figcaption>Drawn from the ParkingHeld field. The orange line is the curb the permits held. The dot is the window.</figcaption>
+      </figure>
+      <p>One block of brick walk-ups between Greenpoint Avenue and Norman Avenue. A deli, a lamppost, bedroom windows facing the street. Held for filming on Thursday until 11:30 PM and again on Friday until 1:00 AM.</p>
+      <p>The neighborhood is one productions return to. So is this block.</p>
+
+      <h2>Someone already knew</h2>
+      <p>Permit lead times, from the Film Office rules: applications two business days ahead, signs and notices posted at least 48 hours before. The city knew on Tuesday. The pole knew two days before. The person behind the window found out at 10:52 PM.</p>
+      <dl class="spec">
+        <div><dt>Tuesday</dt><dd>The permit is approved and published as open data.</dd></div>
+        <div><dt>Tuesday night</dt><dd>Anyone can read it. Nobody on the block does.</dd></div>
+        <div><dt>Two days before</dt><dd>A paper No Parking sign goes up on the lamppost.</dd></div>
+        <div><dt>Thursday, 10:52 PM</dt><dd>The neighbor finds out when the lights come on.</dd></div>
+      </dl>
+
+      <h2>Quiet on Set</h2>
+      <p>The night from the inside: a student, an exam at 9 AM, a film shoot outside until 1 AM. Based on the two real permits for Monitor Street, June 25 and 26, 2026.</p>
+      <div class="films single">
+        <figure class="film wide">
+          <div class="video"><iframe src="https://www.youtube-nocookie.com/embed/t2TtaPOoQEg" title="Quiet on Set, a short film by Lochan Pranav" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+          <figcaption>Quiet on Set. 1 minute 1 second, Fall 2026.</figcaption>
+        </figure>
+      </div>
+      <div class="pair three">
+        <figure class="figure reveal">
+          <div class="frame"><img width="1400" height="787" src="../assets/block/still-1.jpg" alt="A student in a cap at a desk with a laptop and a notebook, the bed behind him" loading="lazy"></div>
+          <figcaption>10:48 PM. An exam at 9. Two laptops, a notebook, a quiet street.</figcaption>
+        </figure>
+        <figure class="figure reveal">
+          <div class="frame"><img width="1400" height="787" src="../assets/block/still-2.jpg" alt="Close profile of the student looking down at two laptops with blank white screens" loading="lazy"></div>
+          <figcaption>10:52 PM. The lights come on. Trucks, a generator, a megaphone. The window, then the curtains. Nothing works.</figcaption>
+        </figure>
+        <figure class="figure reveal">
+          <div class="frame"><img width="1400" height="787" src="../assets/block/still-3.jpg" alt="The student sitting on the edge of the chair, head down, the bed and posters behind him" loading="lazy"></div>
+          <figcaption>1:40 AM. Still awake. The shoot ends at 1:00 as permitted. The trucks leaving are loud too.</figcaption>
+        </figure>
+      </div>
+      <blockquote>The problem was never the noise. A film shoot has a permit to make noise. The problem is that the only person on the block who didn't know it was coming was the one living behind the window.</blockquote>
+
+      <h2>Know before the trucks arrive</h2>
+      <p>Coming Soon to Your Block is built on NYC Film Permits. The sign uses the Film Office template productions must already post. The app and the text read the same rows the city publishes.</p>
+      <div class="pair three">
+        <figure class="figure reveal">
+          <div class="frame"><img width="574" height="1209" src="../assets/block/sign.png" alt="The redesigned No Parking film shoot sign: dates and hours, the block, a QR code, a text number and the Film Office phone number" loading="lazy"></div>
+          <figcaption>The sign. The No Parking sign productions already post, with a QR code and a text number.</figcaption>
+        </figure>
+        <figure class="figure reveal">
+          <div class="frame"><img width="574" height="1209" src="../assets/block/home.png" alt="App home screen for Monitor St: tonight quiet, a week strip with two marked days, and cards for Thursday 9:00 AM to 11:30 PM and Friday 10:00 AM to 1:00 AM" loading="lazy"></div>
+          <figcaption>The app. Your block, the night before. Hours, what to expect, when it ends.</figcaption>
+        </figure>
+        <figure class="figure reveal">
+          <div class="frame"><img width="574" height="1209" src="../assets/block/text.png" alt="A text thread: the word MONITOR sent to Block Alerts, and replies with the shoot hours for Thursday and Friday" loading="lazy"></div>
+          <figcaption>The text. Text the block name. No app, no account, any phone.</figcaption>
+        </figure>
+      </div>
+
+      <h2>One night, five screens</h2>
+      <p>26 screens in the Figma prototype, including workers' access by presence, a shop owner mode, and a neighbors-only screen for visitors. These five follow the night.</p>
+      <div class="pair five">
+        <figure class="figure reveal">
+          <div class="frame"><img width="574" height="1209" src="../assets/block/home.png" alt="Home: Monitor St, tonight quiet, two shoots in the week ahead" loading="lazy"></div>
+          <figcaption>Home</figcaption>
+        </figure>
+        <figure class="figure reveal">
+          <div class="frame"><img width="573" height="1209" src="../assets/block/shoot.png" alt="Shoot: a block map, hours, street, permit type, what to expect, a reminder toggle and Add to calendar" loading="lazy"></div>
+          <figcaption>Shoot</figcaption>
+        </figure>
+        <figure class="figure reveal">
+          <div class="frame"><img width="573" height="1209" src="../assets/block/night-before.png" alt="Night before: a lock screen at 9:12 PM with two notifications about tomorrow's shoot" loading="lazy"></div>
+          <figcaption>Night before</figcaption>
+        </figure>
+        <figure class="figure reveal">
+          <div class="frame"><img width="574" height="1209" src="../assets/block/in-progress.png" alt="In progress: shoot in progress, ends in 2 hours 40 minutes, with Report a problem, Request blackout material and Call MOME" loading="lazy"></div>
+          <figcaption>In progress</figcaption>
+        </figure>
+        <figure class="figure reveal">
+          <div class="frame"><img width="574" height="1209" src="../assets/block/report-sent.png" alt="Report sent: working past permit hours, generator still running at 1:25 AM, sent to MOME and logged for the block" loading="lazy"></div>
+          <figcaption>Report sent</figcaption>
+        </figure>
+      </div>
+
+      <h2>Who gets in, and how</h2>
+      <p>The address is converted to a block ID on the phone and not stored. Visitors see only that a permit is active, which is already public record.</p>
+      <figure class="figure reveal">
+        <div class="frame"><img width="1600" height="548" src="../assets/block/access.jpg" alt="Six screens: Scan the sign, You're in with 48 hours of access, Your address becomes a block, Not available here for visitors, Work on this block, and Shop code" loading="lazy"></div>
+        <figcaption>Scan the sign on the block. You're in: 48 hours of access. Your address becomes a block, then is deleted. Not available here: visitors from across town. Work on this block? Access by presence. Shop code: one code per storefront.</figcaption>
+      </figure>
+
+      <h2>For the block, the shops, and no app at all</h2>
+      <p>Block history and feedback are the counts a community board can take to the Film Office. Text alerts use the number printed on the sign.</p>
+      <figure class="figure reveal">
+        <div class="frame"><img width="1600" height="548" src="../assets/block/block.jpg" alt="Six screens: Block history with shoot days by month, Block feedback with 32 responses, a Business screen for Monitor Deli, Settings, Text alerts and the quiet Home state" loading="lazy"></div>
+        <figcaption>Block history: shoot days by month. Block feedback: what neighbors said. Business: "we're open" for shops. Settings: language, range, data kept. Text alerts: no app, any phone. Home, quiet: the good news state.</figcaption>
+      </figure>
+
+      <h2>What the data can tell us, and what it can't</h2>
+      <div class="grid2">
+        <div>
+          <h3>It can tell us</h3>
+          <ul>
+            <li>Where the curb is held, to the block face</li>
+            <li>When, to the minute, including shoots past midnight</li>
+            <li>How often a block gets used, and which blocks repeat</li>
+            <li>What type of permit it is</li>
+          </ul>
+        </div>
+        <div>
+          <h3>It can't tell us</h3>
+          <ul>
+            <li>What was being filmed</li>
+            <li>Whether the paper notices went up</li>
+            <li>How it felt from inside the apartment</li>
+            <li>Whether anyone on the block wanted a heads-up</li>
+          </ul>
+        </div>
+      </div>
+      <p>Next: interviews with residents, shop owners and night-shift workers on Monitor Street, and a test of the night-before alert with five neighbors. Neither has happened yet.</p>
+      <p>Somewhere, Monitor Street is on a screen, playing a place it isn't. Nobody who lives there knows which one.</p>
+    </div>
+
+    <div class="more reveal">
+      <span>The film, and the rows it started from.</span>
+      <span><a href="https://youtu.be/t2TtaPOoQEg" target="_blank" rel="noopener">Quiet on Set on YouTube</a><a href="https://data.cityofnewyork.us/City-Government/Film-Permits/tg4x-b46p" target="_blank" rel="noopener">NYC Film Permits</a></span>
+    </div>
+
+    <a class="next-banner reveal" href="address-masters-dashboard.html">
+      <img width="1160" height="725" src="../assets/dashboard/anatomy.jpg" alt="" loading="lazy">
+      <div class="nb-text"><span class="eyebrow">Next project</span><span class="title"><span class="title-text">Address Masters analytics dashboard</span> <svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+    </a>
+    <div class="next-links"><a href="../index.html#uiux">All UI/UX work</a><a href="#top">Back to top</a></div>
+  </main>
+  <script src="../site.js" defer></script>
+</body>
+</html>
