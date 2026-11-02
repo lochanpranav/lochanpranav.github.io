@@ -2,107 +2,12 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Address Masters analytics dashboard · Lochan Pranav</title>
-  <meta name="description" content="UI/UX case study: the AI generated analytics dashboard at Address Masters, redesigned around provenance and next action. 12 workflows, 40+ screens, usability tests with 18 users, a 32 percent gain in task efficiency.">
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 64 64%27%3E%3Crect width=%2764%27 height=%2764%27 rx=%2714%27 fill=%27%230B6E3F%27/%3E%3Ccircle cx=%2732%27 cy=%2728%27 r=%279%27 fill=%27%23fff%27/%3E%3Cpath d=%27M32 40v12%27 stroke=%27%23fff%27 stroke-width=%276%27 stroke-linecap=%27round%27/%3E%3C/svg%3E">
-  <meta property="og:title" content="Address Masters analytics dashboard">
-  <meta property="og:image" content="https://lochanpranav.com/assets/dashboard/anatomy.jpg">
-  <meta name="twitter:card" content="summary_large_image">
-<link rel="preload" href="../assets/fonts/bricolage-grotesque.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="../assets/fonts/hanken-grotesk.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="../styles.css">
-  <script>document.documentElement.classList.add("js");try{var t=localStorage.getItem("theme");if(t==="dark")document.documentElement.setAttribute("data-theme","dark");}catch(e){}</script>
+  <title>Address Masters campaigns · Lochan Pranav</title>
+  <meta http-equiv="refresh" content="0; url=address-masters-campaigns.html">
+  <link rel="canonical" href="https://lochanpranav.com/work/address-masters-campaigns.html">
+  <meta name="robots" content="noindex">
 </head>
-<body id="top">
-  <a class="skip" href="#main">Skip to content</a>
-  <div class="topbar">
-  <nav class="nav wrap" aria-label="Site">
-    <a class="brand" href="../index.html">Lochan Pranav</a>
-    <ul>
-      <li><a href="../index.html#gis">GIS</a></li>
-      <li><a href="../index.html#uiux" aria-current="true">UI/UX</a></li>
-      <li><a href="../index.html#campaigns">Brand</a></li>
-      <li><a href="../index.html#industrial">Products</a></li>
-      <li><a href="../index.html#about">About</a></li>
-      <li><a href="../index.html#contact">Contact</a></li>
-    </ul>
-      <div class="tools">
-              <button class="iconbtn" type="button" data-theme-toggle aria-label="Switch theme"><svg class="moon" viewBox="0 0 16 16" aria-hidden="true"><path d="M13.5 9.5A6 6 0 0 1 6.5 2.5a6 6 0 1 0 7 7Z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/></svg><svg class="sun" viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="3" fill="none" stroke="currentColor" stroke-width="1.4"/><path d="M8 1v2M8 13v2M1 8h2M13 8h2M3 3l1.4 1.4M11.6 11.6 13 13M3 13l1.4-1.4M11.6 4.4 13 3" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg></button>
-      </div>
-      <button class="menu-btn" type="button" aria-expanded="false" aria-controls="menu">Menu</button>
-  </nav>
-  </div>
-  <div class="menu" id="menu" role="dialog" aria-modal="true" aria-label="Site menu" aria-hidden="true">
-    <button class="menu-btn menu-close" type="button">Close</button>
-    <ul>
-      <li><a href="../index.html#index">Work</a></li>
-      <li><a href="../index.html#gis"><span class="mono">01</span>GIS</a></li>
-      <li><a href="../index.html#uiux"><span class="mono">02</span>UI/UX</a></li>
-      <li><a href="../index.html#campaigns"><span class="mono">03</span>Brand</a></li>
-      <li><a href="../index.html#industrial"><span class="mono">04</span>Products</a></li>
-      <li><a href="../index.html#about">About</a></li>
-      <li><a href="../index.html#contact">Contact</a></li>
-    </ul>
-    <div class="menu-foot"><span>Brooklyn, NY · 40.68° N, 73.94° W</span><span>lm5677@nyu.edu</span></div>
-  </div>
-
-  <header class="case-head wrap" data-stagger>
-    <span class="eyebrow reveal">UI/UX case study · January to June 2024 · Address Masters, Bangalore</span>
-    <h1 class="reveal">Address Masters analytics dashboard</h1>
-    <p class="lede reveal">AI generated analytics for a real estate startup, designed for people who would not trust a number they could not trace.</p>
-    <dl class="spec reveal">
-      <div><dt>Role</dt><dd>Sole designer</dd></div>
-      <div><dt>Timeline</dt><dd>January to June 2024</dd></div>
-      <div><dt>Tools</dt><dd>Figma, usability testing, design system</dd></div>
-      <div><dt>Team</dt><dd>Worked directly with the engineers</dd></div>
-      <div><dt>Links</dt><dd><a href="address-masters-campaigns.html">The campaigns from the same job</a></dd></div>
-    </dl>
-  </header>
-
-  <main class="wrap" id="main">
-    <figure class="figure lead reveal">
-      <div class="frame"><img width="1160" height="725" fetchpriority="high" src="../assets/dashboard/anatomy.jpg" alt="Diagram of one analytics screen in four parts: the figure, where it came from, what it is compared against, and one next step"></div>
-      <figcaption>The structure every analytics screen followed after the redesign. A diagram: the product screens themselves are not shown.</figcaption>
-    </figure>
-
-    <div class="prose">
-      <h2>The problem</h2>
-      <p>Address Masters was an early stage real estate startup marketing two residential developments. Its product was an analytics dashboard built around AI generated insights for the sales and marketing team. When I joined as the only designer, the analytics existed but nobody acted on them: the screens showed figures without showing where they came from or what to do next.</p>
-
-      <h2>What I did</h2>
-      <ul>
-        <li>Mapped the product into 12 end to end workflows and designed 40+ high fidelity screens in Figma, working directly with the engineers.</li>
-        <li>Ran usability tests with 18 users on the first version.</li>
-        <li>Redesigned the analytics screens around provenance and next action: where each figure came from, what it was compared against, and one recommended step. Shortened the most frequent tasks.</li>
-        <li>Built a reusable component library with the engineers so new screens shipped consistent by default.</li>
-      </ul>
-      <figure class="figure reveal">
-        <div class="frame"><img width="1160" height="725" src="../assets/dashboard/test-loop.jpg" alt="Diagram of the testing loop: 18 users tested the first version, the findings drove a redesign around source, comparison and next step, and the same tasks were run again with the same users, 32 percent faster" loading="lazy"></div>
-        <figcaption>The testing loop: the same task set, the same 18 users, before and after the redesign.</figcaption>
-      </figure>
-
-      <h2>What happened</h2>
-      <table class="numbers">
-        <tr><td class="n">32%</td><td>improvement in task efficiency on the re run of the same task set with the same users</td></tr>
-        <tr><td class="n">25%</td><td>less design iteration time after the component library</td></tr>
-        <tr><td class="n">40+</td><td>screens shipped to production with the engineering team</td></tr>
-        <tr><td class="n">12+</td><td>end to end workflows shipped</td></tr>
-        <tr><td class="n">18</td><td>users in usability testing</td></tr>
-      </table>
-    </div>
-
-    <div class="more reveal">
-      <span>The marketing side of the same six months has its own page.</span>
-      <span><a href="address-masters-campaigns.html">Address Masters campaigns</a></span>
-    </div>
-
-    <a class="next-banner reveal" href="sarathi.html">
-      <img width="1113" height="694" src="../assets/sarathi/hero.png" alt="" loading="lazy">
-      <div class="nb-text"><span class="eyebrow">Next project</span><span class="title"><span class="title-text">Redesigning India's learner's license portal</span> <svg width="28" height="28" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
-    </a>
-    <div class="next-links"><a href="../index.html#uiux">All UI/UX work</a><a href="#top">Back to top</a></div>
-  </main>
-  <script src="../site.js" defer></script>
+<body>
+  <p>This page moved to <a href="address-masters-campaigns.html">Address Masters campaigns</a>.</p>
 </body>
 </html>

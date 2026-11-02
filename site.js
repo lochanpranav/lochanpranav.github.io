@@ -357,7 +357,7 @@
       var timers = [], done = false, t0 = null, pts = [], dpr = Math.min(2, window.devicePixelRatio || 1), W = window.innerWidth, H = window.innerHeight;
       cv.width = W * dpr; cv.height = H * dpr; ctx.scale(dpr, dpr);
       for (var sg = 0; sg < 20; sg++) segsEl.appendChild(document.createElement('i'));
-      var reads = [['lat', '40.6782° N'], ['lon', '73.9442° W'], ['elev', '24 m'], ['basemap', 'tiles 00/12'], ['index', '22 pages'], ['fonts', 'ok'], ['status', 'plotting']];
+      var reads = [['lat', '40.6782° N'], ['lon', '73.9442° W'], ['elev', '24 m'], ['basemap', 'tiles 00/12'], ['index', '21 pages'], ['fonts', 'ok'], ['status', 'plotting']];
       var readRows = reads.map(function (r, i) { var d = document.createElement('div'); d.style.setProperty('--d', (200 + i * 140) + 'ms'); d.innerHTML = '<span>' + r[0] + '</span><b></b>'; readEl.appendChild(d); return d.querySelector('b'); });
       var glyphs = '0123456789ABCDEF·/\\|_';
       function scr(final, p) { var out = ''; for (var i = 0; i < final.length; i++) out += (final[i] === ' ' || Math.random() < p) ? final[i] : glyphs[Math.floor(Math.random() * glyphs.length)]; return out; }
@@ -383,7 +383,7 @@
         var d = document.createElement('div'); d.style.setProperty('--d', (1000 + i * 120) + 'ms');
         d.innerHTML = '<span>' + r[0] + '</span><b>' + (r[1].charAt(0) === '#' ? '<i style="background:' + r[1] + '"></i>' : '') + r[1] + '</b>'; specEl.appendChild(d);
       });
-      var conLines = [[380, '$ git pull origin main', 'cmd'], [760, '\u2713 fonts 4/4   \u2713 contours.svg 9 paths', 'ok'], [1150, '> plotting 40.6782, -73.9442', 'dim'], [1500, '> basemap tiles 12/12 \u00b7 index 22 pages', 'dim'], [1950, '\u2713 build 0 errors \u00b7 0 warnings', 'ok'], [2350, '$ deploy \u2192 github pages', 'cmd']];
+      var conLines = [[380, '$ git pull origin main', 'cmd'], [760, '\u2713 fonts 4/4   \u2713 contours.svg 9 paths', 'ok'], [1150, '> plotting 40.6782, -73.9442', 'dim'], [1500, '> basemap tiles 12/12 \u00b7 index 21 pages', 'dim'], [1950, '\u2713 build 0 errors \u00b7 0 warnings', 'ok'], [2350, '$ deploy \u2192 github pages', 'cmd']];
       var conEl = document.getElementById('boot-lines'), selected = false;
       function frame(now) {
         if (done) return;
