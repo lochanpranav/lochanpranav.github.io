@@ -14,7 +14,7 @@
     ['gis', 'MTA bus electrification', 'bus-electrification', 'GIS workflow finding where terrain cuts electric bus range in Manhattan and the Bronx, then siting five charging stations. 2026.'],
     ['gis', 'Hospital accessibility, Miami-Dade', 'hospital-accessibility', 'Network analysis of hospital drive times: 1,809,369 residents live beyond 7 minutes. 2026.'],
     ['gis', 'The economics of proximity', 'economics-of-proximity', 'Why do New Yorkers value time over money? HUD affordability index by census tract against the subway. 2025.'],
-    ['ui', 'Coming Soon to Your Block', 'coming-soon-to-your-block', 'Two rows of NYC Film Permits data, a short film from inside the apartment, and a sign, an app and a text alert so a block knows before the trucks arrive. 26 screens. Fall 2026.'],
+    ['ui', 'Coming Soon to Your Block', 'coming-soon-to-your-block', 'Two rows of NYC Film Permits data, a short film from inside the apartment, and a sign, an app and a text alert so a block knows before the trucks arrive. 26 screens. Human Spatial Computing, NYU, Fall 2026, solo.'],
     ['ui', 'Address Masters dashboard', 'address-masters-dashboard', 'AI generated analytics for a real estate startup, redesigned around provenance and next action. 12 workflows, 40+ screens, 18 users tested. 2024.'],
     ['ui', 'Sarathi license portal', 'sarathi', 'India\'s learner\'s license application cut from seven scattered steps to one guided flow. UX case study, 2022.'],
     ['ui', 'SAVOR', 'savor', 'Food surplus app: restaurants post leftovers, volunteers deliver them to donation spots. Mobile app, 2024.'],
