@@ -184,6 +184,7 @@ html.js h1.name .line > .w:nth-child(2) { animation-delay: .06s; }
 html.js .hero .fade { opacity: 0; transform: translateY(12px); animation: fade .6s var(--ease-out) forwards; }
 html.js .hero .status.fade { animation-delay: .1s; }
 html.js .hero .tagline.fade { animation-delay: .26s; }
+html.js .hero .also.fade { animation-delay: .3s; }
 html.js .hero .intro.fade { animation-delay: .34s; }
 html.js .hero .panel.fade { animation-delay: .4s; }
 html.js .hero .hero-foot { opacity: 0; animation: fade .6s var(--ease-out) .55s forwards; }
@@ -193,6 +194,8 @@ html.seen h1.name .line > .w, html.seen .hero .fade, html.seen .hero .hero-foot 
 .hero-row { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(300px, .9fr); gap: 28px 64px; align-items: start; border-top: 1px solid var(--rule); padding-top: 22px; }
 .tagline { font-family: var(--display); font-weight: 500; font-size: clamp(22px, 2.7vw, 34px); letter-spacing: -0.02em; line-height: 1.15; max-width: 30ch; margin: 0 0 16px; text-wrap: balance; }
 .tagline em { font-family: var(--serif); font-style: italic; font-weight: 400; font-size: var(--serif-bump); color: var(--accent); letter-spacing: 0; }
+.hero .also { font-family: var(--mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin: 0 0 16px; }
+.hero .also i { font-style: normal; color: var(--accent); margin: 0 8px; }
 .hero .intro { font-size: 18px; line-height: 1.5; max-width: 60ch; margin: 0; color: var(--prose); }
 .hero .intro strong { color: var(--ink); font-weight: 500; }
 .panel { border-left: 1px solid var(--rule); padding: 2px 0 0 28px; }

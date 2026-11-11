@@ -499,7 +499,7 @@
     greet.textContent = hour < 5 ? 'late night in Brooklyn' : hour < 12 ? 'good morning' : hour < 17 ? 'good afternoon' : hour < 22 ? 'good evening' : 'late night in Brooklyn';
   }
   if (word && !reduce) {
-    var words = ['mapping', 'prototyping', 'modeling', 'sketching', 'building'], wi = 0;
+    var words = ['prototyping', 'building', 'mapping', 'modeling', 'sketching'], wi = 0;
     setInterval(function () { wi = (wi + 1) % words.length; if (window.scrambleTo) window.scrambleTo(words[wi]); else word.textContent = words[wi]; }, 2800);
   }
 
