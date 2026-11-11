@@ -33,9 +33,9 @@
     ['product', 'Tree bookshelf', 'tree-bookshelf', 'A dado-jointed wooden shelf sized from anthropometric data. Furniture.']
   ];
   var ABOUT = [
-    'Lochan Pranav Mohanasundar: UX engineer in Brooklyn, NY.',
+    'Lochan Pranav Mohanasundar: UX engineer and data scientist in Brooklyn, NY.',
     'M.S. Urban Data Science at NYU Tandon (CUSP), expected May 2027. Before that, B.Des Product Design at MIT World Peace University, Pune, 2024.',
-    'I design interfaces and build them: research and Figma first, then working code. The M.S. in Urban Data Science means I understand the data behind the screen, not only the screen.'
+    'I design interfaces and build them. Trained as a product designer, with an M.S. in Urban Data Science at NYU for the data underneath. The work I like most is where the two meet: products that run on data.'
   ];
   var EDU = [
     'NYU Tandon School of Engineering, Brooklyn: M.S. Urban Data Science, Center for Urban Science and Progress (CUSP), Aug 2025 to May 2027 (expected). GPA 3.77 / 4.0.',
