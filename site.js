@@ -530,11 +530,11 @@
     window.observeCount = function (el) { cio.observe(el); };
   }
 
-  /* Index ticker: auto-advance one chip at a time, speed from the slider, pauses on hover, focus and drag */
+  /* Index ticker: auto-advance one chip at a time at a fixed pace, pauses on hover, focus and drag */
   var tctl = document.getElementById('ticker-ctl');
   if (tctl && strip) {
-    var playing = false, tTimer = null, speedIn = $('[data-ticker="speed"]', tctl), hovering = false;
-    function interval() { return 6500 - (parseInt(speedIn.value, 10) - 1) * 600; }
+    var playing = false, tTimer = null, hovering = false;
+    function interval() { return 4100; }
     function step() {
       if (!playing || hovering || document.hidden || strip.classList.contains('dragging')) return;
       var kids = strip.children, stepW = kids.length > 1 ? kids[1].offsetLeft - kids[0].offsetLeft : 340;
@@ -545,7 +545,6 @@
     function setPlaying(on) { playing = on; tctl.classList.toggle('playing', on); schedule(); }
     $('[data-ticker="play"]', tctl).addEventListener('click', function () { setPlaying(true); });
     $('[data-ticker="pause"]', tctl).addEventListener('click', function () { setPlaying(false); });
-    speedIn.addEventListener('input', schedule);
     strip.addEventListener('mouseenter', function () { hovering = true; }); strip.addEventListener('mouseleave', function () { hovering = false; });
     strip.addEventListener('focusin', function () { hovering = true; }); strip.addEventListener('focusout', function () { hovering = false; });
     if (!reduce) setPlaying(true);
@@ -554,9 +553,7 @@
   /* Footer marquee controls */
   var fctl = document.getElementById('foot-ctl'), ftick = document.getElementById('foot-ticker');
   if (fctl && ftick) {
-    var fspeed = $('[data-marquee="speed"]', fctl);
-    function applySpeed() { ftick.style.setProperty('--dur', (130 - parseInt(fspeed.value, 10) * 11) + 's'); }
-    fspeed.addEventListener('input', applySpeed); applySpeed();
+    ftick.style.setProperty('--dur', '86s');
     fctl.classList.add('playing');
     $('[data-marquee="play"]', fctl).addEventListener('click', function () { ftick.classList.remove('paused'); fctl.classList.add('playing'); });
     $('[data-marquee="pause"]', fctl).addEventListener('click', function () { ftick.classList.add('paused'); fctl.classList.remove('playing'); });

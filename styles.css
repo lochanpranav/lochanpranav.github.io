@@ -565,13 +565,11 @@ html.js .divider.in polyline { transition: stroke-dashoffset 1.6s var(--ease-out
 
 .strip-tools .sync { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--rule); border-radius: 999px; padding: 5px 10px; text-transform: uppercase; font-size: 10.5px; letter-spacing: .12em; }
 .strip-tools .sync .live { width: 6px; height: 6px; }
-.ticker-ctl { display: inline-flex; align-items: center; gap: 10px; margin-left: auto; border: 1px solid var(--rule); border-radius: 999px; padding: 4px 10px 4px 6px; }
+.ticker-ctl { display: inline-flex; align-items: center; gap: 10px; margin-left: auto; border: 1px solid var(--rule); border-radius: 999px; padding: 4px 6px; }
 .ticker-ctl button { width: 26px; height: 26px; border-radius: 50%; border: 0; background: transparent; color: var(--ink); display: grid; place-items: center; cursor: pointer; padding: 0; }
 .ticker-ctl button:hover { color: var(--accent); }
 .ticker-ctl button:focus-visible { outline: 2px solid var(--accent); }
 .ticker-ctl button svg { width: 12px; height: 12px; }
-.ticker-ctl .lbl { font-size: 10px; letter-spacing: .14em; text-transform: uppercase; }
-.ticker-ctl input[type="range"] { width: 90px; accent-color: var(--accent); height: 2px; cursor: pointer; }
 .ticker-ctl .pause, .ticker-ctl.playing .play { display: none; }
 .ticker-ctl.playing .pause { display: grid; }
 @media (max-width: 560px) { .ticker-ctl { margin-left: 0; } }
