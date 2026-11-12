@@ -1,6 +1,6 @@
 # Lochan Pranav, portfolio site
 
-Designed and built with AI assisted coding: plain HTML and CSS, no build tools, no frameworks. Anyone with a text editor can change it, and it will still work in ten years.
+Plain HTML, CSS and JavaScript, no build tools, no frameworks. Anyone with a text editor can change it, and it will still work in ten years.
 
 ## What is here
 
