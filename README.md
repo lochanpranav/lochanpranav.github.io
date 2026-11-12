@@ -1,6 +1,6 @@
 # Lochan Pranav, portfolio site
 
-A hand-written site: plain HTML and CSS, no build tools, no frameworks. Anyone with a text editor can change it, and it will still work in ten years.
+Designed and built with AI assisted coding: plain HTML and CSS, no build tools, no frameworks. Anyone with a text editor can change it, and it will still work in ten years.
 
 ## What is here
 
@@ -8,7 +8,6 @@ A hand-written site: plain HTML and CSS, no build tools, no frameworks. Anyone w
 index.html                    home: intro, selected work, maps, visual work, about, contact
 styles.css                    the only stylesheet
 work/
-  address-masters-dashboard.html
   tulsa-event-monitor.html
   savor.html
   spar-website.html

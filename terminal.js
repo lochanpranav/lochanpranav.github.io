@@ -33,7 +33,7 @@
     ['product', 'Tree bookshelf', 'tree-bookshelf', 'A dado-jointed wooden shelf sized from anthropometric data. Furniture.']
   ];
   var ABOUT = [
-    'Lochan Pranav Mohanasundar: UX engineer and data scientist in Brooklyn, NY.',
+    'Lochan Pranav Mohanasundar: UX Engineer | Data Scientist, Brooklyn, NY.',
     'M.S. Urban Data Science at NYU Tandon (CUSP), expected May 2027. Before that, B.Des Product Design at MIT World Peace University, Pune, 2024.',
     'I design interfaces and build them. Trained as a product designer, with an M.S. in Urban Data Science at NYU for the data underneath. The work I like most is where the two meet: products that run on data.'
   ];
@@ -56,7 +56,7 @@
   ];
   var AVAIL = 'Part-time work now, internships in summer 2027, full-time roles from June 2027.';
   var WHERE = 'Brooklyn, NY (40.68° N, 73.94° W). Studied in Pune, India, worked in Bangalore, and moved to Brooklyn in 2025 for NYU.';
-  var HELP = [['help', 'this list'], ['about', 'who he is'], ['work', 'all 20 projects'], ['gis, uiux, brand, products', 'by category'], ['open <number or title>', 'a project page'], ['goto <section>', 'index, gis, uiux, brand, products, about, contact, top'], ['skills', 'grouped tools'], ['education', 'degrees and certifications'], ['experience', 'Tulsa, Address Masters'], ['contact', 'email and links'], ['resume', 'the PDF, new tab'], ['theme <dark|light|auto>', 'the palette'], ['time', 'in Brooklyn'], ['whoami', 'you'], ['clear', 'wipe'], ['exit', 'close']];
+  var HELP = [['help', 'this list'], ['about', 'who he is'], ['work', 'all 21 projects'], ['gis, uiux, brand, products', 'by category'], ['open <number or title>', 'a project page'], ['goto <section>', 'index, gis, uiux, brand, products, about, contact, top'], ['skills', 'grouped tools'], ['education', 'degrees and certifications'], ['experience', 'Tulsa, Address Masters'], ['contact', 'email and links'], ['resume', 'the PDF, new tab'], ['theme <dark|light|auto>', 'the palette'], ['time', 'in Brooklyn'], ['whoami', 'you'], ['clear', 'wipe'], ['exit', 'close']];
   var NAMES = 'help about work projects gis uiux brand products open goto skills education experience contact resume theme time whoami clear exit'.split(' ');
   var SECTION = { index: 'index', work: 'index', gis: 'gis', uiux: 'uiux', brand: 'campaigns', products: 'industrial', about: 'about', contact: 'contact', top: 'top' };
   var STOP = ' the and for with from that this what who are you your how does his has have can about into not but where when which was were will would could there their they them than any some all use used ';
